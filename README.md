@@ -11,4 +11,5 @@ Tests to run
 - Place ships
 
 - Don't allow both players to have the same name. 
+- Don't allow empty names.
 - Don't allow a ship to be placed so that part of it is outside the grid. 

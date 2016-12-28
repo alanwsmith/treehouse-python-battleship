@@ -32,6 +32,7 @@ players = [
     ) 
 ]
 
+
 def clear_screen():
     print("\033c", end="")
 
@@ -48,16 +49,15 @@ def print_board(board):
         print(str(row_num).rjust(2) + " " + (" ".join(row)))
         row_num += 1
 
+
 def get_player_names():
     for player in players:
         player.ask_for_name()
 
+
 def print_startup_message():
     print('Starting new game for {} and {}.'.format(players[0].name, players[1].name))
 
-
-# TODO: prevent the same name from being used twice.
-# TODO: prevent empty names
 
 def place_ships():
     for player in players:
@@ -76,4 +76,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
