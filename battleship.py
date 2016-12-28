@@ -21,7 +21,14 @@ HIT = '*'
 SUNK = '#'
 
 
-players = [ Player(1), Player(2) ]
+players = [ 
+    Player(
+        id = 1 
+    ), 
+    Player(
+        id = 2
+    ) 
+]
 
 def clear_screen():
     print("\033c", end="")

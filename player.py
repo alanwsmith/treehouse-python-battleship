@@ -2,10 +2,11 @@ import logging
 
 class Player():
     
-    def __init__(self, id):
-        logging.debug('Creating player with id: {}'.format(id))
-        self.id = id
-        self.name = 'Player {}'.format(id)
+    def __init__(self, **kwargs):
+        self.id = kwargs.get('id')
+#        logging.debug('Creating player with id: {}'.format(self.id))
+
+        self.name = 'Player {}'.format(self.id)
 
     def ask_for_name(self):
         self.name = input("What's the name of player {}? ".format(self.id))
