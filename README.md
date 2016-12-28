@@ -13,3 +13,6 @@ Tests to run
 - Don't allow both players to have the same name. 
 - Don't allow empty names.
 - Don't allow a ship to be placed so that part of it is outside the grid. 
+- Make sure either 'v' or 'h' is used for ship orientation. 
+
+
