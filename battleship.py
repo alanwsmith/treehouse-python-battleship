@@ -62,6 +62,8 @@ def print_startup_message():
 def place_ships():
     for player in players:
         print("Alright {}, it's time to place your ship".format(player.name))
+        for ship in player.ships:
+            print(ship)
 
 
 def main():
