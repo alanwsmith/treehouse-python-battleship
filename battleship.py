@@ -59,11 +59,22 @@ def print_startup_message():
     print('Starting new game for {} and {}.'.format(players[0].name, players[1].name))
 
 
+def get_ship_orientation(ship):
+    orientation = input("  Would you like to place your {} [v]ertically or [h]orizontally? ".format(ship.name)).lower()
+    if orientation == "v" or orientation == "h":
+        return orientation
+    else:
+        print("  That didn't work. You must choose either 'v' for vertically or 'h' for horizontally.")
+        get_ship_orientation(ship)
+
+
 def place_ships():
     for player in players:
-        print("Alright {}, it's time to place your ship".format(player.name))
+        print("Alright {}, it's time to place your ships!".format(player.name))
         for ship in player.ships:
-            print(ship)
+            print("- {} (size {})".format(ship.name, ship.size))
+            ship.set_orientation(get_ship_orientation(ship))
+            logging.debug(ship)
 
 
 def main():
