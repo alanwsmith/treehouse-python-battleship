@@ -23,10 +23,12 @@ SUNK = '#'
 
 players = [ 
     Player(
-        id = 1 
+        id = 1,
+        ship_info = SHIP_INFO 
     ), 
     Player(
-        id = 2
+        id = 2,
+        ship_info = SHIP_INFO 
     ) 
 ]
 
@@ -57,11 +59,17 @@ def print_startup_message():
 # TODO: prevent the same name from being used twice.
 # TODO: prevent empty names
 
+def place_ships():
+    for player in players:
+        print("Alright {}, it's time to place your ship".format(player.name))
+
+
 def main():
     logging.debug('main() started')
     # get_player_names()
     print_startup_message()
     print_board(players[0].board())    
+    place_ships()
 
 
 if __name__ == '__main__':
