@@ -52,8 +52,9 @@ def print_startup_message():
 
 def main():
     logging.debug('main() started')
-    get_player_names()
+    # get_player_names()
     print_startup_message()
+    print_board(players[0].board())    
 
 
 if __name__ == '__main__':
