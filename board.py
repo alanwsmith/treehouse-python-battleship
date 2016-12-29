@@ -6,7 +6,7 @@ from ship import Ship
 class Board():
     
     def __init__(self):
-        logging.debug("Creating new board")
+        logging.info("Creating new board")
         self.ships = [] 
         self.load_ships()
 
