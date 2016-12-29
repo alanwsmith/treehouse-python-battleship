@@ -41,14 +41,37 @@ class Ship():
                 print("Oops! You must enter either 'v' for vertical or 'h' for horizontal. Try again.")
                 continue
 
+        # Get the bow coordinates
+
         last_letter = constants.LETTERS[constants.BOARD_MAX_INDEX].upper()
         last_number = constants.BOARD_SIZE 
 
-        # while True:
-        #     target_column = input("Which column (A-{})? ".format(last_letter)).lower()
-        #     if target_column not in constants.COORDINATE_MAP['cols']:
-        #         print("Oops! That wasn't a valid row. Try one more time")
-        #         continue
+        while True:
+            column = input("Which column (A-{})? ".format(last_letter)).lower()
+            if column in constants.COORDINATE_MAP['cols']:
+                while True:
+                    row = input("Which row (1-{})? ".format(last_number)) 
+                    try:
+                        row = int(row)
+                    except ValueError:
+                        print("Oops! The row must be a number. Try again.")
+                        continue
+                    else:
+                        if row in constants.COORDINATE_MAP['rows']:
+                            self.bow = (
+                                constants.COORDINATE_MAP['rows'][row],
+                                constants.COORDINATE_MAP['cols'][column]
+                            )
+
+                            break
+                        else:
+                            print("Oops! {} is outside the grid. Give it another shot.".format(row))
+                            continue
+                break
+            else:
+                print("Oops! That wasn't a valid row. Try one more time")
+                continue
+            break
         #     else:
         #         while True:
         #             target_row = input("Which row (1-{})? ".format(last_number)) 
