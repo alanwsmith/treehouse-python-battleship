@@ -8,7 +8,6 @@ class Game():
     def __init__(self):
         logging.info("Initializing game")
         self.boards = [ Board(index = 0), Board(index = 1) ]
-        self.flash_message = "Welcome to Battleship"
 
     def header_letters(self):
         return "   " + " ".join([chr(c) for c in range(ord('A'), ord('A') + constants.BOARD_SIZE)])
@@ -16,7 +15,7 @@ class Game():
     def arena_padding(self):
         return "      "
 
-    def display_arena(self):
+    def display_arena(self, **kwargs):
         print("\033c", end="")
         print(
             " {} ".format(self.boards[0].player_name).center(22, '-')
@@ -35,12 +34,14 @@ class Game():
                 +
                 str(row_index + 1).rjust(2) + " " + " ".join(self.boards[1].grid()[0])
             )
-            
-        if self.flash_message != "":
-            print('\n{}\n'.format(self.flash_message))
-            self.flash_message = ""
+        
+        if kwargs.get('flash'):
+            print('\n{}\n'.format(kwargs.get('flash')))
+        elif kwargs.get('error'):
+            print('\nOops! {}\n'.format(kwargs.get('error')))
         else:
             print('\n\n')
+                
 
     def get_player_names(self):
         for board_index in range(0,2):
@@ -48,15 +49,12 @@ class Game():
                 print("Enter name for Player {}".format(board_index + 1))
                 response = input("> ").strip()
                 if len(response) == 0:
-                    self.flash_message = "Oops! You didn't enter a name. Try again."
-                    game.display_arena()
+                    game.display_arena(error="You didn't enter a name. Try again.")
                     continue
                 elif len(response) > 18:
-                    self.flash_message = "Oops! The game can't handle names that long. Make one less than 18 letters"
-                    game.display_arena()
+                    game.display_arena(error="That name is to long for the game. Try one less than 18 letters.")
                 elif self.boards[0].player_name == response:
-                    self.flash_message = "Oops! Player can't have the same name. Try again."
-                    game.display_arena()
+                    game.display_arena(error="Players can't have the same name. Try again.")
                     continue
                 else:
                     self.boards[board_index].player_name = response
@@ -76,7 +74,7 @@ if __name__ == '__main__':
         level=logging.INFO
     )
     game = Game()
-    game.display_arena()
+    game.display_arena(flash="Welcome to Battleship!")
     game.get_player_names()
 
     # game.place_ships_on_board(game.boards[0])
