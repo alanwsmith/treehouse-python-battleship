@@ -30,8 +30,6 @@ class Game():
         for ship in board.ships:
             print(ship)
 
-        pass
-
 if __name__ == '__main__':
     logging.basicConfig(
         filename='logs/test-run--board.txt', 
