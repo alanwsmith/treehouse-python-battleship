@@ -5,10 +5,22 @@ from ship import Ship
 
 class Board():
     
-    def __init__(self):
-        logging.debug("Creating new board")
+    def __init__(self, **kwargs):
+        self.index = kwargs['index']
+        self.player_name = "Player {}".format(self.index + 1)
         self.ships = [] 
         self.load_ships()
+        logging.info("Created board {}".format(self.index))
+
+    def grid(self):
+        grid = []
+        for new_row in range(0, constants.BOARD_SIZE):
+            row = []
+            for column_index in range(0, constants.BOARD_SIZE):
+                row.append('O')
+            grid.append(row)
+        return grid 
+
 
     def load_ships(self):
         for ship in constants.SHIP_INFO:
@@ -75,7 +87,6 @@ class Board():
 
 
     def show(self):
-        print("   " + " ".join([chr(c) for c in range(ord('A'), ord('A') + constants.BOARD_SIZE)]))
         for row in range(0,10):
             print(str(row + 1).rjust(2), end='')
             for col in range(0, 10):
@@ -85,7 +96,7 @@ class Board():
 
 if __name__ == '__main__':
     logging.basicConfig(format='[%(levelname)s]:  %(message)s', level=logging.INFO)
-    board = Board()
+    board = Board(index = 0)
     board.show()
     board.place_ships()
 
