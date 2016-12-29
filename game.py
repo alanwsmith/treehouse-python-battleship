@@ -43,10 +43,19 @@ class Game():
             print('\n\n')
 
     def get_player_names(self):
-        print("Enter name for Player 1")
-        response = input("> ")
-        self.boards[0].player_name = response
-        game.display_arena()
+        
+        while True:
+            print("Enter name for Player 1")
+            response = input("> ")
+            if len(response) == 0:
+                self.flash_message = "Oops! You didn't enter a name. Try again."
+                game.display_arena()
+                continue
+            else:
+                self.boards[0].player_name = response
+                game.display_arena()
+                break
+
         print("Enter name for Player 2")
         response = input("> ")
         self.boards[1].player_name = response
