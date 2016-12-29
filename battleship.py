@@ -4,25 +4,15 @@ from player import Player
 
 logging.basicConfig(level=logging.INFO)
 
-SHIP_INFO = [
-    ("Aircraft Carrier", 5),
-#    ("Battleship", 4),
-#    ("Submarine", 3),
-#    ("Cruiser", 3),
-#    ("Patrol Boat", 2)
-]
-
-
-
 
 players = [ 
     Player(
         id = 1,
-        ship_info = SHIP_INFO 
+        ship_info = constants.SHIP_INFO 
     ), 
     Player(
         id = 2,
-        ship_info = SHIP_INFO 
+        ship_info = constants.SHIP_INFO 
     ) 
 ]
 
