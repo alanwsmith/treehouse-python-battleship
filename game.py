@@ -69,13 +69,21 @@ class GameTest():
     def __init__(self):
         logging.info("Initialized GameTest()")
 
+    def assert_equal(self, a, b):
+        if a != b:
+            raise ValueError("Expected: {} - Got: {}".format(a, b))
+
     def run_tests(self):
         logging.info("Running tests.")
         self.test_1()
 
     def test_1(self):
+        logging.info("-- Starting test 1 --")
         game = Game()
-
+        self.assert_equal(game.boards[0].player_name, "Player 1")
+        self.assert_equal(game.boards[1].player_name, "Player 2")
+        logging.info("-- Finished test 1 --")
+        
 
 if __name__ == '__main__':
     logging.basicConfig(
