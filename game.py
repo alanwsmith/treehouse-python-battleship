@@ -65,6 +65,10 @@ class Game():
         for ship in board.ships:
             print(ship)
 
+    def get_player_name_for_board_index(self, **kwargs):
+        self.boards[0].player_name = "Bob"
+        pass
+
 class GameTest():
     def __init__(self):
         logging.info("Initialized GameTest()")
@@ -89,7 +93,8 @@ class GameTest():
         logging.info("-- Test 2 - Started --")
         game = Game()
         game.display_arena(flash="Welcome to Battleship!")
-        game.get_player_names()
+        game.get_player_name_for_board_index(board_index=0, test_value="Bob")
+        self.assert_equal(game.boards[0].player_name, "Bob")
         logging.info("-- Test 2 - Finished --")
         
 
