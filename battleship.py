@@ -1,7 +1,7 @@
 import logging
 from player import Player
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 SHIP_INFO = [
     ("Aircraft Carrier", 5),
