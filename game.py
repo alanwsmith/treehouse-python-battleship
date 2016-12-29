@@ -48,16 +48,16 @@ class Game():
                 print("Enter name for Player {}".format(board_index + 1))
                 response = input("> ").strip()
                 if len(response) == 0:
-                    game.display_arena(error="You didn't enter a name. Try again.")
+                    self.display_arena(error="You didn't enter a name. Try again.")
                     continue
                 elif len(response) > 18:
-                    game.display_arena(error="That name is to long for the game. Try one less than 18 letters.")
+                    self.display_arena(error="That name is to long for the game. Try one less than 18 letters.")
                 elif self.boards[0].player_name == response:
-                    game.display_arena(error="Players can't have the same name. Try again.")
+                    self.display_arena(error="Players can't have the same name. Try again.")
                     continue
                 else:
                     self.boards[board_index].player_name = response
-                    game.display_arena()
+                    self.display_arena()
                     break
 
     def place_ships_on_board(self, board):
@@ -76,6 +76,7 @@ class GameTest():
     def run_tests(self):
         logging.info("Running tests.")
         self.test_1()
+        self.test_2()
 
     def test_1(self):
         logging.info("-- Test 1 - Started --")
@@ -83,6 +84,13 @@ class GameTest():
         self.assert_equal(game.boards[0].player_name, "Player 1")
         self.assert_equal(game.boards[1].player_name, "Player 2")
         logging.info("-- Test 1 - Finished --")
+
+    def test_2(self):
+        logging.info("-- Test 2 - Started --")
+        game = Game()
+        game.display_arena(flash="Welcome to Battleship!")
+        game.get_player_names()
+        logging.info("-- Test 2 - Finished --")
         
 
 if __name__ == '__main__':
