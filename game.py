@@ -51,6 +51,9 @@ class Game():
                     self.flash_message = "Oops! You didn't enter a name. Try again."
                     game.display_arena()
                     continue
+                elif len(response) > 18:
+                    self.flash_message = "Oops! The game can't handle names that long. Make one less than 18 letters"
+                    game.display_arena()
                 elif self.boards[0].player_name == response:
                     self.flash_message = "Oops! Player can't have the same name. Try again."
                     game.display_arena()
