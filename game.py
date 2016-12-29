@@ -16,6 +16,13 @@ class Game():
             print(str(row_num).rjust(2) + " " + (" ".join(row)))
             row_num += 1
 
+    def place_ships_on_board(self, board):
+        logging.info("Placing ships")
+        for ship in board.ships:
+            print(ship)
+
+        pass
+
 if __name__ == '__main__':
     logging.basicConfig(
         filename='logs/test-run--board.txt', 
@@ -25,5 +32,6 @@ if __name__ == '__main__':
     )
     game = Game()
     game.display_board(game.boards[0])
+    game.place_ships_on_board(game.boards[0])
 
         
