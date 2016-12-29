@@ -1,3 +1,4 @@
+import constants
 import logging
 
 from board import Board
@@ -9,11 +10,11 @@ class Game():
         self.boards = [ Board(), Board() ]
 
     def display_board(self, board):
-        board.show()
-        pass
-
-
-
+        print("   " + " ".join([chr(c) for c in range(ord('A'), ord('A') + constants.BOARD_SIZE)]))
+        row_num = 1
+        for row in board.grid():
+            print(str(row_num).rjust(2) + " " + (" ".join(row)))
+            row_num += 1
 
 
 
