@@ -29,7 +29,6 @@ class Board():
                     return response
 
     def place_ships(self):
-        valid_orientations = ["v", "h"]
 
         for ship in self.ships:
 
