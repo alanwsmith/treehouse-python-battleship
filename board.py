@@ -10,6 +10,16 @@ class Board():
         self.ships = [] 
         self.load_ships()
 
+    def grid(self):
+        grid = []
+        for new_row in range(0, constants.BOARD_SIZE):
+            row = []
+            for column_index in range(0, constants.BOARD_SIZE):
+                row.append('O')
+            grid.append(row)
+        return grid 
+
+
     def load_ships(self):
         for ship in constants.SHIP_INFO:
             self.ships.append(Ship(name = ship[0], size = ship[1]))
