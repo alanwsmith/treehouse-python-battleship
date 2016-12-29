@@ -8,6 +8,7 @@ class Game():
     def __init__(self):
         logging.info("Initializing game")
         self.boards = [ Board(index = 0), Board(index = 1) ]
+        self.flash_message = "Welcome to Battleship"
 
     def display_arena(self, **kwargs):
         self.display_board(self.boards[kwargs['top_board']])
@@ -16,6 +17,16 @@ class Game():
             self.display_board(self.boards[1])
         else:
             self.display_board(self.boards[0])
+
+        # The flash_message only appears once and is then
+        # removed. If there is no flash_message, empty
+        # lines are output to maintain the spacing. 
+        if self.flash_message != "":
+            print('\n{}\n'.format(self.flash_message))
+            self.flash_message = ""
+        else:
+            print('\n\n')
+
 
     def display_board(self, board):
         print(" {} ".format(board.player_name).center(22, '-'))
@@ -39,6 +50,6 @@ if __name__ == '__main__':
     )
     game = Game()
     game.display_arena(top_board = 1)
-    game.place_ships_on_board(game.boards[0])
+    # game.place_ships_on_board(game.boards[0])
 
         
