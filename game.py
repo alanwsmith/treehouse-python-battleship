@@ -51,6 +51,10 @@ class Game():
                     self.flash_message = "Oops! You didn't enter a name. Try again."
                     game.display_arena()
                     continue
+                elif self.boards[0].player_name == response:
+                    self.flash_message = "Oops! Player can't have the same name. Try again."
+                    game.display_arena()
+                    continue
                 else:
                     self.boards[board_index].player_name = response
                     game.display_arena()
