@@ -16,3 +16,6 @@ SHIP_INFO = [
 #    ("Patrol Boat", 2)
 ]
 
+
+LETTERS = "abcdefghijklmnopqrstuvwxyz"
+
