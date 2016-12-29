@@ -7,7 +7,7 @@ class Game():
     
     def __init__(self):
         logging.info("Initializing game")
-        self.boards = [ Board(), Board() ]
+        self.boards = [ Board(index = 0), Board(index = 1) ]
 
     def display_board(self, board):
         print("   " + " ".join([chr(c) for c in range(ord('A'), ord('A') + constants.BOARD_SIZE)]))
@@ -17,7 +17,7 @@ class Game():
             row_num += 1
 
     def place_ships_on_board(self, board):
-        logging.info("Placing ships")
+        logging.info("Placing ships for board {}".format(board.index))
         for ship in board.ships:
             print(ship)
 
