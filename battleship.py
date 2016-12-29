@@ -32,6 +32,12 @@ players = [
     ) 
 ]
 
+coordinate_map = {}
+
+
+def build_coordinate_map(size):
+    coordinate_map['rows'] = {}
+    print(coordinate_map)
 
 def clear_screen():
     print("\033c", end="")
@@ -93,6 +99,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    build_coordinate_map(BOARD_SIZE)
+    # main()
 
 
