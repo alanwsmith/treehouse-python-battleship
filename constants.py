@@ -17,7 +17,7 @@ SUNK = '#'
 # The list of ships in the game. 
 SHIP_INFO = [
     ("Aircraft Carrier", 5),
-    ("Battleship", 4),
+#    ("Battleship", 4),
 #    ("Submarine", 3),
 #    ("Cruiser", 3),
 #    ("Patrol Boat", 2)
