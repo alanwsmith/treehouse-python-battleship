@@ -10,6 +10,38 @@ class Game():
         self.boards = [ Board(index = 0), Board(index = 1) ]
         self.flash_message = "Welcome to Battleship"
 
+    def header_letters(self):
+        return "   " + " ".join([chr(c) for c in range(ord('A'), ord('A') + constants.BOARD_SIZE)])
+
+    def arena_padding(self):
+        return "      "
+
+    def display_arena_2(self):
+        print(
+            " {} ".format(self.boards[0].player_name).center(22, '-')
+            +
+            self.arena_padding()
+            +
+            " {} ".format(self.boards[1].player_name).center(22, '-')
+        )
+
+        print(self.header_letters() + self.arena_padding() + self.header_letters())
+        for row_index in range(0, constants.BOARD_SIZE):
+            print(
+                str(row_index + 1).rjust(2) + " " + " ".join(self.boards[0].grid()[0])
+                +
+                self.arena_padding()
+                +
+                str(row_index + 1).rjust(2) + " " + " ".join(self.boards[1].grid()[0])
+            )
+            
+        if self.flash_message != "":
+            print('\n{}\n'.format(self.flash_message))
+            self.flash_message = ""
+        else:
+            print('\n\n')
+
+        
     def display_arena(self, **kwargs):
         self.display_board(self.boards[kwargs['top_board']])
         print('')
@@ -49,7 +81,8 @@ if __name__ == '__main__':
         level=logging.INFO
     )
     game = Game()
-    game.display_arena(top_board = 1)
+    # game.display_arena(top_board = 1)
+    game.display_arena_2()
     # game.place_ships_on_board(game.boards[0])
 
         
