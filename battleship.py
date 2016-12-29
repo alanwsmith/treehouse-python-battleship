@@ -52,23 +52,29 @@ def get_ship_orientation(ship):
         get_ship_orientation(ship)
 
 def prompt_for_bow_coordinates(ship, board_size):
-    target_column = input("Which column (A-{})? ".format(constants.LETTERS[constants.BOARD_SIZE - 1].upper())).lower()
-    target_row = input("Which row (1-{})? ".format(constants.BOARD_SIZE)) 
-    try:
-        target_row = int(target_row)
-    except ValueError:
-        print("Oops! The row must be a number. Give it another shot.")
-        prompt_for_bow_coordinates(ship, board_size)
-        
-    if target_column in constants.COORDINATE_MAP['cols']:
-        if target_row in constants.COORDINATE_MAP['rows']:
-            return (constants.COORDINATE_MAP['rows'][target_row], constants.COORDINATE_MAP['cols'][target_column])
+    are_coordinates_valid = False
+
+    while are_coordinates_valid == False:
+        logging.info("entering while loop")
+        target_column = input("Which column (A-{})? ".format(constants.LETTERS[constants.BOARD_SIZE - 1].upper())).lower()
+        target_row = input("Which row (1-{})? ".format(constants.BOARD_SIZE)) 
+        try:
+            target_row = int(target_row)
+        except ValueError:
+            print("Oops! The row must be a number. Give it another shot.")
+            continue
+
+        if target_column in constants.COORDINATE_MAP['cols']:
+            if target_row in constants.COORDINATE_MAP['rows']:
+                return (constants.COORDINATE_MAP['rows'][target_row], constants.COORDINATE_MAP['cols'][target_column])
+            else:
+                print("Oops! '{}' is not a valid row. Give it another shot.".format(target_row))
+                continue
         else:
-            print("Oops! '{}' is not a valid row. Give it another shot.".format(target_row))
-            prompt_for_bow_coordinates(ship, board_size)
-    else:
-        print("Oops! '{}' is not a valid column. Give it another shot.".format(target_column))
-        prompt_for_bow_coordinates(ship, board_size)
+            print("Oops! '{}' is not a valid column. Give it another shot.".format(target_column))
+            continue
+        break
+
 
 def place_ships():
     for player in players:
