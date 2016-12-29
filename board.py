@@ -28,6 +28,25 @@ class Board():
                 else:
                     return response
 
+    def get_number(self, **kargs):
+        while True:
+            raw_response = input(kargs['prompt'] + " ").strip()
+            if len(raw_response) == 0:
+                print("Oops! You didn't make a selection. " + kargs.get('error_extension'))
+                continue
+            else:
+                try:
+                    response = int(raw_response)
+                except ValueError:
+                    print("Oops! That wasn't a number. Give it another shot.")
+                    continue
+                else:
+                    if response not in kargs['valid_values']:
+                        print("Oops! That wasn't a valid row. Try again.")
+                        continue
+                    else:
+                        return response
+
     def place_ships(self):
 
         for ship in self.ships:
@@ -45,6 +64,21 @@ class Board():
             )
 
             ship.bow_column = constants.COORDINATE_MAP['columns'][column_letter_for_bow]
+
+            # Stub for bow_row
+            row_display_letter_for_bow = self.get_number(
+                prompt = "What row do you want the front of the ship in (1-{})?".format(constants.LAST_ROW),
+                valid_values = [num for num in range(1, constants.BOARD_SIZE + 1)],
+                error_extension = ""
+            )
+
+            ship.bow_row = constants.COORDINATE_MAP['rows'][row_display_letter_for_bow] 
+
+
+
+            # TODO: setup to check the coordiates after the were requested to make sure they        
+            # are valid. If not reset the orientation, bow_column, and bow_row and start again.
+
 
 
             # Get the bow coordinates
