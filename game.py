@@ -46,7 +46,7 @@ class Game():
         for board_index in range(0,2):
             while True:
                 print("Enter name for Player {}".format(board_index + 1))
-                response = input("> ")
+                response = input("> ").strip()
                 if len(response) == 0:
                     self.flash_message = "Oops! You didn't enter a name. Try again."
                     game.display_arena()
