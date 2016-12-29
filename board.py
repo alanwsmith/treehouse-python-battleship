@@ -65,7 +65,6 @@ class Board():
 
             ship.bow_column = constants.COORDINATE_MAP['columns'][column_letter_for_bow]
 
-            # Stub for bow_row
             row_display_letter_for_bow = self.get_number(
                 prompt = "What row do you want the front of the ship in (1-{})?".format(constants.LAST_ROW),
                 valid_values = [num for num in range(1, constants.BOARD_SIZE + 1)],
@@ -74,43 +73,6 @@ class Board():
 
             ship.bow_row = constants.COORDINATE_MAP['rows'][row_display_letter_for_bow] 
 
-
-
-            # TODO: setup to check the coordiates after the were requested to make sure they        
-            # are valid. If not reset the orientation, bow_column, and bow_row and start again.
-
-
-
-            # Get the bow coordinates
-
-            # while True:
-            #     column = input("Which column (A-{})? ".format(constants.LAST_COLUMN)).lower()
-            #     if column in constants.COORDINATE_MAP['cols']:
-            #         while True:
-            #             row = input("Which row (1-{})? ".format(constants.LAST_ROW)) 
-            #             try:
-            #                 row = int(row)
-            #             except ValueError:
-            #                 print("Oops! The row must be a number. Try again.")
-            #                 continue
-            #             else:
-            #                 if row in constants.COORDINATE_MAP['rows']:
-            #                     self.bow = (
-            #                         constants.COORDINATE_MAP['rows'][row],
-            #                         constants.COORDINATE_MAP['cols'][column]
-            #                     )
-
-            #                     break
-            #                 else:
-            #                     print("Oops! {} is outside the grid. Give it another shot.".format(row))
-            #                     continue
-            #         break
-            #     else:
-            #         print("Oops! That wasn't a valid row. Try one more time")
-            #         continue
-            #     break
-
-                
 
     def show(self):
         print("   " + " ".join([chr(c) for c in range(ord('A'), ord('A') + constants.BOARD_SIZE)]))
