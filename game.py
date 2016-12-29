@@ -16,10 +16,13 @@ class Game():
             print(str(row_num).rjust(2) + " " + (" ".join(row)))
             row_num += 1
 
-
-
 if __name__ == '__main__':
-    logging.basicConfig(format='[%(levelname)s]:  %(message)s', level=logging.INFO)
+    logging.basicConfig(
+        filename='logs/test-run--board.txt', 
+        filemode='w', 
+        format='[%(levelname)s]:  %(message)s', 
+        level=logging.INFO
+    )
     game = Game()
     game.display_board(game.boards[0])
 
