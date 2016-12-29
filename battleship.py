@@ -1,6 +1,7 @@
 import constants 
 import logging
 from player import Player
+from ship import Ship
 
 logging.basicConfig(level=logging.INFO)
 
@@ -103,8 +104,13 @@ def main():
     place_ships()
 
 
+
 if __name__ == '__main__':
-    main()
+    ship = Ship(name = "FloatingTest", size = 5)
+    ship.place()
+    print(ship)
+
+#    main()
     pass
 
 
