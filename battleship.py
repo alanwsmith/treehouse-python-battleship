@@ -68,12 +68,14 @@ def get_ship_orientation(ship):
         get_ship_orientation(ship)
 
 
+
 def place_ships():
     for player in players:
         print("Alright {}, it's time to place your ships!".format(player.name))
         for ship in player.ships:
             print("- {} (size {})".format(ship.name, ship.size))
-            ship.set_orientation(get_ship_orientation(ship))
+            # ship.set_orientation(get_ship_orientation(ship))
+            ship.set_bow((3, 5))
             logging.debug(ship)
 
 
