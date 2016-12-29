@@ -20,7 +20,7 @@ if __name__ == '__main__':
     logging.basicConfig(
         filename='logs/test-run--board.txt', 
         filemode='w', 
-        format='[%(levelname)s]:  %(message)s', 
+        format='[%(levelname).1s]: %(message)s', 
         level=logging.INFO
     )
     game = Game()
