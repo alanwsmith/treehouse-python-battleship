@@ -79,9 +79,8 @@ def get_ship_orientation(ship):
         get_ship_orientation(ship)
 
 def prompt_for_bow_coordinates(ship, board_size):
-    target_column = input("Which column (A-J)? ").lower()
-    target_row = input("Which row (1-10)? ")
-    
+    target_column = input("Which column (A-{})? ".format(LETTERS[BOARD_SIZE - 1].upper())).lower()
+    target_row = input("Which row (1-{})? ".format(BOARD_SIZE))
     return (3,5)
 
 
@@ -91,7 +90,7 @@ def place_ships():
         for ship in player.ships:
             print("- {} (size {})".format(ship.name, ship.size))
             # ship.set_orientation(get_ship_orientation(ship))
-            # ship.set_bow(prompt_for_bow_coordinates(ship, BOARD_SIZE))
+            ship.set_bow(prompt_for_bow_coordinates(ship, BOARD_SIZE))
             logging.debug(ship)
 
 
@@ -104,7 +103,7 @@ def main():
 
 
 if __name__ == '__main__':
-    # main()
+    main()
     pass
 
 
