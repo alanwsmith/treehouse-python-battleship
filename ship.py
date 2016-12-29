@@ -3,8 +3,8 @@ import logging
 class Ship():
     
     def __init__(self, **kwargs):
-        self.name = kwargs.get('name')
-        self.size = kwargs.get('size')
+        self.name = kwargs['name']
+        self.size = kwargs['size']
         self.orientation = None
         self.bow = None
 
