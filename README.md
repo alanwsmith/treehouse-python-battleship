@@ -9,6 +9,12 @@ Notes
 The board size can be expanded up to 26 (the length of the full alphabet)
 
 
+TODOs
+-----
+
+- Refactor to remove 'cols' from constants.COORDINATE_MAP. Use the better named 'columns' for replacements. 
+
+
 
 
 Tests to run
