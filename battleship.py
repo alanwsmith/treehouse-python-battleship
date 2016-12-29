@@ -36,8 +36,11 @@ coordinate_map = {}
 
 
 def build_coordinate_map(size):
-    coordinate_map['rows'] = {}
-    print(coordinate_map)
+    letters = "abcdefghijklmnopqrstuvwxyz"
+    return {
+        'cols': dict(zip(letters[:size], range(0, size))),
+        'rows': dict(zip(range(1, size + 1), range(0, size))) 
+    }
 
 def clear_screen():
     print("\033c", end="")
@@ -99,7 +102,8 @@ def main():
 
 
 if __name__ == '__main__':
-    build_coordinate_map(BOARD_SIZE)
+    coordinate_map = build_coordinate_map(BOARD_SIZE)
+    print(coordinate_map)
     # main()
 
 
