@@ -1,4 +1,10 @@
 
 BOARD_SIZE = 10
 
+VERTICAL_SHIP = '|'
+HORIZONTAL_SHIP = '-'
+EMPTY = 'O'
+MISS = '.'
+HIT = '*'
+SUNK = '#'
 

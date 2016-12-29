@@ -13,12 +13,6 @@ SHIP_INFO = [
 ]
 
 
-VERTICAL_SHIP = '|'
-HORIZONTAL_SHIP = '-'
-EMPTY = 'O'
-MISS = '.'
-HIT = '*'
-SUNK = '#'
 
 
 players = [ 
