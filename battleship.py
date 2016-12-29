@@ -52,28 +52,34 @@ def get_ship_orientation(ship):
         get_ship_orientation(ship)
 
 def prompt_for_bow_coordinates(ship, board_size):
-    are_coordinates_valid = False
 
-    while are_coordinates_valid == False:
-        logging.info("entering while loop")
+    # Using two infinite while loops here. One each for the column and the row. 
+    # Each one checks for validity and starts over if the entered value isn't
+    # valid. Once both are valid, the method returns. Based on the size of this
+    # this mehtod, it's not an ideal way to do this. Good candidate for refactoring.
+
+    # I didn't put break statements assuming python will take care of that. 
+
+    while True:
         target_column = input("Which column (A-{})? ".format(constants.LETTERS[constants.BOARD_SIZE - 1].upper())).lower()
-        target_row = input("Which row (1-{})? ".format(constants.BOARD_SIZE)) 
-        try:
-            target_row = int(target_row)
-        except ValueError:
-            print("Oops! The row must be a number. Give it another shot.")
+        if target_column not in constants.COORDINATE_MAP['cols']:
+            print("Oops! That wasn't a valid row. Try one more time")
             continue
-
-        if target_column in constants.COORDINATE_MAP['cols']:
-            if target_row in constants.COORDINATE_MAP['rows']:
-                return (constants.COORDINATE_MAP['rows'][target_row], constants.COORDINATE_MAP['cols'][target_column])
-            else:
-                print("Oops! '{}' is not a valid row. Give it another shot.".format(target_row))
-                continue
         else:
-            print("Oops! '{}' is not a valid column. Give it another shot.".format(target_column))
-            continue
-        break
+            while True:
+                target_row = input("Which row (1-{})? ".format(constants.BOARD_SIZE)) 
+                try:
+                    target_row = int(target_row)
+                except ValueError:
+                    print("Oops! The row must be a number. Give it another shot.")
+                    continue
+                if target_row not in constants.COORDINATE_MAP['rows']:
+                    print("Oops! '{}' is not a valid row. Give it another shot.".format(target_row))
+                    continue
+                else:
+                    return(target_column, target_row)
+
+
 
 
 def place_ships():
