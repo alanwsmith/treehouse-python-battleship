@@ -28,11 +28,18 @@ class Ship():
 
 
     def place(self):
+
+        valid_orientations = ["v", "h"]
         
         # Figure out the orientation
         while True:
             response = input("[v]ertically or [h]orizontally? ").lower()
-            break
+            if response in valid_orientations:
+                self.orientation = response
+                break
+            else:
+                print("Oops! You must enter either 'v' for vertical or 'h' for horizontal. Try again.")
+                continue
 
         last_letter = constants.LETTERS[constants.BOARD_MAX_INDEX].upper()
         last_number = constants.BOARD_SIZE 
@@ -62,5 +69,6 @@ class Ship():
 if __name__ == '__main__':
     ship = Ship(name = "Test Ship", size = 5)
     ship.place()
+    print(ship)
 
 
