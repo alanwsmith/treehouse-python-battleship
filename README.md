@@ -3,6 +3,13 @@ Treehouse Battleship Python Project
 
 My run at the Treehouse Battleship project in Python.
 
+Notes
+-----
+
+The board size can be expanded up to 26 (the length of the full alphabet)
+
+
+
 
 Tests to run
 ------------

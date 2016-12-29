@@ -32,15 +32,17 @@ players = [
     ) 
 ]
 
-coordinate_map = {}
 
+# Define the alphabet to be used for building the COORDINATE_MAP
+LETTERS = "abcdefghijklmnopqrstuvwxyz"
 
-def build_coordinate_map(size):
-    letters = "abcdefghijklmnopqrstuvwxyz"
-    return {
-        'cols': dict(zip(letters[:size], range(0, size))),
-        'rows': dict(zip(range(1, size + 1), range(0, size))) 
-    }
+# This map translates the coordinates that a player enters into
+# the coordinates used internally to draw the board. 
+COORDINATE_MAP = {
+    'cols': dict(zip(LETTERS[:BOARD_SIZE], range(0, BOARD_SIZE))),
+    'rows': dict(zip(range(1, BOARD_SIZE + 1), range(0, BOARD_SIZE))) 
+}
+
 
 def clear_screen():
     print("\033c", end="")
@@ -102,8 +104,7 @@ def main():
 
 
 if __name__ == '__main__':
-    coordinate_map = build_coordinate_map(BOARD_SIZE)
-    print(coordinate_map)
     # main()
+    pass
 
 
