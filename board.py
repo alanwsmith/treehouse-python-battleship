@@ -40,19 +40,6 @@ class Board():
             )
 
 
-            # Start a top level loop to check for a valid orientation and bow coordinates. 
-#            while True:
-#
-#                # Figure out the orientation
-#                while True:
-#                    response = input("[v]ertically or [h]orizontally? ").lower()
-#                    if response in valid_orientations:
-#                        ship.orientation = response
-#                        break
-#                    else:
-#                        print("Oops! You must enter either 'v' for vertical or 'h' for horizontal. Try again.")
-#                        continue
-#                break
 
             # Get the bow coordinates
 
