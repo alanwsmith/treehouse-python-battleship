@@ -41,7 +41,6 @@ class Game():
             print('\nOops! {}\n'.format(kwargs.get('error')))
         else:
             print('\n\n')
-                
 
     def get_player_names(self):
         for board_index in range(0,2):
@@ -66,6 +65,18 @@ class Game():
         for ship in board.ships:
             print(ship)
 
+class GameTest():
+    def __init__(self):
+        logging.info("Initialized GameTest()")
+
+    def run_tests(self):
+        logging.info("Running tests.")
+        self.test_1()
+
+    def test_1(self):
+        game = Game()
+
+
 if __name__ == '__main__':
     logging.basicConfig(
         filename='logs/test-run--board.txt', 
@@ -73,9 +84,15 @@ if __name__ == '__main__':
         format='[%(levelname).1s]: %(message)s', 
         level=logging.INFO
     )
-    game = Game()
-    game.display_arena(flash="Welcome to Battleship!")
-    game.get_player_names()
+
+    gt = GameTest()
+    gt.run_tests()
+
+
+
+#    game = Game()
+#    game.display_arena(flash="Welcome to Battleship!")
+#    game.get_player_names()
 
     # game.place_ships_on_board(game.boards[0])
 
