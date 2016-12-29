@@ -60,14 +60,18 @@ def prompt_for_bow_coordinates(ship, board_size):
 
     # I didn't put break statements assuming python will take care of that. 
 
+    # Grab the last letter for column and number for row based on board size.
+    last_letter = constants.LETTERS[constants.BOARD_MAX_INDEX].upper()
+    last_number = constants.BOARD_SIZE 
+
     while True:
-        target_column = input("Which column (A-{})? ".format(constants.LETTERS[constants.BOARD_SIZE - 1].upper())).lower()
+        target_column = input("Which column (A-{})? ".format(last_letter)).lower()
         if target_column not in constants.COORDINATE_MAP['cols']:
             print("Oops! That wasn't a valid row. Try one more time")
             continue
         else:
             while True:
-                target_row = input("Which row (1-{})? ".format(constants.BOARD_SIZE)) 
+                target_row = input("Which row (1-{})? ".format(last_number)) 
                 try:
                     target_row = int(target_row)
                 except ValueError:
@@ -78,7 +82,6 @@ def prompt_for_bow_coordinates(ship, board_size):
                     continue
                 else:
                     return(target_column, target_row)
-
 
 
 
