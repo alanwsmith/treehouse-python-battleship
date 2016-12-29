@@ -67,6 +67,11 @@ def get_ship_orientation(ship):
         print("  That didn't work. You must choose either 'v' for vertically or 'h' for horizontally.")
         get_ship_orientation(ship)
 
+def prompt_for_bow_coordinates(ship, board_size):
+    target_column = input("Which column (A-J)? ").lower()
+    target_row = input("Which row (1-10)? ")
+    
+    return (3,5)
 
 
 def place_ships():
@@ -75,7 +80,7 @@ def place_ships():
         for ship in player.ships:
             print("- {} (size {})".format(ship.name, ship.size))
             # ship.set_orientation(get_ship_orientation(ship))
-            ship.set_bow((3, 5))
+            # ship.set_bow(prompt_for_bow_coordinates(ship, BOARD_SIZE))
             logging.debug(ship)
 
 

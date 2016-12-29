@@ -6,6 +6,8 @@ class Ship():
         self.name = kwargs.get('name')
         self.size = kwargs.get('size')
         self.orientation = None
+        self.bow = None
+
         logging.debug("Initializing {} - size: {}".format(self.name, self.size)) 
 
     def __str__(self):
