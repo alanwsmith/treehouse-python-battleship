@@ -17,16 +17,6 @@ players = [
 ]
 
 
-# Define the alphabet to be used for building the COORDINATE_MAP
-
-# This map translates the coordinates that a player enters into
-# the coordinates used internally to draw the board. 
-COORDINATE_MAP = {
-    'cols': dict(zip(constants.LETTERS[:constants.BOARD_SIZE], range(0,constants.BOARD_SIZE))),
-    'rows': dict(zip(range(1, constants.BOARD_SIZE + 1), range(0, constants.BOARD_SIZE))) 
-}
-
-
 def clear_screen():
     print("\033c", end="")
 
@@ -63,10 +53,10 @@ def get_ship_orientation(ship):
 
 def prompt_for_bow_coordinates(ship, board_size):
     target_column = input("Which column (A-{})? ".format(constants.LETTERS[constants.BOARD_SIZE - 1].upper())).lower()
-    target_row = int(input("Which row (1-{})? ".format(constants.BOARD_SIZE)))
-    if target_column in COORDINATE_MAP['cols']:
-        if target_row in COORDINATE_MAP['rows']:
-            return (COORDINATE_MAP['rows'][target_row], COORDINATE_MAP['cols'][target_column])
+    target_row = input("Which row (1-{})? ".format(constants.BOARD_SIZE)) 
+    if target_column in constants.COORDINATE_MAP['cols']:
+        if target_row in constants.COORDINATE_MAP['rows']:
+            return (constants.COORDINATE_MAP['rows'][target_row], constants.COORDINATE_MAP['cols'][target_column])
         else:
             print("Oops! '{}' is not a valid row. Give it another shot.".format(target_row))
             prompt_for_bow_coordinates(ship, board_size)
