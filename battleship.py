@@ -54,6 +54,12 @@ def get_ship_orientation(ship):
 def prompt_for_bow_coordinates(ship, board_size):
     target_column = input("Which column (A-{})? ".format(constants.LETTERS[constants.BOARD_SIZE - 1].upper())).lower()
     target_row = input("Which row (1-{})? ".format(constants.BOARD_SIZE)) 
+    try:
+        target_row = int(target_row)
+    except ValueError:
+        print("Oops! The row must be a number. Give it another shot.")
+        prompt_for_bow_coordinates(ship, board_size)
+        
     if target_column in constants.COORDINATE_MAP['cols']:
         if target_row in constants.COORDINATE_MAP['rows']:
             return (constants.COORDINATE_MAP['rows'][target_row], constants.COORDINATE_MAP['cols'][target_column])
