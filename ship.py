@@ -9,14 +9,18 @@ class Ship():
         self.orientation = None
         self.bow = None
 
+        self.bow_column = None
+        self.bow_row = None
+
         logging.debug("Initializing {} - size: {}".format(self.name, self.size)) 
 
     def __str__(self):
-        return "Ship: {} - size: {} - orientation: {} - bow: {}".format(
+        return "{}\n- size: {}\n- orientation: {} \n- bow_column: {}\n- bow_row: {}".format(
             self.name, 
             self.size,
             self.orientation,
-            self.bow
+            self.bow_column,
+            self.bow_row
         )
 
     def set_bow(self, coordinate):

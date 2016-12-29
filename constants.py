@@ -32,8 +32,14 @@ LETTERS = "abcdefghijklmnopqrstuvwxyz"
 
 # This map translates the coordinates that a player enters into
 # the coordinates used internally to draw the board. 
+
 COORDINATE_MAP = {
     'cols': dict(zip(LETTERS[:BOARD_SIZE], range(0,BOARD_SIZE))),
+    'columns': dict(zip(LETTERS[:BOARD_SIZE], range(0,BOARD_SIZE))),
     'rows': dict(zip(range(1, BOARD_SIZE + 1), range(0, BOARD_SIZE))) 
 }
 
+
+# User facing values for the last column letter and row number.
+LAST_COLUMN = LETTERS[BOARD_MAX_INDEX].upper()
+LAST_ROW = BOARD_SIZE 

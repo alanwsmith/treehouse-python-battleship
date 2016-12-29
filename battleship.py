@@ -106,11 +106,11 @@ def main():
 
 
 if __name__ == '__main__':
-    ship = Ship(name = "FloatingTest", size = 5)
-    ship.place()
-    print(ship)
+#    ship = Ship(name = "FloatingTest", size = 5)
+#    ship.place()
+#    print(ship)
 
-#    main()
+    main()
     pass
 
 
