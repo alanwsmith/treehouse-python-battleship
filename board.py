@@ -7,6 +7,7 @@ class Board():
     
     def __init__(self, **kwargs):
         self.index = kwargs['index']
+        self.player_name = "Player {}".format(self.index + 1)
         self.ships = [] 
         self.load_ships()
         logging.info("Created board {}".format(self.index))
