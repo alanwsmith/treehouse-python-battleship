@@ -9,7 +9,7 @@ class Ship():
         logging.debug("Initializing {} - size: {}".format(self.name, self.size)) 
 
     def __str__(self):
-        return "Ship name: {} - size: {} - orientation: {} - bow: {}".format(
+        return "Ship: {} - size: {} - orientation: {} - bow: {}".format(
             self.name, 
             self.size,
             self.orientation,
