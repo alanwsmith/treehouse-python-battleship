@@ -16,7 +16,7 @@ class Board():
 
     def get_letter(self, **kargs):
         while True:
-            raw_response = input(kargs['prompt'])
+            raw_response = input(kargs['prompt'] + " ")
             if len(raw_response) == 0:
                 print("Oops! You didn't make a selection. " + kargs.get('error_extension'))
                 continue
@@ -34,11 +34,18 @@ class Board():
         for ship in self.ships:
 
             ship.orientation = self.get_letter(
-                prompt = "[v] or [h]? ",
+                prompt = "[v] or [h]?",
                 valid_values = ['v', 'h'],
                 error_extension = "You can only choose 'v' or 'h'"
             )
 
+            column_letter_for_bow = self.get_letter(
+                prompt = "What column do you want the front of the ship in (A-{})?".format(constants.LAST_COLUMN),
+                valid_values = [chr(c) for c in range(ord('a'), ord('a') + constants.BOARD_SIZE)],
+                error_extension = "You can only choose 'A' thru '{}'".format(constants.LAST_COLUMN)
+            )
+
+            ship.bow_column = constants.COORDINATE_MAP['columns'][column_letter_for_bow]
 
 
             # Get the bow coordinates
