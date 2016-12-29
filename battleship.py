@@ -80,9 +80,16 @@ def get_ship_orientation(ship):
 
 def prompt_for_bow_coordinates(ship, board_size):
     target_column = input("Which column (A-{})? ".format(LETTERS[BOARD_SIZE - 1].upper())).lower()
-    target_row = input("Which row (1-{})? ".format(BOARD_SIZE))
-    return (3,5)
-
+    target_row = int(input("Which row (1-{})? ".format(BOARD_SIZE)))
+    if target_column in COORDINATE_MAP['cols']:
+        if target_row in COORDINATE_MAP['rows']:
+            return (COORDINATE_MAP['rows'][target_row], COORDINATE_MAP['cols'][target_column])
+        else:
+            print("Oops! '{}' is not a valid row. Give it another shot.".format(target_row))
+            prompt_for_bow_coordinates(ship, board_size)
+    else:
+        print("Oops! '{}' is not a valid column. Give it another shot.".format(target_column))
+        prompt_for_bow_coordinates(ship, board_size)
 
 def place_ships():
     for player in players:
