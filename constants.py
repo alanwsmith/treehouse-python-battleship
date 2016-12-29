@@ -1,6 +1,11 @@
 
 BOARD_SIZE = 10
 
+# The game uses zero based indexes. 
+# BOARD_MAX_INDEX is set to make it easy to find the end of the board. 
+BOARD_MAX_INDEX = BOARD_SIZE - 1
+
+# These are the markers used in the board display.
 VERTICAL_SHIP = '|'
 HORIZONTAL_SHIP = '-'
 EMPTY = 'O'
