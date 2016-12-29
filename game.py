@@ -78,11 +78,11 @@ class GameTest():
         self.test_1()
 
     def test_1(self):
-        logging.info("-- Starting test 1 --")
+        logging.info("-- Test 1 - Started --")
         game = Game()
         self.assert_equal(game.boards[0].player_name, "Player 1")
         self.assert_equal(game.boards[1].player_name, "Player 2")
-        logging.info("-- Finished test 1 --")
+        logging.info("-- Test 1 - Finished --")
         
 
 if __name__ == '__main__':
