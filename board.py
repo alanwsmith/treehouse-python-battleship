@@ -75,7 +75,6 @@ class Board():
 
 
     def show(self):
-        print("   " + " ".join([chr(c) for c in range(ord('A'), ord('A') + constants.BOARD_SIZE)]))
         for row in range(0,10):
             print(str(row + 1).rjust(2), end='')
             for col in range(0, 10):
