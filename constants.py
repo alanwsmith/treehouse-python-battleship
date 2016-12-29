@@ -1,4 +1,5 @@
 
+# The board is square. This value sets both the width and the height.
 BOARD_SIZE = 10
 
 # The game uses zero based indexes. 
@@ -13,6 +14,7 @@ MISS = '.'
 HIT = '*'
 SUNK = '#'
 
+# The list of ships in the game. 
 SHIP_INFO = [
     ("Aircraft Carrier", 5),
 #    ("Battleship", 4),
@@ -23,6 +25,8 @@ SHIP_INFO = [
 
 
 # Define the alphabet to be used for building the COORDINATE_MAP
+# Only the number defined by BOARD_SIZE are used. The full
+# alphabet is here to accommodate boards up to 26x26.
 LETTERS = "abcdefghijklmnopqrstuvwxyz"
 
 
