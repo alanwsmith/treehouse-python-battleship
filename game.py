@@ -8,10 +8,10 @@ class Game():
     def __init__(self):
         logging.info("Initializing game")
         self.boards = [ Board(index = 0), Board(index = 1) ]
-        self.messages = {
+        self.banners = {
             "welcome": "Welcome to Battleship!"
         }
-        self.message_key = 'welcome'
+        self.banner = 'welcome'
 
         # Provide the ability to automatically send 'input'
         # so testing can be automated.
@@ -39,7 +39,7 @@ class Game():
                 str(row_index + 1).rjust(2) + " " + " ".join(self.boards[1].grid()[0])
             )
 
-        print('\n{}\n'.format(self.messages[self.message_key]))
+        print('\n{}\n'.format(self.banners[self.banner]))
 
     def get_player_names(self):
         for board_index in range(0,2):
@@ -80,7 +80,7 @@ if __name__ == '__main__':
 
     game = Game()
     game.display_arena()
-    #game.get_player_name_for_board(board_index=0)
+    game.get_player_name_for_board(board_index=0)
 #    game.get_player_names()
 
     # game.place_ships_on_board(game.boards[0])
