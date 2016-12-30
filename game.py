@@ -7,14 +7,11 @@ class Game():
     
     def __init__(self):
         logging.info("Initializing game")
-        # Messages are stored in their own dict. This key is
-        # used to set the display (which makes testing and changing easier.)
-        self.message_key = 'welcome'
         self.boards = [ Board(index = 0), Board(index = 1) ]
-
         self.messages = {
             "welcome": "Welcome to Battleship!"
         }
+        self.message_key = 'welcome'
 
     def header_letters(self):
         return "   " + " ".join([chr(c) for c in range(ord('A'), ord('A') + constants.BOARD_SIZE)])
@@ -22,7 +19,7 @@ class Game():
     def arena_padding(self):
         return "      "
 
-    def display_arena(self, **kwargs):
+    def display_arena(self):
         print("\033c", end="")
         print(
             " {} ".format(self.boards[0].player_name).center(22, '-')
@@ -105,7 +102,7 @@ class GameTest():
     def test_2(self):
         logging.info("-- Test 2 - Started --")
         game = Game()
-        game.display_arena(flash="Welcome to Battleship!")
+        game.display_arena()
         game.get_player_name_for_board_index(board_index=0, test_value="Bob")
         self.assert_equal(game.boards[0].player_name, "Bob")
         logging.info("-- Test 2 - Finished --")
@@ -126,7 +123,7 @@ if __name__ == '__main__':
     
 
     game = Game()
-    game.display_arena(flash="Welcome to Battleship!")
+    game.display_arena()
     game.get_player_name_for_board_index(board_index=0)
 #    game.get_player_names()
 
