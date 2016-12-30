@@ -7,6 +7,7 @@ class Game():
     
     def __init__(self):
         logging.info("Initializing game")
+        self.message_key = 'welcome'
         self.boards = [ Board(index = 0), Board(index = 1) ]
 
     def header_letters(self):
@@ -95,6 +96,7 @@ class GameTest():
         game = Game()
         self.assert_equal(game.boards[0].player_name, "Player 1")
         self.assert_equal(game.boards[1].player_name, "Player 2")
+        self.assert_equal(game.message_key, "welcome")
         logging.info("-- Test 1 - Finished --")
 
     def test_2(self):
