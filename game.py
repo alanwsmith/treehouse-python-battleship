@@ -13,6 +13,10 @@ class Game():
         }
         self.message_key = 'welcome'
 
+        # Provide the ability to automatically send 'input'
+        # so testing can be automated.
+        self.testing_input = []
+
     def header_letters(self):
         return "   " + " ".join([chr(c) for c in range(ord('A'), ord('A') + constants.BOARD_SIZE)])
 
