@@ -7,8 +7,14 @@ class Game():
     
     def __init__(self):
         logging.info("Initializing game")
+        # Messages are stored in their own dict. This key is
+        # used to set the display (which makes testing and changing easier.)
         self.message_key = 'welcome'
         self.boards = [ Board(index = 0), Board(index = 1) ]
+
+        self.messages = {
+            "welcome": "Welcome to Battleship!"
+        }
 
     def header_letters(self):
         return "   " + " ".join([chr(c) for c in range(ord('A'), ord('A') + constants.BOARD_SIZE)])
@@ -35,13 +41,10 @@ class Game():
                 +
                 str(row_index + 1).rjust(2) + " " + " ".join(self.boards[1].grid()[0])
             )
+
+        print('\n{}\n'.format(self.messages[self.message_key]))
+
         
-        if kwargs.get('flash'):
-            print('\n{}\n'.format(kwargs.get('flash')))
-        elif kwargs.get('error'):
-            print('\nOops! {}\n'.format(kwargs.get('error')))
-        else:
-            print('\n\n')
 
     def get_player_names(self):
         for board_index in range(0,2):
