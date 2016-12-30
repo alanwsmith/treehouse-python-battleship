@@ -44,6 +44,7 @@ class Game():
             )
 
         print('\n{}\n'.format(self.banners[self.banner]))
+        print(self.prompts[self.prompt])
 
     def get_player_names(self):
         for board_index in range(0,2):
@@ -84,7 +85,7 @@ if __name__ == '__main__':
 
     game = Game()
     game.display_arena()
-    game.get_player_name_for_board(board_index=0)
+    #    game.get_player_name_for_board(board_index=0)
 #    game.get_player_names()
 
     # game.place_ships_on_board(game.boards[0])
