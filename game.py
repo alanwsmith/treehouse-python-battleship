@@ -65,15 +65,8 @@ class Game():
             print(ship)
 
     def get_player_name_for_board(self, **kwargs):
-        
-
         self.boards[0].player_name = "Bob"
         pass
-
-
-# Try abstracting the input by setting a method that always get's called for the 
-# response that you can override with the test calls. That will
-# keep from having to setup test code inside all the methods.
 
 
 class GameTest():
