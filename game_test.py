@@ -16,12 +16,11 @@ class GameTest():
         self.test_2()
 
     def test_basic_initialization(self):
-        logging.info("-- Test 1 - Started --")
+        logging.info("-- Basic Initialization Test --")
         game = Game()
         self.assert_equal(game.boards[0].player_name, "Player 1")
         self.assert_equal(game.boards[1].player_name, "Player 2")
         self.assert_equal(game.message_key, "welcome")
-        logging.info("-- Test 1 - Finished --")
 
     def test_2(self):
         logging.info("-- Test 2 - Started --")
@@ -29,12 +28,10 @@ class GameTest():
         game.display_arena()
         game.get_player_name_for_board(board_index=0, test_value="Bob")
         self.assert_equal(game.boards[0].player_name, "Bob")
-        logging.info("-- Test 2 - Finished --")
-        
 
 if __name__ == '__main__':
     logging.basicConfig(
-        filename='logs/test-run--board.txt', 
+        filename='logs/game_test.txt', 
         filemode='w', 
         format='[%(levelname).1s]: %(message)s', 
         level=logging.INFO
