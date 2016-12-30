@@ -120,9 +120,9 @@ if __name__ == '__main__':
     
     
 
-
-#    game = Game()
-#    game.display_arena(flash="Welcome to Battleship!")
+    game = Game()
+    game.display_arena(flash="Welcome to Battleship!")
+    game.get_player_name_for_board_index(board_index=0)
 #    game.get_player_names()
 
     # game.place_ships_on_board(game.boards[0])
