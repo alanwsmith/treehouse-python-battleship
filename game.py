@@ -66,7 +66,7 @@ class Game():
         for ship in board.ships:
             print(ship)
 
-    def get_player_name_for_board_index(self, **kwargs):
+    def get_player_name_for_board(self, **kwargs):
         
 
         self.boards[0].player_name = "Bob"
@@ -103,7 +103,7 @@ class GameTest():
         logging.info("-- Test 2 - Started --")
         game = Game()
         game.display_arena()
-        game.get_player_name_for_board_index(board_index=0, test_value="Bob")
+        game.get_player_name_for_board(board_index=0, test_value="Bob")
         self.assert_equal(game.boards[0].player_name, "Bob")
         logging.info("-- Test 2 - Finished --")
         
@@ -124,7 +124,7 @@ if __name__ == '__main__':
 
     game = Game()
     game.display_arena()
-    game.get_player_name_for_board_index(board_index=0)
+    game.get_player_name_for_board(board_index=0)
 #    game.get_player_names()
 
     # game.place_ships_on_board(game.boards[0])
