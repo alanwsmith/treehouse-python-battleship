@@ -22,26 +22,20 @@ class Game():
     def display_arena(self):
         print("\033c", end="")
         print(
-            " {} ".format(self.boards[0].player_name).center(22, '-')
-            +
-            self.arena_padding()
-            +
+            " {} ".format(self.boards[0].player_name).center(22, '-') +
+            self.arena_padding() +
             " {} ".format(self.boards[1].player_name).center(22, '-')
         )
 
         print(self.header_letters() + self.arena_padding() + self.header_letters())
         for row_index in range(0, constants.BOARD_SIZE):
             print(
-                str(row_index + 1).rjust(2) + " " + " ".join(self.boards[0].grid()[0])
-                +
-                self.arena_padding()
-                +
+                str(row_index + 1).rjust(2) + " " + " ".join(self.boards[0].grid()[0]) +
+                self.arena_padding() +
                 str(row_index + 1).rjust(2) + " " + " ".join(self.boards[1].grid()[0])
             )
 
         print('\n{}\n'.format(self.messages[self.message_key]))
-
-        
 
     def get_player_names(self):
         for board_index in range(0,2):
