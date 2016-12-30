@@ -66,8 +66,16 @@ class Game():
             print(ship)
 
     def get_player_name_for_board_index(self, **kwargs):
+        
+
         self.boards[0].player_name = "Bob"
         pass
+
+
+# Try abstracting the input by setting a method that always get's called for the 
+# response that you can override with the test calls. That will
+# keep from having to setup test code inside all the methods.
+
 
 class GameTest():
     def __init__(self):
@@ -109,6 +117,8 @@ if __name__ == '__main__':
     gt = GameTest()
     gt.run_tests()
 
+    
+    
 
 
 #    game = Game()
