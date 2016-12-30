@@ -9,6 +9,16 @@ Notes
 The board size can be expanded up to 26 (the length of the full alphabet)
 
 
+Testing Notes
+-------------
+
+Banner messages and prompts are setup as a dictionary store. Instead of trying to test the UI directly, messages are verified by the current state of the key used for each item. 
+
+
+(Look into sending a list for items that need to use .format().)
+
+
+
 TODOs
 -----
 
