@@ -18,7 +18,7 @@ class Game():
         self.banner = 'welcome'
         self.prompt = "player_1"
 
-        # Only used by automated testing scripts.
+    def activate_testing(self):
         self.testing_input = []  
 
     def header_letters(self):
