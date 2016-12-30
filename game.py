@@ -79,10 +79,10 @@ class GameTest():
 
     def run_tests(self):
         logging.info("Running tests.")
-        self.test_1()
+        self.test_basic_initialization()
         self.test_2()
 
-    def test_1(self):
+    def test_basic_initialization(self):
         logging.info("-- Test 1 - Started --")
         game = Game()
         self.assert_equal(game.boards[0].player_name, "Player 1")
