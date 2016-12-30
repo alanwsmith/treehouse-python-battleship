@@ -11,7 +11,12 @@ class Game():
         self.banners = {
             "welcome": "Welcome to Battleship!"
         }
+        self.prompts = {
+            "player_1": "What's the name of the first player?"
+        }
+
         self.banner = 'welcome'
+        self.prompt = "player_1"
 
         # Only used by automated testing scripts.
         self.testing_input = []  

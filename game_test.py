@@ -21,6 +21,7 @@ class GameTest():
         self.assert_equal(game.boards[0].player_name, "Player 1")
         self.assert_equal(game.boards[1].player_name, "Player 2")
         self.assert_equal(game.banner, "welcome")
+        self.assert_equal(game.prompt, "player_1")
 
     def test_2(self):
         logging.info("-- Test 2 - Started --")
