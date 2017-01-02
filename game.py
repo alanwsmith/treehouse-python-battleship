@@ -116,9 +116,17 @@ class Game():
 
     def validate_coordinates(self, **kwargs):
 
-        # Pull out the column and row for easier access
-        column = kwargs['coordinates'][0]
-        row = int(kwargs['coordinates'][1:])
+        try:
+            column = kwargs['coordinates'][0]
+        except IndexError:
+            logging.info("No data sent to coordinates")
+            return False
+
+        try:
+            row = int(kwargs['coordinates'][1:])
+        except ValueError:
+            logging.info("Invalid row sent to coordinates. Must be an integer")
+            return False
 
         if column not in constants.COORDINATE_MAP['columns']:
             logging.info("Got invalid coordinate: {}".format(kwargs['coordinates']))
@@ -140,7 +148,7 @@ if __name__ == '__main__':
     )
 
     game = Game()
-    game.testing_input = ["Bob", "John", "a1"]
+    game.testing_input = ["Bob", "John"]
     game.set_player_names()
     game.place_ships()
 
