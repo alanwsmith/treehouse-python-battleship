@@ -13,6 +13,7 @@ class Game():
             "error_name_is_empty": "Oops! The player's name can't be empty. Try again.",
             "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
             "invalid_coordinates": "Oops! {}, those were invalid coordinates. Try again.",
+            "invalid_orientation": "Oops! The orientation must be either 'v' or 'h'. Try again, {}.",
             "name_set": "",
             "none": "",
             "place_ships": "{}, place your ships.",
@@ -95,10 +96,11 @@ class Game():
                     self.display_arena()
 
                     potential_orientation = self.get_input()
-                    orientation = potential_orientation
-                    print(orientation)
-
-
+                    if self.validate_orientation(potential_orientation):
+                        orientation = potential_orientation
+                    else:
+                        self.banner_params = [self.boards[0].player_name]
+                        self.banner = "invalid_orientation"
 
             else:
                 self.banner_params = [self.boards[0].player_name]
