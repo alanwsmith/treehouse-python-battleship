@@ -13,24 +13,21 @@ class GameTest():
     def run_tests(self):
         logging.info("Running tests.")
         self.test_basic_initialization()
-        self.test_2()
+        self.test_get_testing_input()
 
     def test_basic_initialization(self):
         logging.info("-- Basic Initialization Test --")
         game = Game()
-        game.activate_testing()
         self.assert_equal(game.boards[0].player_name, "Player 1")
         self.assert_equal(game.boards[1].player_name, "Player 2")
         self.assert_equal(game.banner, "welcome")
         self.assert_equal(game.prompt, "player_1")
 
-    def test_2(self):
-        logging.info("-- Test 2 - Started --")
+    def test_get_testing_input(self):
+        logging.info("-- Get Testing Input Test --")
         game = Game()
-        game.activate_testing()
-        game.display_arena()
-        game.get_player_name_for_board(board_index=0, test_value="Bob")
-        self.assert_equal(game.boards[0].player_name, "Bob")
+        game.testing_input.append("The quick brown fox.")
+        self.assert_equal(game.get_input(), "The quick brown fox.")
 
 if __name__ == '__main__':
     logging.basicConfig(

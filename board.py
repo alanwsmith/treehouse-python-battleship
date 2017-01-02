@@ -85,6 +85,21 @@ class Board():
 
             ship.bow_row = constants.COORDINATE_MAP['rows'][row_display_letter_for_bow] 
 
+    def set_player_name(self, name):
+        stripped_name = name.strip()
+        if len(stripped_name) == 0:
+            logging.info("Invalid empty player name")
+            return 'error_name_is_empty'
+        elif len(stripped_name) > 18:
+            logging.info("Player name is too long")
+            return 'error_name_is_too_long'
+        else:
+            logging.info("Set board {} player_name to {}".format(self.index, name)) 
+            self.player_name = stripped_name
+            return 'name_set' 
+        
+
+
 
     def show(self):
         for row in range(0,10):
@@ -95,7 +110,6 @@ class Board():
 
 
 if __name__ == '__main__':
-    logging.basicConfig(format='[%(levelname)s]:  %(message)s', level=logging.INFO)
     board = Board(index = 0)
     board.show()
     board.place_ships()
