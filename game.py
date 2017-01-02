@@ -9,6 +9,7 @@ class Game():
         logging.info("Initializing game")
         self.boards = [ Board(index = 0), Board(index = 1) ]
         self.banners = {
+            "error_duplicate_names_not_allowed": "Oops! The players can't have the same name. Try again.",
             "error_name_is_empty": "Oops! The player's name can't be empty. Try again.",
             "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
             "name_set": "",
@@ -16,12 +17,12 @@ class Game():
             "welcome": "Welcome to Battleship!",
         }
         self.prompts = {
-            "player_1": "What's the name of the first player?",
-            "player_2": "What's the name of the second player?",
+            "player_0": "What's the name of the first player?",
+            "player_1": "What's the name of the second player?",
         }
 
         self.banner = 'welcome'
-        self.prompt = "player_1"
+        self.prompt = "player_0"
 
         self.testing_input = []
 
@@ -62,14 +63,19 @@ class Game():
             print(ship)
 
     def set_player_names(self):
-        while self.banner != 'name_set':
-            self.display_arena()
-            self.banner = self.boards[0].set_player_name(self.get_input())
-        self.banner = "none"
-        self.prompt = "player_2"
-        while self.banner != 'name_set':
-            self.display_arena()
-            self.banner = self.boards[1].set_player_name(self.get_input())
+        # Loop through the board indexes
+        for num in range(0,2):
+            self.banner = "welcome"
+            self.prompt = "player_" + str(num)
+            # Check the banner to see when a valid name if found.
+            while self.banner != 'name_set':
+                self.display_arena()
+                self.banner = self.boards[num].set_player_name(self.get_input())
+                # Prevent the same name from being used for each player
+                if self.boards[0].player_name == self.boards[1].player_name:
+                    # Fall back to generic name then set banner.
+                    self.boards[num].set_player_name("Player {}".format(num + 1))
+                    self.banner = "error_duplicate_names_not_allowed"
 
 
 
