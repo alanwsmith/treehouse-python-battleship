@@ -12,10 +12,12 @@ class Game():
             "error_name_is_empty": "Oops! The player's name can't be empty. Try again.",
             "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
             "name_set": "",
+            "none": "",
             "welcome": "Welcome to Battleship!",
         }
         self.prompts = {
-            "player_1": "What's the name of the first player?"
+            "player_1": "What's the name of the first player?",
+            "player_2": "What's the name of the second player?",
         }
 
         self.banner = 'welcome'
@@ -86,6 +88,13 @@ class Game():
         while self.banner != 'name_set':
             self.display_arena()
             self.banner = self.boards[0].set_player_name(self.get_input())
+        self.banner = "none"
+        self.prompt = "player_2"
+        while self.banner != 'name_set':
+            self.display_arena()
+            self.banner = self.boards[1].set_player_name(self.get_input())
+
+
 
 
 if __name__ == '__main__':
