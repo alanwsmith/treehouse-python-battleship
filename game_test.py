@@ -16,6 +16,7 @@ class GameTest():
         self.test_basic_initialization()
         self.test_get_testing_input()
         self.test_validate_coordinates()
+        self.test_validate_orientation()
 
     def test_basic_initialization(self):
         logging.info("-- Basic Initialization Test --")
@@ -40,6 +41,10 @@ class GameTest():
         self.assert_equal(False, game.validate_coordinates(coordinates = "a30"))
         self.assert_equal(True, game.validate_coordinates(coordinates = "a1"))
 
+    def test_validate_orientation(self):
+        logging.info("-- Validate Orientation Test --")
+        game = Game()
+        self.assert_equal(1, 1)
 
 
 
