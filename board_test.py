@@ -18,7 +18,7 @@ class BoardTest():
     def test_set_player_name(self):
         logging.info("-- Set Player Name Test --")
         board = Board(index=1)
-        self.assert_equal('error_empty_name', board.set_player_name("")) 
+        self.assert_equal('error_name_is_empty', board.set_player_name("")) 
         self.assert_equal('error_name_is_too_long', board.set_player_name("asdfghjkloiuytrewqe"))
         self.assert_equal('name_set', board.set_player_name("Bob"))
 

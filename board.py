@@ -88,7 +88,7 @@ class Board():
     def set_player_name(self, name):
         if len(name) == 0:
             logging.info("Invalid empty player name")
-            return 'error_empty_name'
+            return 'error_name_is_empty'
         elif len(name) > 18:
             logging.info("Player name is too long")
             return 'error_name_is_too_long'
