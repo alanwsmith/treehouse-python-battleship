@@ -18,8 +18,8 @@ class BoardTest():
     def test_set_player_name(self):
         logging.info("-- Set Player Name Test --")
         board = Board(index=1)
-        self.assert_equal(True, board.set_player_name("Bob"))
-
+        self.assert_equal('error_empty_name', board.set_player_name("")) 
+        self.assert_equal('name_set', board.set_player_name("Bob"))
 
 
 if __name__ == '__main__':

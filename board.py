@@ -86,9 +86,13 @@ class Board():
             ship.bow_row = constants.COORDINATE_MAP['rows'][row_display_letter_for_bow] 
 
     def set_player_name(self, name):
-        logging.info("Set board {} player_name to {}".format(self.index, name)) 
-        self.player_name = name
-        return True
+        if len(name) == 0:
+            logging.info("Invalid empty player name")
+            return 'error_empty_name'
+        else:
+            logging.info("Set board {} player_name to {}".format(self.index, name)) 
+            self.player_name = name
+            return 'name_set' 
         
 
 
