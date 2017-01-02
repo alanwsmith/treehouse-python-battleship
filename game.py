@@ -14,12 +14,14 @@ class Game():
             "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
             "name_set": "",
             "none": "",
-            "place_ships": "{}, place your ships",
+            "place_ship": "{}, place your {} (size {})",
             "welcome": "Welcome to Battleship!",
         }
         self.prompts = {
             "player_0": "What's the name of the first player?",
             "player_1": "What's the name of the second player?",
+            "orientation": "Do you want to a place it [v]ertically or [h]orizontally?", 
+            "front_of_ship_coords": "Where do you want to place the front of the ship?",
         }
 
         # Place holder for items to pass to format for the banner
@@ -59,25 +61,25 @@ class Game():
             )
 
         # Assemble the banner.
-        print('\n{}\n'.format(self.banners[self.banner].format(self.banner_params)))
+        print('\n{}\n'.format(self.banners[self.banner].format(*self.banner_params)))
 
         # Clear out the banner params so they don't show next time.
         self.banner_params = []
 
         print(self.prompts[self.prompt])
 
-    def place_ships_on_board(self, board):
-        logging.info("Placing ships for board {}".format(board.index))
-        for ship in board.ships:
-            print(ship)
-
     def place_ships(self):
-
-        self.banner = "place_ships"
-        self.banner_params = (self.boards[0].player_name)
+        self.banner = "place_ship"
+        self.banner_params = (
+            self.boards[0].player_name,
+            "Aircraft carrier",
+            "5"
+        )
+       
+        self.prompt = "front_of_ship_coords"
+        # self.prompt = "orientation"
 
         self.display_arena()
-        pass
 
     def set_player_names(self):
         # Loop through the board indexes
@@ -105,7 +107,7 @@ if __name__ == '__main__':
     )
 
     game = Game()
-#     game.testing_input = ["Bob", "John"]
+    game.testing_input = ["Bob", "John"]
     game.set_player_names()
 
     game.place_ships()
