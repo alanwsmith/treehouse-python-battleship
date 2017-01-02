@@ -19,7 +19,6 @@ class GameTest():
     def test_basic_initialization(self):
         logging.info("-- Basic Initialization Test --")
         game = Game()
-        game.activate_testing()
         self.assert_equal(game.boards[0].player_name, "Player 1")
         self.assert_equal(game.boards[1].player_name, "Player 2")
         self.assert_equal(game.banner, "welcome")
@@ -28,14 +27,12 @@ class GameTest():
     def test_get_testing_input(self):
         logging.info("-- Get Testing Input Test --")
         game = Game()
-        game.activate_testing()
         game.testing_input.append("The quick brown fox.")
         self.assert_equal(game.get_input(), "The quick brown fox.")
 
     def test_get_player_name_for_board(self):
         logging.info("-- Set Player Name Test --")
         game = Game()
-        game.activate_testing()
         # game.display_arena()
         game.get_player_name_for_board(board=0)
         #self.assert_equal(game.boards[0].player_name, "Bob")

@@ -18,8 +18,7 @@ class Game():
         self.banner = 'welcome'
         self.prompt = "player_1"
 
-    def activate_testing(self):
-        self.testing_input = []  
+        self.testing_input = []
 
     def get_input(self):
         if self.testing_input:
