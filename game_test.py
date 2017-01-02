@@ -31,7 +31,7 @@ class GameTest():
         game.testing_input.append("The quick brown fox.")
         self.assert_equal(game.get_input(), "The quick brown fox.")
 
-    def test_validate_coordinates(self, **kwargs):
+    def test_validate_coordinates(self):
         logging.info("-- Get Valid Coordinates Test --")
         game = Game()
         self.assert_equal(False, game.validate_coordinates(coordinates = ""))
