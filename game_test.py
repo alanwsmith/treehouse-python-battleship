@@ -40,11 +40,14 @@ class GameTest():
         self.assert_equal(False, game.validate_coordinates(coordinates = "q1"))
         self.assert_equal(False, game.validate_coordinates(coordinates = "a30"))
         self.assert_equal(True, game.validate_coordinates(coordinates = "a1"))
+        # TODO: Test 'A1', '   a1   '
 
     def test_validate_orientation(self):
         logging.info("-- Validate Orientation Test --")
         game = Game()
-        self.assert_equal(1, 1)
+        self.assert_equal(True, game.validate_orientation("h"))
+        self.assert_equal(False, game.validate_orientation("q"))
+        # TODO: Test upper case and with spaces. 
 
 
 
@@ -58,3 +61,5 @@ if __name__ == '__main__':
 
     gt = GameTest()
     gt.run_tests()
+    print("All tests passed!")
+
