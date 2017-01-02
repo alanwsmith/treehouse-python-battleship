@@ -21,7 +21,7 @@ class Game():
         self.prompts = {
             "player_0": "What's the name of the first player?",
             "player_1": "What's the name of the second player?",
-            "orientation": "Do you want to a place it [v]ertically or [h]orizontally?", 
+            "ship_orientation": "Do you want to place your {} (size {}) [v]ertically or [h]orizontally?", 
             "front_of_ship_coords": "Where do you want the front of your {} (size {})?",
         }
 
@@ -74,10 +74,8 @@ class Game():
 
 
     def place_ships(self):
+        self.banner_params = [self.boards[0].player_name]
         self.banner = "place_ships"
-        self.banner_params = (
-            self.boards[0].player_name,
-        )
       
         self.prompt = "front_of_ship_coords"
 
@@ -88,13 +86,16 @@ class Game():
             potential_coordinates = self.get_input()
             if self.validate_coordinates(coordinates=potential_coordinates):
                 coordinates = potential_coordinates
+                self.banner_params = [self.boards[0].player_name]
+                self.banner = "place_ships"
+                self.prompt_params = ["Aircraft Carrier", 5]
+                self.prompt = "ship_orientation"
+
+                self.display_arena()
             else:
                 self.banner_params = [self.boards[0].player_name]
                 self.banner = "invalid_coordinates"
 
-
-
-        # self.prompt = "orientation"
 
 
     def set_player_names(self):
@@ -139,9 +140,8 @@ if __name__ == '__main__':
     )
 
     game = Game()
-    game.testing_input = ["Bob", "John"]
+    game.testing_input = ["Bob", "John", "a1"]
     game.set_player_names()
-
     game.place_ships()
 
 
