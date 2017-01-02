@@ -75,36 +75,39 @@ class Game():
 
 
     def place_ships(self):
-        self.banner_params = [self.boards[0].player_name]
-        self.banner = "place_ships"
-      
-        self.prompt = "front_of_ship_coords"
 
-        coordinates = ""
-        while coordinates == "":
-            self.prompt_params = ["Aircraft Carrier", 5]
-            self.display_arena()
-            potential_coordinates = self.get_input()
-            if self.validate_coordinates(coordinates=potential_coordinates):
-                coordinates = potential_coordinates
-                self.banner_params = [self.boards[0].player_name]
-                self.banner = "place_ships"
-                self.prompt = "ship_orientation"
-                orientation = ""
-                while orientation == "":
-                    self.prompt_params = ["Aircraft Carrier", 5]
-                    self.display_arena()
+        
+        player_id = 0
 
-                    potential_orientation = self.get_input()
-                    if self.validate_orientation(potential_orientation):
-                        orientation = potential_orientation
-                    else:
-                        self.banner_params = [self.boards[0].player_name]
-                        self.banner = "invalid_orientation"
+        for ship_index in range(0, len(self.boards[player_id].ships)):
+            self.banner_params = [self.boards[player_id].player_name]
+            self.banner = "place_ships"
+            self.prompt = "front_of_ship_coords"
+            coordinates = ""
+            while coordinates == "":
+                self.prompt_params = ["Aircraft Carrier", 5]
+                self.display_arena()
+                potential_coordinates = self.get_input()
+                if self.validate_coordinates(coordinates=potential_coordinates):
+                    coordinates = potential_coordinates
+                    self.banner_params = [self.boards[player_id].player_name]
+                    self.banner = "place_ships"
+                    self.prompt = "ship_orientation"
+                    orientation = ""
+                    while orientation == "":
+                        self.prompt_params = ["Aircraft Carrier", 5]
+                        self.display_arena()
 
-            else:
-                self.banner_params = [self.boards[0].player_name]
-                self.banner = "invalid_coordinates"
+                        potential_orientation = self.get_input()
+                        if self.validate_orientation(potential_orientation):
+                            orientation = potential_orientation
+                        else:
+                            self.banner_params = [self.boards[player_id].player_name]
+                            self.banner = "invalid_orientation"
+
+                else:
+                    self.banner_params = [self.boards[player_id].player_name]
+                    self.banner = "invalid_coordinates"
 
 
 
