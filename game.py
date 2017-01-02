@@ -24,11 +24,8 @@ class Game():
         self.testing_input = []
 
     def get_input(self):
-        if self.testing_input:
-            if len(self.testing_input) > 0:
-                return self.testing_input.pop(0)
-            else:
-                return input("> ")
+        if len(self.testing_input) > 0:
+            return self.testing_input.pop(0)
         else:
             return input("> ")
 
