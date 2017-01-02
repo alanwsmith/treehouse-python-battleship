@@ -85,6 +85,13 @@ class Board():
 
             ship.bow_row = constants.COORDINATE_MAP['rows'][row_display_letter_for_bow] 
 
+    def set_player_name(self, name):
+        logging.info("Set board {} player_name to {}".format(self.index, name)) 
+        self.player_name = name
+        return True
+        
+
+
 
     def show(self):
         for row in range(0,10):
@@ -95,7 +102,6 @@ class Board():
 
 
 if __name__ == '__main__':
-    logging.basicConfig(format='[%(levelname)s]:  %(message)s', level=logging.INFO)
     board = Board(index = 0)
     board.show()
     board.place_ships()
