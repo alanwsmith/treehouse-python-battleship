@@ -83,10 +83,17 @@ class Game():
             5
         )
         self.prompt = "front_of_ship_coords"
+        self.display_arena()
+
+        coordinates = ""
+        while coordinates == "":
+            potential_coordinates = self.get_input()
+            if self.validate_coordinates(coordinates=potential_coordinates):
+                coordinates = potential_coordinates
+
 
         # self.prompt = "orientation"
 
-        self.display_arena()
 
     def set_player_names(self):
         # Loop through the board indexes
