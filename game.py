@@ -12,6 +12,7 @@ class Game():
             "error_duplicate_names_not_allowed": "Oops! The players can't have the same name. Try again.",
             "error_name_is_empty": "Oops! The player's name can't be empty. Try again.",
             "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
+            "invalid_coordinates": "Oops! {}, those were invalid coordinates. Try again.",
             "name_set": "",
             "none": "",
             "place_ships": "{}, place your ships.",
@@ -78,18 +79,19 @@ class Game():
             self.boards[0].player_name,
         )
       
-        self.prompt_params = (
-            "Aircraft Carrier", 
-            5
-        )
         self.prompt = "front_of_ship_coords"
-        self.display_arena()
 
         coordinates = ""
         while coordinates == "":
+            self.prompt_params = ["Aircraft Carrier", 5]
+            self.display_arena()
             potential_coordinates = self.get_input()
             if self.validate_coordinates(coordinates=potential_coordinates):
                 coordinates = potential_coordinates
+            else:
+                self.banner_params = [self.boards[0].player_name]
+                self.banner = "invalid_coordinates"
+
 
 
         # self.prompt = "orientation"
