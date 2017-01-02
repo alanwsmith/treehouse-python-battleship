@@ -84,9 +84,8 @@ class Game():
 
     def set_player_names(self):
         while self.banner != 'name_set':
-            self.banner = self.boards[0].set_player_name(self.get_input())
             self.display_arena()
-        pass 
+            self.banner = self.boards[0].set_player_name(self.get_input())
 
 
 if __name__ == '__main__':
@@ -98,7 +97,6 @@ if __name__ == '__main__':
     )
 
     game = Game()
-    game.display_arena()
     game.set_player_names()
     game.display_arena()
 
