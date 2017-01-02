@@ -40,11 +40,11 @@ class Game():
 
     def display_arena(self):
         print("\033c", end="")
-        print(
-            " {} ".format(self.boards[0].player_name).center(22, '-') +
-            self.arena_padding() +
-            " {} ".format(self.boards[1].player_name).center(22, '-')
-        )
+        print("{}{}{}".format(
+            self.boards[0].player_name.center(22, '-'),
+            self.arena_padding(),
+            self.boards[1].player_name.center(22, '-')
+        ))
 
         print(self.header_letters() + self.arena_padding() + self.header_letters())
         for row_index in range(0, constants.BOARD_SIZE):
