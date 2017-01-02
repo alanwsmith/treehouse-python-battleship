@@ -21,6 +21,15 @@ class Game():
     def activate_testing(self):
         self.testing_input = []  
 
+    def get_input(self):
+        if self.testing_input:
+            if len(self.testing_input) > 0:
+                return self.testing_input.pop(0)
+            else:
+                return input("> ")
+        else:
+            return input("> ")
+
     def header_letters(self):
         return "   " + " ".join([chr(c) for c in range(ord('A'), ord('A') + constants.BOARD_SIZE)])
 
@@ -70,6 +79,7 @@ class Game():
             print(ship)
 
     def get_player_name_for_board(self, **kwargs):
+        
         self.boards[0].player_name = "Bob"
         pass
 
@@ -84,4 +94,4 @@ if __name__ == '__main__':
 
     game = Game()
     game.display_arena()
-
+    game.get_input()
