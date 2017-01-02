@@ -97,6 +97,13 @@ class Game():
                     self.banner = "error_duplicate_names_not_allowed"
 
 
+    def validate_coordinates(self, **kwargs):
+        logging.info("Validating coordinates '{}'".format(kwargs['coordinates']))
+        if kwargs['coordinates'][0] not in constants.COORDINATE_MAP['columns']:
+            return False
+        else:
+            return True 
+
 
 if __name__ == '__main__':
     logging.basicConfig(

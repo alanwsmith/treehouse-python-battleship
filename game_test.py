@@ -1,3 +1,4 @@
+import constants
 import logging
 
 from game import Game
@@ -14,6 +15,7 @@ class GameTest():
         logging.info("Running tests.")
         self.test_basic_initialization()
         self.test_get_testing_input()
+        self.test_validate_coordinates()
 
     def test_basic_initialization(self):
         logging.info("-- Basic Initialization Test --")
@@ -28,6 +30,14 @@ class GameTest():
         game = Game()
         game.testing_input.append("The quick brown fox.")
         self.assert_equal(game.get_input(), "The quick brown fox.")
+
+    def test_validate_coordinates(self, **kwargs):
+        logging.info("-- Get Valid Coordinates Test --")
+        game = Game()
+        self.assert_equal(False, game.validate_coordinates(coordinates = "q1"))
+        self.assert_equal(True, game.validate_coordinates(coordinates = "a1"))
+
+
 
 if __name__ == '__main__':
     logging.basicConfig(
