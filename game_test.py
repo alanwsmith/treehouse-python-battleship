@@ -14,7 +14,7 @@ class GameTest():
         logging.info("Running tests.")
         self.test_basic_initialization()
         self.test_get_testing_input()
-        self.test_get_player_name_for_board()
+        self.test_set_player_name_for_board()
 
     def test_basic_initialization(self):
         logging.info("-- Basic Initialization Test --")
@@ -30,11 +30,10 @@ class GameTest():
         game.testing_input.append("The quick brown fox.")
         self.assert_equal(game.get_input(), "The quick brown fox.")
 
-    def test_get_player_name_for_board(self):
+    def test_set_player_name_for_board(self):
         logging.info("-- Set Player Name Test --")
         game = Game()
-        # game.display_arena()
-        game.get_player_name_for_board(board=0)
+        #game.set_player_name_for_board(board=0)
         #self.assert_equal(game.boards[0].player_name, "Bob")
 
 if __name__ == '__main__':

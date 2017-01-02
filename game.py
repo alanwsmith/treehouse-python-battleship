@@ -9,7 +9,10 @@ class Game():
         logging.info("Initializing game")
         self.boards = [ Board(index = 0), Board(index = 1) ]
         self.banners = {
-            "welcome": "Welcome to Battleship!"
+            "error_name_is_empty": "Oops! The player's name can't be empty. Try again.",
+            "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
+            "name_set": "",
+            "welcome": "Welcome to Battleship!",
         }
         self.prompts = {
             "player_1": "What's the name of the first player?"
@@ -82,6 +85,12 @@ class Game():
         self.boards[0].player_name = "Bob"
         pass
 
+    def set_player_names(self):
+        while self.banner != 'name_set':
+            self.banner = self.boards[0].set_player_name(self.get_input())
+            self.display_arena()
+        pass 
+
 
 if __name__ == '__main__':
     logging.basicConfig(
@@ -93,4 +102,6 @@ if __name__ == '__main__':
 
     game = Game()
     game.display_arena()
-    game.get_input()
+    game.set_player_names()
+    game.display_arena()
+
