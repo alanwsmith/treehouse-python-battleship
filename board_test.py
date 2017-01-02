@@ -2,7 +2,6 @@ import logging
 
 from board import Board
 
-
 class BoardTest():
     
     def __init__(self):
@@ -28,7 +27,6 @@ class BoardTest():
         board = Board(index = 1)
         board.set_player_name("  Alice  ")
         self.assert_equal('Alice', board.player_name)
-        
 
 
 if __name__ == '__main__':
