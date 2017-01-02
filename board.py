@@ -86,15 +86,16 @@ class Board():
             ship.bow_row = constants.COORDINATE_MAP['rows'][row_display_letter_for_bow] 
 
     def set_player_name(self, name):
-        if len(name) == 0:
+        stripped_name = name.strip()
+        if len(stripped_name) == 0:
             logging.info("Invalid empty player name")
             return 'error_name_is_empty'
-        elif len(name) > 18:
+        elif len(stripped_name) > 18:
             logging.info("Player name is too long")
             return 'error_name_is_too_long'
         else:
             logging.info("Set board {} player_name to {}".format(self.index, name)) 
-            self.player_name = name
+            self.player_name = stripped_name
             return 'name_set' 
         
 
