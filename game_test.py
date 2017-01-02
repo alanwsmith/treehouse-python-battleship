@@ -35,6 +35,7 @@ class GameTest():
         logging.info("-- Get Valid Coordinates Test --")
         game = Game()
         self.assert_equal(False, game.validate_coordinates(coordinates = "q1"))
+        self.assert_equal(False, game.validate_coordinates(coordinates = "a30"))
         self.assert_equal(True, game.validate_coordinates(coordinates = "a1"))
 
 

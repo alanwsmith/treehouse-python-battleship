@@ -98,10 +98,19 @@ class Game():
 
 
     def validate_coordinates(self, **kwargs):
-        logging.info("Validating coordinates '{}'".format(kwargs['coordinates']))
-        if kwargs['coordinates'][0] not in constants.COORDINATE_MAP['columns']:
+
+        # Pull out the column and row for easier access
+        column = kwargs['coordinates'][0]
+        row = int(kwargs['coordinates'][1:])
+
+        if column not in constants.COORDINATE_MAP['columns']:
+            logging.info("Got invalid coordinate: {}".format(kwargs['coordinates']))
+            return False
+        elif row not in constants.COORDINATE_MAP['rows']:
+            logging.info("Got invalid coordinate: {}".format(kwargs['coordinates']))
             return False
         else:
+            logging.info("Got valid coordinate: {}".format(kwargs['coordinates']))
             return True 
 
 
