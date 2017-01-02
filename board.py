@@ -89,6 +89,9 @@ class Board():
         if len(name) == 0:
             logging.info("Invalid empty player name")
             return 'error_empty_name'
+        elif len(name) > 18:
+            logging.info("Player name is too long")
+            return 'error_name_is_too_long'
         else:
             logging.info("Set board {} player_name to {}".format(self.index, name)) 
             self.player_name = name
