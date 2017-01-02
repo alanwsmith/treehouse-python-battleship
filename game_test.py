@@ -17,6 +17,7 @@ class GameTest():
         self.test_get_testing_input()
         self.test_validate_coordinates()
         self.test_validate_orientation()
+        self.test_validate_ship_stays_on_grid()
 
     def test_basic_initialization(self):
         logging.info("-- Basic Initialization Test --")
@@ -48,6 +49,15 @@ class GameTest():
         self.assert_equal(True, game.validate_orientation("h"))
         self.assert_equal(False, game.validate_orientation("q"))
         # TODO: Test upper case and with spaces. 
+
+
+    def test_validate_ship_stays_on_grid(self):
+        logging.info("-- Validate Ship Stays On Grid Test --")
+        game = Game()
+        self.assert_equal(True, game.validate_ship_stays_on_grid(coordinates="a1", orientation="v", size=5))
+        self.assert_equal(True, game.validate_ship_stays_on_grid(coordinates="a1", orientation="h", size=5))
+        self.assert_equal(False, game.validate_ship_stays_on_grid(coordinates="a9", orientation="v", size=5))
+        self.assert_equal(False, game.validate_ship_stays_on_grid(coordinates="i1", orientation="h", size=5))
 
 
 

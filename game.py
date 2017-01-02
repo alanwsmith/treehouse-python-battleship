@@ -102,6 +102,7 @@ class Game():
                         potential_orientation = self.get_input()
                         if self.validate_orientation(potential_orientation):
                             orientation = potential_orientation
+
                         else:
                             self.banner_params = [board.player_name]
                             self.banner = "invalid_orientation"
@@ -158,6 +159,21 @@ class Game():
         else:
             return False
 
+
+    def validate_ship_stays_on_grid(self, **kwargs):
+        column = kwargs['coordinates'][0]
+        column_number = constants.COORDINATE_MAP['columns'][column]
+        row = int(kwargs['coordinates'][1:])
+        orientation = kwargs['orientation']
+        size = kwargs['size']
+
+        
+        if row + size > constants.BOARD_SIZE:
+            return False
+        elif column_number + size > constants.BOARD_SIZE:
+            return False
+        else:
+            return True
 
 if __name__ == '__main__':
     logging.basicConfig(
