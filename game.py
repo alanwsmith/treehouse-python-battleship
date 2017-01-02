@@ -14,18 +14,19 @@ class Game():
             "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
             "name_set": "",
             "none": "",
-            "place_ship": "{}, place your {} (size {})",
+            "place_ship": "{}, place your ship.",
             "welcome": "Welcome to Battleship!",
         }
         self.prompts = {
             "player_0": "What's the name of the first player?",
             "player_1": "What's the name of the second player?",
             "orientation": "Do you want to a place it [v]ertically or [h]orizontally?", 
-            "front_of_ship_coords": "Where do you want to place the front of the ship?",
+            "front_of_ship_coords": "Where do you want the front of your {} (size {})?",
         }
 
-        # Place holder for items to pass to format for the banner
+        # Place holder for items to pass to format for the banner and prompt
         self.banner_params = () 
+        self.prompt_params = ()
 
         self.banner = 'welcome'
         self.prompt = "player_0"
@@ -66,17 +67,20 @@ class Game():
         # Clear out the banner params so they don't show next time.
         self.banner_params = []
 
-        print(self.prompts[self.prompt])
+        print(self.prompts[self.prompt].format(*self.prompt_params))
 
     def place_ships(self):
         self.banner = "place_ship"
         self.banner_params = (
             self.boards[0].player_name,
-            "Aircraft carrier",
-            "5"
         )
-       
+      
+        self.prompt_params = (
+            "Aircraft Carrier", 
+            5
+        )
         self.prompt = "front_of_ship_coords"
+
         # self.prompt = "orientation"
 
         self.display_arena()
