@@ -88,10 +88,18 @@ class Game():
                 coordinates = potential_coordinates
                 self.banner_params = [self.boards[0].player_name]
                 self.banner = "place_ships"
-                self.prompt_params = ["Aircraft Carrier", 5]
                 self.prompt = "ship_orientation"
+                orientation = ""
+                while orientation == "":
+                    self.prompt_params = ["Aircraft Carrier", 5]
+                    self.display_arena()
 
-                self.display_arena()
+                    potential_orientation = self.get_input()
+                    orientation = potential_orientation
+                    print(orientation)
+
+
+
             else:
                 self.banner_params = [self.boards[0].player_name]
                 self.banner = "invalid_coordinates"
@@ -138,6 +146,12 @@ class Game():
             logging.info("Got valid coordinate: {}".format(kwargs['coordinates']))
             return True 
 
+    def validate_orientation(self, orientation):
+        if orientation == "h" or orientation == "v":
+            return True
+        else:
+            return False
+
 
 if __name__ == '__main__':
     logging.basicConfig(
@@ -148,7 +162,7 @@ if __name__ == '__main__':
     )
 
     game = Game()
-    game.testing_input = ["Bob", "John"]
+    game.testing_input = ["Bob", "John", "a1"]
     game.set_player_names()
     game.place_ships()
 
