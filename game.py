@@ -14,7 +14,7 @@ class Game():
             "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
             "name_set": "",
             "none": "",
-            "place_ship": "{}, place your ship.",
+            "place_ships": "{}, place your ships.",
             "welcome": "Welcome to Battleship!",
         }
         self.prompts = {
@@ -64,13 +64,16 @@ class Game():
         # Assemble the banner.
         print('\n{}\n'.format(self.banners[self.banner].format(*self.banner_params)))
 
-        # Clear out the banner params so they don't show next time.
-        self.banner_params = []
-
+        # Assemble the prompt
         print(self.prompts[self.prompt].format(*self.prompt_params))
 
+        # Clear out the banner params so they don't show next time.
+        self.banner_params = ()
+        self.prompt_params = ()
+
+
     def place_ships(self):
-        self.banner = "place_ship"
+        self.banner = "place_ships"
         self.banner_params = (
             self.boards[0].player_name,
         )
