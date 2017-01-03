@@ -42,6 +42,12 @@ class Board():
         return 'O'
 
 
+    def get_row_string(self, row_index):
+        print(self.index)
+
+        return " ".join(self.grid()[row_index])
+
+
     def load_ships(self):
         for ship_index in range(0, constants.SHIP_COUNT):
             ship = constants.SHIP_INFO[ship_index]
