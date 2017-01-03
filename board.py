@@ -78,8 +78,17 @@ class Board():
         
 
 if __name__ == '__main__':
-    board = Board(index = 0)
-    board.show()
 
-    for ship in board.ships:
-        print(ship)
+    # Run the tests if your run this file directly
+    import board_test
+    bt = board_test.BoardTest()
+    bt.run_tests()
+    print("All tests passed.")
+
+
+
+    #board = Board(index = 0)
+    #board.show()
+
+    #for ship in board.ships:
+    #    print(ship)
