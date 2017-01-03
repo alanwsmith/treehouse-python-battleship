@@ -17,24 +17,27 @@ class Game():
             "invalid_orientation": "Oops! The orientation must be either 'v' or 'h'. Try again.",
             "name_set": "",
             "none": "",
-            "place_ships": "{}, place your ships.",
+            "place_ships": "Alright, {player}. Time to place your ships.",
             "welcome": "Welcome to Battleship!",
         }
         self.prompts = {
             "player_0": "What's the name of the first player?",
             "player_1": "What's the name of the second player?",
             "ship_orientation": "Do you want to place your {} (size {}) [v]ertically or [h]orizontally?", 
-            "front_of_ship_coords": "Where do you want the front of your {} (size {})?",
+            "front_of_ship_coords": "Where do you want the front of your {ship} (size {size})?",
         }
 
-        # Place holder for items to pass to format for the banner and prompt
-        self.banner_params = () 
-        self.prompt_params = ()
+        # This is used to hold text strings to disply in the banner and prompts. 
+        self.current = {}
 
+        # Set the initial banner and prompt.
         self.banner = 'welcome'
         self.prompt = "player_0"
 
+        # This is only used for testing. It makes 
+        # jumping to various points easy. 
         self.testing_input = []
+
 
     def get_input(self):
         if len(self.testing_input) > 0:
@@ -61,18 +64,14 @@ class Game():
             print(
                 str(row_index + 1).rjust(2) + " " + " ".join(self.boards[0].grid()[row_index]) +
                 self.arena_padding() +
-                str(row_index + 1).rjust(2) + " " + " ".join(self.boards[1].grid()[row_index])
+                str(row_index + 1).rjust(2) + " " + " ".join(self.boards[1].grid_hidden()[row_index])
             )
 
         # Assemble the banner.
-        print('\n{}\n'.format(self.banners[self.banner].format(*self.banner_params)))
+        print('\n{}\n'.format(self.banners[self.banner].format(**self.current)))
 
         # Assemble the prompt
-        print(self.prompts[self.prompt].format(*self.prompt_params))
-
-        # Clear out the banner params so they don't show next time.
-        self.banner_params = ()
-        self.prompt_params = ()
+        print(self.prompts[self.prompt].format(**self.current))
 
     def set_ui(self, **kwargs):
         self.banners['custom'] = kwargs['banner']
@@ -81,13 +80,17 @@ class Game():
         self.prompt = 'custom'
 
     def place_ships(self):
+        self.current['player'] = self.boards[0].player_name
         for ship_index in range(0, len(self.boards[0].ships)):
             self.place_ship(board = self.boards[0], ship_index = ship_index)
 
     def place_ship(self, **kwargs):
         board = kwargs['board']
         ship = board.ships[kwargs['ship_index']]
-        self.set_ui(banner = "Place ships", prompt = ship.name)
+        self.current['ship'] = ship.name
+        self.current['size'] = ship.size
+        self.banner = "place_ships"
+        self.prompt = "front_of_ship_coords"
 
         while True:
             self.prompts['custom'] = ship.name 
@@ -224,7 +227,7 @@ if __name__ == '__main__':
     )
 
     game = Game()
-    game.testing_input = ["Bob", "John"]
+#    game.testing_input = ["Bob", "John"]
     game.set_player_names()
     game.place_ships()
 
