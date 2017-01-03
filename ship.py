@@ -12,6 +12,8 @@ class Ship():
         self.bow_column = None
         self.bow_row = None
 
+        self.coordinates = []
+
         logging.debug("Initializing {} - size: {}".format(self.name, self.size)) 
 
     def __str__(self):
