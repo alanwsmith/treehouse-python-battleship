@@ -82,6 +82,12 @@ class Board():
 
 
     def verify_coordinates_are_clear(self, coordinate_list):
+        for ship in self.ships:
+            print(ship)
+            for coordinate in coordinate_list:
+                if coordinate in ship.coordinates:
+                    return False
+
         return True
         
 
