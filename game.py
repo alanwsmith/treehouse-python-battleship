@@ -83,10 +83,6 @@ class Game():
     def place_ships_2(self):
         self.place_ship(board = self.boards[0], ship_index = 0)
 
-#        for ship in self.boards[0].ships:
-#            print(ship)
-
-
     def place_ship(self, **kwargs):
         board = kwargs['board']
         ship = board.ships[kwargs['ship_index']]
@@ -108,7 +104,7 @@ class Game():
                     self.banners['custom'] = "There is already a ship there." 
                     continue
                 else:
-                    # ship.coordinates = target_coordinates
+                    ship.coordinates = target_coordinates
                     break
 
         
@@ -280,4 +276,7 @@ if __name__ == '__main__':
 
     game.place_ships_2()
 
+
+    for ship in game.boards[0].ships:
+        print(ship)
 
