@@ -81,6 +81,10 @@ class Board():
             print('')
 
 
+    def verify_coordinates_are_clear(self, coordinate_list):
+        return True
+        
+
 if __name__ == '__main__':
     board = Board(index = 0)
     board.show()
