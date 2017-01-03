@@ -13,7 +13,7 @@ class Game():
             "error_name_is_empty": "Oops! The player's name can't be empty. Try again.",
             "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
             "error_ship_off_grid": "Oops! That won't fit on the grid. Try again.",
-            "invalid_coordinates": "Oops! {}, those were invalid coordinates. Try again.",
+            "invalid_coordinates": "Oops! Those were invalid coordinates. Try again.",
             "invalid_orientation": "Oops! The orientation must be either 'v' or 'h'. Try again, {}.",
             "name_set": "",
             "none": "",
@@ -83,15 +83,17 @@ class Game():
     def place_ships_2(self):
         self.set_ui(banner="Place ships", prompt="First ship")
         self.display_arena()
-        self.get_coordinates()
+        coordinates = self.get_coordinates()
 
 
     def get_coordinates(self):
         while True:
             coordinates = self.get_input()
-            if self.validate_coordinates_2(coordinates):
-                print("Got valid coordinates")
-                break
+            if self.validate_coordinates(coordinates):
+                return coordinates
+            else:
+                self.banner = "invalid_coordinates"
+                self.display_arena()
 
 
     def place_ships(self):
@@ -158,7 +160,7 @@ class Game():
                     self.boards[num].set_player_name("Player {}".format(num + 1))
                     self.banner = "error_duplicate_names_not_allowed"
 
-    def validate_coordinates_2(self, coordinates):
+    def validate_coordinates(self, coordinates):
 
         # Scrub the input
         prepped_coordinates = coordinates.strip().lower()
@@ -182,29 +184,6 @@ class Game():
         else:
             return True 
 
-    def validate_coordinates(self, **kwargs):
-
-        try:
-            column = kwargs['coordinates'][0]
-        except IndexError:
-            logging.info("No data sent to coordinates")
-            return False
-
-        try:
-            row = int(kwargs['coordinates'][1:])
-        except ValueError:
-            logging.info("Invalid row sent to coordinates. Must be an integer")
-            return False
-
-        if column not in constants.COORDINATE_MAP['columns']:
-            logging.info("Got invalid coordinate: {}".format(kwargs['coordinates']))
-            return False
-        elif row not in constants.COORDINATE_MAP['rows']:
-            logging.info("Got invalid coordinate: {}".format(kwargs['coordinates']))
-            return False
-        else:
-            logging.info("Got valid coordinate: {}".format(kwargs['coordinates']))
-            return True 
 
     def validate_orientation(self, orientation):
         if orientation == "h" or orientation == "v":
