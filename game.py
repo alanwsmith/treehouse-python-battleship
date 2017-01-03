@@ -75,6 +75,12 @@ class Game():
         self.prompt_params = ()
 
 
+
+    def set_ui(self, **kwargs):
+        self.banners['custom'] = kwargs['banner']
+        self.prompts['custom'] = kwargs['prompt']
+        self.banner = 'custom'
+        self.prompt = 'custom'
     def place_ships(self):
 
         player_id = 0
