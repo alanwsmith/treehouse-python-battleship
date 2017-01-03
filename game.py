@@ -83,6 +83,9 @@ class Game():
     def place_ships_2(self):
         self.place_ship(board = self.boards[0], ship_index = 0)
 
+#        for ship in self.boards[0].ships:
+#            print(ship)
+
 
     def place_ship(self, **kwargs):
         board = kwargs['board']
@@ -101,11 +104,14 @@ class Game():
                 continue
             else:
                 target_coordinates = self.get_ship_coordinates(**target_location)
-                print(target_coordinates)
-                print("TODO: Send to board here")
-                break
-        
+                if not board.verify_coordinates_are_clear(target_coordinates):
+                    self.banners['custom'] = "There is already a ship there." 
+                    continue
+                else:
+                    # ship.coordinates = target_coordinates
+                    break
 
+        
     def get_coordinates(self):
         while True:
             self.display_arena()
