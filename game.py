@@ -12,18 +12,19 @@ class Game():
             "error_duplicate_names_not_allowed": "Oops! The players can't have the same name. Try again.",
             "error_name_is_empty": "Oops! The player's name can't be empty. Try again.",
             "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
-            "error_ship_off_grid": "Oops! That won't fit on the grid. Try again.",
+            "error_ship_off_grid": "Oops! That won't fit on the grid. Try again, {player}.",
             "invalid_coordinates": "Oops! Those were invalid coordinates. Try again.",
             "invalid_orientation": "Oops! The orientation must be either 'v' or 'h'. Try again.",
             "name_set": "",
             "none": "",
             "place_ships": "Alright, {player}. Time to place your ships.",
+            "place_next_ship": "Place your next ship, {player}",
             "welcome": "Welcome to Battleship!",
         }
         self.prompts = {
             "player_0": "What's the name of the first player?",
             "player_1": "What's the name of the second player?",
-            "ship_orientation": "Do you want to place your {} (size {}) [v]ertically or [h]orizontally?", 
+            "ship_orientation": "Do you want to place your {ship} (size {size}) [v]ertically or [h]orizontally?", 
             "front_of_ship_coords": "Where do you want the front of your {ship} (size {size})?",
         }
 
@@ -84,28 +85,33 @@ class Game():
         for ship_index in range(0, len(self.boards[0].ships)):
             self.place_ship(board = self.boards[0], ship_index = ship_index)
 
+        self.current['player'] = self.boards[1].player_name
+        for ship_index in range(0, len(self.boards[1].ships)):
+            self.place_ship(board = self.boards[1], ship_index = ship_index)
+
+
     def place_ship(self, **kwargs):
         board = kwargs['board']
         ship = board.ships[kwargs['ship_index']]
         self.current['ship'] = ship.name
         self.current['size'] = ship.size
-        self.banner = "place_ships"
-        self.prompt = "front_of_ship_coords"
+        if kwargs['ship_index'] == 0:
+            self.banner = "place_ships"
+        else:
+            self.banner = "place_next_ship"
 
         while True:
-            self.prompts['custom'] = ship.name 
+            self.prompt = "front_of_ship_coords"
             target_location = { 'size': ship.size }
             target_location['front_of_ship'] = self.get_coordinates()
-            self.banners['custom'] = "" 
-            self.prompts['custom'] = "Orientation for ship"
+            self.prompt = "ship_orientation"
             target_location['orientation'] = self.get_orientation()
             if not self.validate_ship_stays_on_grid(**target_location):
-                self.banners['custom'] = "That won't stay on the grid" 
+                self.banner = "error_ship_off_grid"
                 continue
             else:
                 target_coordinates = self.get_ship_coordinates(**target_location)
                 if not board.verify_coordinates_are_clear(target_coordinates):
-                    self.banners['custom'] = "There is already a ship there." 
                     continue
                 else:
                     logging.info("Target coords: {}". format(target_coordinates))
@@ -228,6 +234,7 @@ if __name__ == '__main__':
 
     constants.SHIP_COUNT = 3
     game = Game()
+    game.testing_input = ["Bob", "John"]
     game.testing_input = ["Bob", "John", "b3", "v", "d2", "h", "i6", "v"]
     game.set_player_names()
     game.place_ships()
