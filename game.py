@@ -98,6 +98,9 @@ class Game():
                 self.banners['custom'] = "That won't stay on the grid" 
                 continue
             else:
+                target_coordinates = self.get_ship_coordinates(**target_location)
+                print(target_coordinates)
+                print("TODO: Send to board here")
                 break
         
 
