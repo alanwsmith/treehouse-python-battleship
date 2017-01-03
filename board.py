@@ -59,32 +59,6 @@ class Board():
                     else:
                         return response
 
-    def place_ships(self):
-
-        for ship in self.ships:
-
-            ship.orientation = self.get_letter(
-                prompt = "[v] or [h]?",
-                valid_values = ['v', 'h'],
-                error_extension = "You can only choose 'v' or 'h'"
-            )
-
-            column_letter_for_bow = self.get_letter(
-                prompt = "What column do you want the front of the ship in (A-{})?".format(constants.LAST_COLUMN),
-                valid_values = [chr(c) for c in range(ord('a'), ord('a') + constants.BOARD_SIZE)],
-                error_extension = "You can only choose 'A' thru '{}'".format(constants.LAST_COLUMN)
-            )
-
-            ship.bow_column = constants.COORDINATE_MAP['columns'][column_letter_for_bow]
-
-            row_display_letter_for_bow = self.get_number(
-                prompt = "What row do you want the front of the ship in (1-{})?".format(constants.LAST_ROW),
-                valid_values = [num for num in range(1, constants.BOARD_SIZE + 1)],
-                error_extension = ""
-            )
-
-            ship.bow_row = constants.COORDINATE_MAP['rows'][row_display_letter_for_bow] 
-
     def set_player_name(self, name):
         stripped_name = name.strip()
         if len(stripped_name) == 0:
@@ -99,8 +73,6 @@ class Board():
             return 'name_set' 
         
 
-
-
     def show(self):
         for row in range(0,10):
             print(str(row + 1).rjust(2), end='')
@@ -112,7 +84,6 @@ class Board():
 if __name__ == '__main__':
     board = Board(index = 0)
     board.show()
-    board.place_ships()
 
     for ship in board.ships:
         print(ship)
