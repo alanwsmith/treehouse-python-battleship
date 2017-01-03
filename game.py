@@ -81,15 +81,17 @@ class Game():
         self.prompt = 'custom'
 
     def place_ships_2(self):
-        self.place_ship(name = "Aircraft carrier", size =  5)
+        self.place_ship(board = self.boards[0], ship_index = 0, name = "Aircraft carrier", size =  5)
 
 
     def place_ship(self, **kwargs):
-        self.set_ui(banner = "Place ships", prompt = kwargs['name'])
+        board = kwargs['board']
+        ship = board.ships[kwargs['ship_index']]
+        self.set_ui(banner = "Place ships", prompt = ship.name)
 
         while True:
-            self.prompts['custom'] = kwargs['name'] 
-            target_location = { 'size': kwargs['size'] }
+            self.prompts['custom'] = ship.name 
+            target_location = { 'size': ship.size }
             target_location['front_of_ship'] = self.get_coordinates()
             self.banners['custom'] = "" 
             self.prompts['custom'] = "Orientation for ship"
