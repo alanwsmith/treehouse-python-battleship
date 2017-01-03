@@ -14,7 +14,7 @@ class Game():
             "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
             "error_ship_off_grid": "Oops! That won't fit on the grid. Try again.",
             "invalid_coordinates": "Oops! Those were invalid coordinates. Try again.",
-            "invalid_orientation": "Oops! The orientation must be either 'v' or 'h'. Try again, {}.",
+            "invalid_orientation": "Oops! The orientation must be either 'v' or 'h'. Try again.",
             "name_set": "",
             "none": "",
             "place_ships": "{}, place your ships.",
@@ -84,6 +84,8 @@ class Game():
         self.set_ui(banner="Place ships", prompt="First ship")
         self.display_arena()
         coordinates = self.get_coordinates()
+        self.prompts['custom'] = "Orientation for ship"
+        orientation = self.get_orientation()
 
 
     def get_coordinates(self):
@@ -94,6 +96,15 @@ class Game():
             else:
                 self.banner = "invalid_coordinates"
                 self.display_arena()
+
+    def get_orientation(self):
+        while True:
+            self.display_arena()
+            orientation = self.get_input()
+            if self.validate_orientation(orientation):
+                return orientation
+            else:
+                self.banner = "invalid_orientation"
 
 
     def place_ships(self):
