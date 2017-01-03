@@ -16,6 +16,7 @@ class BoardTest():
         self.test_strip_spaces_on_name()
         self.test_set_ship_coordinates()
         self.test_set_ship_coordinates_with_conflict()
+        self.test_grid_with_ships()
 
     def test_set_player_name(self):
         logging.info("-- Set Player Name Test --")
@@ -42,6 +43,19 @@ class BoardTest():
         board.ships[0].coordinates = [ (1, 3), (1, 4), (1, 5)]
         coordinate_list = [(1, 2), (1, 3), (1, 4)]
         self.assert_equal(False, board.verify_coordinates_are_clear(coordinate_list))
+
+    def test_grid_with_ships(self):
+        logging.info("-- Grid with Ships Test --")
+        board = Board(index = 0)
+        ship = board.ships[0]
+        ship.set_orientation('v')
+        ship.set_coordinates([(1,3), (1,4), (1,5)])
+
+        print(board.grid())
+
+        self.assert_equal('O', board.grid()[0][0])
+#        self.assert_equal('|', board.grid()[1][3])
+
 
 
 
