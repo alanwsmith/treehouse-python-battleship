@@ -81,6 +81,13 @@ class Game():
         self.prompts['custom'] = kwargs['prompt']
         self.banner = 'custom'
         self.prompt = 'custom'
+
+    def place_ships_2(self):
+        self.set_ui(banner="Place ships", prompt="First ship")
+        self.display_arena()
+        pass
+
+
     def place_ships(self):
 
         player_id = 0
@@ -201,6 +208,8 @@ if __name__ == '__main__':
     game = Game()
     game.testing_input = ["Bob", "John", "a1"]
     game.set_player_names()
-    game.place_ships()
+    # game.place_ships()
+
+    game.place_ships_2()
 
 
