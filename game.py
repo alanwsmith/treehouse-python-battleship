@@ -81,7 +81,7 @@ class Game():
         self.prompt = 'custom'
 
     def place_ships_2(self):
-        self.place_ship(board = self.boards[0], ship_index = 0, name = "Aircraft carrier", size =  5)
+        self.place_ship(board = self.boards[0], ship_index = 0)
 
 
     def place_ship(self, **kwargs):
