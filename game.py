@@ -108,6 +108,30 @@ class Game():
             else:
                 self.banner = "invalid_coordinates"
 
+
+    def get_ship_coordinates(self, **kwargs):
+        # This method takes basic parameters for a ship and returns a list
+        # with zero base indexed tupals of the coordinates of the spaces
+        # the ship takes up on the grid. It expects the front_of_ship
+        # to be a valid, lowercased coordinate.
+
+        raw_column = kwargs['front_of_ship'][0] 
+        raw_row = int(kwargs['front_of_ship'][1:])
+
+        column = constants.COORDINATE_MAP['columns'][raw_column]
+        row = constants.COORDINATE_MAP['rows'][raw_row]
+
+        coordinates = []
+        
+        if kwargs['orientation'] == "h":
+            for column_index in range(0, kwargs['size']):
+                coordinates.append((row, column_index))
+        else:
+            pass
+
+         
+        return coordinates 
+
     def get_orientation(self):
         while True:
             self.display_arena()
