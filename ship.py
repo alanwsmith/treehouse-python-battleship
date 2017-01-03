@@ -31,7 +31,11 @@ class Ship():
         self.bow = coordinate
 
     def set_orientation(self, orientation):
-        self.orientation = orientation
+        if orientation == 'v' or orientation == 'h':
+            self.orientation = orientation
+            return True
+        else:
+            return False
 
 
 if __name__ == '__main__':
