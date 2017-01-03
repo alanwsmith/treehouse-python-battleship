@@ -85,7 +85,7 @@ class Game():
 
 
     def place_ship(self, **kwargs):
-        self.set_ui(banner="Place ships", prompt= kwargs['name'])
+        self.set_ui(banner = "Place ships", prompt = kwargs['name'])
 
         while True:
             self.prompts['custom'] = kwargs['name'] 
