@@ -21,6 +21,15 @@ class Board():
             grid.append(row)
         return grid 
 
+    def grid_hidden(self):
+        grid = self.grid()
+        for row_index in range(0, len(grid)):
+            for column_index in range(0, len(grid[row_index])):
+                if grid[row_index][column_index] == "O":
+                    grid[row_index][column_index] = '?'
+
+        return grid
+
     def get_grid_key(self, row_index, column_index):
         for ship in self.ships:
             for coordinate in ship.coordinates:
@@ -29,7 +38,6 @@ class Board():
                         return '|'
                     else:
                         return '-'
-
         return 'O'
 
 
