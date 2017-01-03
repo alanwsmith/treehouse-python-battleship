@@ -160,15 +160,18 @@ class Game():
 
     def validate_coordinates_2(self, coordinates):
 
+        # Scrub the input
+        prepped_coordinates = coordinates.strip().lower()
+
         # Try to grab the column or bail out.
         try:
-            column = coordinates[0]
+            column = prepped_coordinates[0]
         except IndexError:
             return False
 
         # Make sure there is a row and it's a number.
         try:
-            row = int(coordinates[1:])
+            row = int(prepped_coordinates[1:])
         except ValueError:
             return False
         

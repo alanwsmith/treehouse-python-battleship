@@ -49,6 +49,9 @@ class GameTest():
         logging.info("-- Validate Coordinates (2) Test --")
         game = Game()
         self.assert_equal(True, game.validate_coordinates_2("a1"))
+        self.assert_equal(True, game.validate_coordinates_2("A1"))
+        self.assert_equal(True, game.validate_coordinates_2(" D10 "))
+
         self.assert_equal(False, game.validate_coordinates_2(""))
         self.assert_equal(False, game.validate_coordinates_2("aa"))
         self.assert_equal(False, game.validate_coordinates_2("a"))
