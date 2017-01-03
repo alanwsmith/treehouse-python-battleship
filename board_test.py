@@ -53,8 +53,8 @@ class BoardTest():
         self.assert_equal('O', board.grid()[0][0])
         self.assert_equal('|', board.grid()[1][3])
 
-        for row_index in range(0, len(board.grid())):
-            print(board.grid()[row_index])
+#        for row_index in range(0, len(board.grid())):
+#            print(board.grid()[row_index])
 
     def test_grid_with_ships_horizontal(self):
         logging.info("-- Grid with Ships Horizontal Test --")
@@ -64,8 +64,8 @@ class BoardTest():
         self.assert_equal('O', board.grid()[0][0])
         self.assert_equal('-', board.grid()[1][3])
 
-        for row_index in range(0, len(board.grid())):
-            print(board.grid()[row_index])
+#        for row_index in range(0, len(board.grid())):
+#            print(board.grid()[row_index])
 
 # TODO: add tests for grid_hidden
 
