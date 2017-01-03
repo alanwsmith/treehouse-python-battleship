@@ -52,6 +52,9 @@ class GameTest():
         self.assert_equal(False, game.validate_coordinates_2(""))
         self.assert_equal(False, game.validate_coordinates_2("aa"))
         self.assert_equal(False, game.validate_coordinates_2("a"))
+        self.assert_equal(False, game.validate_coordinates_2("q1"))
+        self.assert_equal(False, game.validate_coordinates_2("11"))
+        self.assert_equal(False, game.validate_coordinates_2("a30"))
 
 
     def test_validate_orientation(self):

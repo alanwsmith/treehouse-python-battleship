@@ -172,8 +172,12 @@ class Game():
         except ValueError:
             return False
         
-        
-        return True 
+        if column not in constants.COORDINATE_MAP['columns']:
+            return False
+        elif row not in constants.COORDINATE_MAP['rows']:
+            return False
+        else:
+            return True 
 
     def validate_coordinates(self, **kwargs):
 
