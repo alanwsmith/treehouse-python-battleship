@@ -81,21 +81,32 @@ class Game():
         self.prompt = 'custom'
 
     def place_ships_2(self):
+
         self.set_ui(banner="Place ships", prompt="First ship")
-        self.display_arena()
-        coordinates = self.get_coordinates()
-        self.prompts['custom'] = "Orientation for ship"
-        orientation = self.get_orientation()
+
+        while True:
+            self.prompts['custom'] = "First ship"
+            target_location = { 'size': 5 }
+            target_location['coordinates'] = self.get_coordinates()
+            self.banners['custom'] = "" 
+            self.prompts['custom'] = "Orientation for ship"
+            target_location['orientation'] = self.get_orientation()
+            if not self.validate_ship_stays_on_grid(**target_location):
+                self.banners['custom'] = "That won't stay on the grid" 
+                continue
+            else:
+                break
+
 
 
     def get_coordinates(self):
         while True:
+            self.display_arena()
             coordinates = self.get_input()
             if self.validate_coordinates(coordinates):
                 return coordinates
             else:
                 self.banner = "invalid_coordinates"
-                self.display_arena()
 
     def get_orientation(self):
         while True:
