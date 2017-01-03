@@ -67,6 +67,9 @@ class BoardTest():
         for row_index in range(0, len(board.grid())):
             print(board.grid()[row_index])
 
+# TODO: add tests for grid_hidden
+
+
 
 if __name__ == '__main__':
     logging.basicConfig(
