@@ -47,14 +47,13 @@ class BoardTest():
     def test_grid_with_ships(self):
         logging.info("-- Grid with Ships Test --")
         board = Board(index = 0)
-        ship = board.ships[0]
-        ship.set_orientation('v')
-        ship.set_coordinates([(1,3), (1,4), (1,5)])
-
-        print(board.grid())
-
+        board.ships[0].set_orientation('v')
+        board.ships[0].set_coordinates([(1,3), (2,3), (3,3)])
         self.assert_equal('O', board.grid()[0][0])
-#        self.assert_equal('|', board.grid()[1][3])
+        self.assert_equal('|', board.grid()[1][3])
+
+        for row_index in range(0, len(board.grid())):
+            print(board.grid()[row_index])
 
 
 

@@ -22,6 +22,14 @@ class Board():
         return grid 
 
     def get_grid_key(self, row_index, column_index):
+        for ship in self.ships:
+            for coordinate in ship.coordinates:
+                if (row_index, column_index) == coordinate:
+                    if ship.orientation == 'v':
+                        return '|'
+                    else:
+                        return '-'
+
         return 'O'
 
 
