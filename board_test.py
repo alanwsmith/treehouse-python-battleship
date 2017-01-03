@@ -74,16 +74,16 @@ class BoardTest():
     def test_get_row_string(self):
         logging.info("-- Get Row String Test --")
         board = Board(index = 0)
+        self.assert_equal(True, board.grid_visability)
         self.assert_equal('O O O O O O O O O O', board.get_row_string(0))
-
+        board.set_grid_visability(False)
+        self.assert_equal('? ? ? ? ? ? ? ? ? ?', board.get_row_string(0))
 
     def test_set_grid_visability(self):
         logging.info("-- Set Grid Visability Test --")
         board = Board(index = 0)
         self.assert_equal(True, board.grid_visability)
         board.set_grid_visability(False)
-
-
 
 
 

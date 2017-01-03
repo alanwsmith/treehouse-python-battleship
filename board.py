@@ -43,9 +43,10 @@ class Board():
 
 
     def get_row_string(self, row_index):
-        print(self.index)
-
-        return " ".join(self.grid()[row_index])
+        if self.grid_visability:
+            return " ".join(self.grid()[row_index])
+        else:
+            return " ".join(self.grid_hidden()[row_index])
 
 
     def load_ships(self):
