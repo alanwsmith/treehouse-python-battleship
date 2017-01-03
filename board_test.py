@@ -18,6 +18,7 @@ class BoardTest():
         self.test_set_ship_coordinates_with_conflict()
         self.test_grid_with_ships_vertical()
         self.test_grid_with_ships_horizontal()
+        self.test_set_grid_visability()
 
     def test_set_player_name(self):
         logging.info("-- Set Player Name Test --")
@@ -68,6 +69,13 @@ class BoardTest():
 #            print(board.grid()[row_index])
 
 # TODO: add tests for grid_hidden
+
+
+    def test_set_grid_visability(self):
+        logging.info("-- Set Grid Visability Test --")
+        board = Board(index = 0)
+        self.assert_equal(True, board.grid_visability)
+        board.set_grid_visability(False)
 
 
 

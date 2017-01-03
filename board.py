@@ -8,6 +8,7 @@ class Board():
     def __init__(self, **kwargs):
         self.index = kwargs['index']
         self.player_name = "Player {}".format(self.index + 1)
+        self.grid_visability = True
         self.ships = [] 
         self.load_ships()
         logging.info("Created board {}".format(self.index))
@@ -45,6 +46,10 @@ class Board():
         for ship_index in range(0, constants.SHIP_COUNT):
             ship = constants.SHIP_INFO[ship_index]
             self.ships.append(Ship(name = ship[0], size = ship[1]))
+
+    def set_grid_visability(self, mode):
+        self.grid_visability = mode
+
 
     def set_player_name(self, name):
         stripped_name = name.strip()
