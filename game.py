@@ -129,10 +129,10 @@ class Game():
         coordinates = []
         
         if kwargs['orientation'] == "h":
-            for column_index in range(0, kwargs['size']):
+            for column_index in range(column, (column + kwargs['size'])):
                 coordinates.append((row, column_index))
         else:
-            for row_index in range(0, kwargs['size']):
+            for row_index in range(row, (row + kwargs['size'])):
                 coordinates.append((row_index, column))
          
         return coordinates 
