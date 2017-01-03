@@ -226,8 +226,9 @@ if __name__ == '__main__':
         level=logging.INFO
     )
 
+    constants.SHIP_COUNT = 3
     game = Game()
-#    game.testing_input = ["Bob", "John"]
+    game.testing_input = ["Bob", "John"]
     game.set_player_names()
     game.place_ships()
 

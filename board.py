@@ -42,7 +42,8 @@ class Board():
 
 
     def load_ships(self):
-        for ship in constants.SHIP_INFO:
+        for ship_index in range(0, constants.SHIP_COUNT):
+            ship = constants.SHIP_INFO[ship_index]
             self.ships.append(Ship(name = ship[0], size = ship[1]))
 
     def set_player_name(self, name):
