@@ -87,7 +87,7 @@ class Game():
         while True:
             self.prompts['custom'] = "First ship"
             target_location = { 'size': 5 }
-            target_location['coordinates'] = self.get_coordinates()
+            target_location['front_of_ship'] = self.get_coordinates()
             self.banners['custom'] = "" 
             self.prompts['custom'] = "Orientation for ship"
             target_location['orientation'] = self.get_orientation()
@@ -217,8 +217,8 @@ class Game():
 
     def validate_ship_stays_on_grid(self, **kwargs):
         # Pull in the number for the column and the row as an integer.
-        column_number = constants.COORDINATE_MAP['columns'][kwargs['coordinates'][0]]
-        row = int(kwargs['coordinates'][1:])
+        column_number = constants.COORDINATE_MAP['columns'][kwargs['front_of_ship'][0]]
+        row = int(kwargs['front_of_ship'][1:])
 
         # Run the checks (which assume the coordinate has already been validated)
         if kwargs['orientation'] == 'v' and (row + kwargs['size']) > constants.BOARD_SIZE:

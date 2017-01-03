@@ -59,12 +59,12 @@ class GameTest():
     def test_validate_ship_stays_on_grid(self):
         logging.info("-- Validate Ship Stays On Grid Test --")
         game = Game()
-        self.assert_equal(True, game.validate_ship_stays_on_grid(coordinates="a1", orientation="v", size=5))
-        self.assert_equal(True, game.validate_ship_stays_on_grid(coordinates="a1", orientation="h", size=5))
-        self.assert_equal(False, game.validate_ship_stays_on_grid(coordinates="a9", orientation="v", size=5))
-        self.assert_equal(True, game.validate_ship_stays_on_grid(coordinates="a9", orientation="h", size=5))
-        self.assert_equal(False, game.validate_ship_stays_on_grid(coordinates="i1", orientation="h", size=5))
-        self.assert_equal(True, game.validate_ship_stays_on_grid(coordinates="i1", orientation="v", size=5))
+        self.assert_equal(True, game.validate_ship_stays_on_grid(front_of_ship="a1", orientation="v", size=5))
+        self.assert_equal(True, game.validate_ship_stays_on_grid(front_of_ship="a1", orientation="h", size=5))
+        self.assert_equal(False, game.validate_ship_stays_on_grid(front_of_ship="a9", orientation="v", size=5))
+        self.assert_equal(True, game.validate_ship_stays_on_grid(front_of_ship="a9", orientation="h", size=5))
+        self.assert_equal(False, game.validate_ship_stays_on_grid(front_of_ship="i1", orientation="h", size=5))
+        self.assert_equal(True, game.validate_ship_stays_on_grid(front_of_ship="i1", orientation="v", size=5))
 
 
 
