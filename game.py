@@ -80,8 +80,9 @@ class Game():
         self.banner = 'custom'
         self.prompt = 'custom'
 
-    def place_ships_2(self):
-        self.place_ship(board = self.boards[0], ship_index = 0)
+    def place_ships(self):
+        for ship_index in range(0, len(self.boards[0].ships)):
+            self.place_ship(board = self.boards[0], ship_index = ship_index)
 
     def place_ship(self, **kwargs):
         board = kwargs['board']
@@ -149,55 +150,6 @@ class Game():
                 return orientation
             else:
                 self.banner = "invalid_orientation"
-
-
-    def place_ships(self):
-
-        player_id = 0
-        board = self.boards[player_id]
-        
-        for ship_index in range(0, len(board.ships)):
-            ship = board.ships[ship_index]
-            self.banner_params = [board.player_name]
-            self.banner = "place_ships"
-            coordinates = ""
-            while coordinates == "":
-                self.prompt = "front_of_ship_coords"
-                self.prompt_params = [ship.name, ship.size]
-                self.display_arena()
-                potential_coordinates = self.get_input()
-                if self.validate_coordinates(coordinates=potential_coordinates):
-                    coordinates = potential_coordinates
-                    self.banner_params = [board.player_name]
-                    self.banner = "place_ships"
-                    self.prompt = "ship_orientation"
-                    orientation = ""
-                    while orientation == "":
-                        self.prompt_params = [ship.name, ship.size]
-                        self.display_arena()
-
-                        potential_orientation = self.get_input()
-                        if self.validate_orientation(potential_orientation):
-                            orientation = potential_orientation
-
-                            if not self.validate_ship_stays_on_grid(
-                                coordinates = coordinates,
-                                orientation = orientation,
-                                size = ship.size):
-
-                                self.banner = "error_ship_off_grid"
-                                coordinates = ""
-                                orientation = ""
-
-
-                        else:
-                            self.banner_params = [board.player_name]
-                            self.banner = "invalid_orientation"
-
-                else:
-                    self.banner_params = [board.player_name]
-                    self.banner = "invalid_coordinates"
-
 
 
     def set_player_names(self):
@@ -272,9 +224,7 @@ if __name__ == '__main__':
     game = Game()
     game.testing_input = ["Bob", "John"]
     game.set_player_names()
-    # game.place_ships()
-
-    game.place_ships_2()
+    game.place_ships()
 
 
     for ship in game.boards[0].ships:
