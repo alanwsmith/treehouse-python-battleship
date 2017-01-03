@@ -51,17 +51,13 @@ class GameTest():
     def test_get_ship_coordinates_horizontal(self):
         logging.info("-- Get Ship Coordinates Test --")
 
-        # Given
+        # Given/When
         game = Game()
-
-        # When
         target_list = [ (0, 0), (0, 1), (0, 2), (0, 3), (0, 4) ]
         test_list = game.get_ship_coordinates(front_of_ship = "a1", size = 5, orientation = "h")
     
         # Then
         self.assert_equal(len(test_list), len(target_list))
-        
-        # And
         for item_index in range(0, len(target_list)):
             self.assert_equal(target_list[item_index], test_list[item_index])
 
