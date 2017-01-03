@@ -57,7 +57,9 @@ class GameTest():
         self.assert_equal(True, game.validate_ship_stays_on_grid(coordinates="a1", orientation="v", size=5))
         self.assert_equal(True, game.validate_ship_stays_on_grid(coordinates="a1", orientation="h", size=5))
         self.assert_equal(False, game.validate_ship_stays_on_grid(coordinates="a9", orientation="v", size=5))
+        self.assert_equal(True, game.validate_ship_stays_on_grid(coordinates="a9", orientation="h", size=5))
         self.assert_equal(False, game.validate_ship_stays_on_grid(coordinates="i1", orientation="h", size=5))
+        self.assert_equal(True, game.validate_ship_stays_on_grid(coordinates="i1", orientation="v", size=5))
 
 
 

@@ -12,6 +12,7 @@ class Game():
             "error_duplicate_names_not_allowed": "Oops! The players can't have the same name. Try again.",
             "error_name_is_empty": "Oops! The player's name can't be empty. Try again.",
             "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
+            "error_ship_off_grid": "Oops! That won't fit on the grid. Try again.",
             "invalid_coordinates": "Oops! {}, those were invalid coordinates. Try again.",
             "invalid_orientation": "Oops! The orientation must be either 'v' or 'h'. Try again, {}.",
             "name_set": "",
@@ -83,9 +84,9 @@ class Game():
             ship = board.ships[ship_index]
             self.banner_params = [board.player_name]
             self.banner = "place_ships"
-            self.prompt = "front_of_ship_coords"
             coordinates = ""
             while coordinates == "":
+                self.prompt = "front_of_ship_coords"
                 self.prompt_params = [ship.name, ship.size]
                 self.display_arena()
                 potential_coordinates = self.get_input()
@@ -102,6 +103,16 @@ class Game():
                         potential_orientation = self.get_input()
                         if self.validate_orientation(potential_orientation):
                             orientation = potential_orientation
+
+                            if not self.validate_ship_stays_on_grid(
+                                coordinates = coordinates,
+                                orientation = orientation,
+                                size = ship.size):
+
+                                self.banner = "error_ship_off_grid"
+                                coordinates = ""
+                                orientation = ""
+
 
                         else:
                             self.banner_params = [board.player_name]
@@ -161,16 +172,14 @@ class Game():
 
 
     def validate_ship_stays_on_grid(self, **kwargs):
-        column = kwargs['coordinates'][0]
-        column_number = constants.COORDINATE_MAP['columns'][column]
+        # Pull in the number for the column and the row as an integer.
+        column_number = constants.COORDINATE_MAP['columns'][kwargs['coordinates'][0]]
         row = int(kwargs['coordinates'][1:])
-        orientation = kwargs['orientation']
-        size = kwargs['size']
 
-        
-        if row + size > constants.BOARD_SIZE:
+        # Run the checks (which assume the coordinate has already been validated)
+        if kwargs['orientation'] == 'v' and (row + kwargs['size']) > constants.BOARD_SIZE:
             return False
-        elif column_number + size > constants.BOARD_SIZE:
+        elif kwargs['orientation'] == 'h' and (column_number + kwargs['size']) > constants.BOARD_SIZE:
             return False
         else:
             return True
