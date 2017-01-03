@@ -97,8 +97,6 @@ class Game():
             else:
                 break
 
-
-
     def get_coordinates(self):
         while True:
             self.display_arena()
@@ -127,8 +125,8 @@ class Game():
             for column_index in range(0, kwargs['size']):
                 coordinates.append((row, column_index))
         else:
-            pass
-
+            for row_index in range(0, kwargs['size']):
+                coordinates.append((row_index, column))
          
         return coordinates 
 

@@ -19,6 +19,7 @@ class GameTest():
         self.test_validate_orientation()
         self.test_validate_ship_stays_on_grid()
         self.test_get_ship_coordinates_horizontal()
+        self.test_get_ship_coordinates_vertical()
 
     def test_basic_initialization(self):
         logging.info("-- Basic Initialization Test --")
@@ -61,6 +62,18 @@ class GameTest():
         for item_index in range(0, len(target_list)):
             self.assert_equal(target_list[item_index], test_list[item_index])
 
+    def test_get_ship_coordinates_vertical(self):
+        logging.info("-- Get Ship Coordinates Test --")
+
+        # Given/When
+        game = Game()
+        target_list = [ (0, 0), (1, 0), (2, 0), (3, 0), (4, 0) ]
+        test_list = game.get_ship_coordinates(front_of_ship = "a1", size = 5, orientation = "v")
+    
+        # Then
+        self.assert_equal(len(test_list), len(target_list))
+        for item_index in range(0, len(target_list)):
+            self.assert_equal(target_list[item_index], test_list[item_index])
 
     def test_validate_orientation(self):
         logging.info("-- Validate Orientation Test --")
