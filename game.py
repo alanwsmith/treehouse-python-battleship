@@ -74,8 +74,6 @@ class Game():
         self.banner_params = ()
         self.prompt_params = ()
 
-
-
     def set_ui(self, **kwargs):
         self.banners['custom'] = kwargs['banner']
         self.prompts['custom'] = kwargs['prompt']
@@ -85,7 +83,15 @@ class Game():
     def place_ships_2(self):
         self.set_ui(banner="Place ships", prompt="First ship")
         self.display_arena()
-        pass
+        self.get_coordinates()
+
+
+    def get_coordinates(self):
+        while True:
+            coordinates = self.get_input()
+            if self.validate_coordinates_2(coordinates):
+                print("Got valid coordinates")
+                break
 
 
     def place_ships(self):
@@ -152,6 +158,22 @@ class Game():
                     self.boards[num].set_player_name("Player {}".format(num + 1))
                     self.banner = "error_duplicate_names_not_allowed"
 
+    def validate_coordinates_2(self, coordinates):
+
+        # Try to grab the column or bail out.
+        try:
+            column = coordinates[0]
+        except IndexError:
+            return False
+
+        # Make sure there is a row and it's a number.
+        try:
+            row = int(coordinates[1:])
+        except ValueError:
+            return False
+        
+        
+        return True 
 
     def validate_coordinates(self, **kwargs):
 
@@ -206,7 +228,7 @@ if __name__ == '__main__':
     )
 
     game = Game()
-    game.testing_input = ["Bob", "John", "a1"]
+    game.testing_input = ["Bob", "John"]
     game.set_player_names()
     # game.place_ships()
 

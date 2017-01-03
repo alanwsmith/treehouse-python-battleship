@@ -16,6 +16,7 @@ class GameTest():
         self.test_basic_initialization()
         self.test_get_testing_input()
         self.test_validate_coordinates()
+        self.test_validate_coordinates_2()
         self.test_validate_orientation()
         self.test_validate_ship_stays_on_grid()
 
@@ -42,6 +43,16 @@ class GameTest():
         self.assert_equal(False, game.validate_coordinates(coordinates = "a30"))
         self.assert_equal(True, game.validate_coordinates(coordinates = "a1"))
         # TODO: Test 'A1', '   a1   '
+
+    # TODO: After validate_coordinates_2 is setup, replace the original with it
+    def test_validate_coordinates_2(self):
+        logging.info("-- Validate Coordinates (2) Test --")
+        game = Game()
+        self.assert_equal(True, game.validate_coordinates_2("a1"))
+        self.assert_equal(False, game.validate_coordinates_2(""))
+        self.assert_equal(False, game.validate_coordinates_2("aa"))
+        self.assert_equal(False, game.validate_coordinates_2("a"))
+
 
     def test_validate_orientation(self):
         logging.info("-- Validate Orientation Test --")
