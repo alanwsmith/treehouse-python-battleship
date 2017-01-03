@@ -165,7 +165,7 @@ class Game():
         # Scrub the input
         prepped_coordinates = coordinates.strip().lower()
 
-        # Try to grab the column or bail out.
+        # Try to grab the column 
         try:
             column = prepped_coordinates[0]
         except IndexError:
@@ -177,6 +177,7 @@ class Game():
         except ValueError:
             return False
         
+        # Verify the column and row are both valid.
         if column not in constants.COORDINATE_MAP['columns']:
             return False
         elif row not in constants.COORDINATE_MAP['rows']:
