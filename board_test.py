@@ -14,6 +14,8 @@ class BoardTest():
     def run_tests(self):
         self.test_set_player_name()
         self.test_strip_spaces_on_name()
+        self.test_set_ship_coordinates()
+        self.test_set_ship_coordinates_with_conflict()
 
     def test_set_player_name(self):
         logging.info("-- Set Player Name Test --")
@@ -28,6 +30,20 @@ class BoardTest():
         board.set_player_name("  Alice  ")
         self.assert_equal('Alice', board.player_name)
 
+    def test_set_ship_coordinates(self):
+        logging.info("-- Set Ship Coordiantes Test --")
+        board = Board(index = 0)
+        coordinate_list = [(1, 2), (1, 3), (1, 4)]
+        self.assert_equal(True, board.verify_coordinates_are_clear(coordinate_list))
+
+    def test_set_ship_coordinates_with_conflict(self):
+        logging.info("-- Set Ship Coordiantes Test --")
+        board = Board(index = 0)
+        board.ships[0].coordinates = [ (1, 3), (1, 4), (1, 5)]
+        coordinate_list = [(1, 2), (1, 3), (1, 4)]
+        self.assert_equal(False, board.verify_coordinates_are_clear(coordinate_list))
+
+
 
 if __name__ == '__main__':
     logging.basicConfig(
@@ -39,3 +55,5 @@ if __name__ == '__main__':
 
     bt = BoardTest()
     bt.run_tests()
+
+    print("All tests passed!")
