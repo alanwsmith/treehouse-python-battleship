@@ -18,7 +18,7 @@ class GameTest():
         self.test_validate_coordinates()
         self.test_validate_orientation()
         self.test_validate_ship_stays_on_grid()
-        self.test_get_ship_coordinates()
+        self.test_get_ship_coordinates_horizontal()
 
     def test_basic_initialization(self):
         logging.info("-- Basic Initialization Test --")
@@ -48,7 +48,7 @@ class GameTest():
         self.assert_equal(False, game.validate_coordinates("11"))
         self.assert_equal(False, game.validate_coordinates("a30"))
     
-    def test_get_ship_coordinates(self):
+    def test_get_ship_coordinates_horizontal(self):
         logging.info("-- Get Ship Coordinates Test --")
 
         # Given
