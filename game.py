@@ -59,9 +59,9 @@ class Game():
         print(self.header_letters() + self.arena_padding() + self.header_letters())
         for row_index in range(0, constants.BOARD_SIZE):
             print(
-                str(row_index + 1).rjust(2) + " " + " ".join(self.boards[0].grid()[0]) +
+                str(row_index + 1).rjust(2) + " " + " ".join(self.boards[0].grid()[row_index]) +
                 self.arena_padding() +
-                str(row_index + 1).rjust(2) + " " + " ".join(self.boards[1].grid()[0])
+                str(row_index + 1).rjust(2) + " " + " ".join(self.boards[1].grid()[row_index])
             )
 
         # Assemble the banner.
@@ -105,7 +105,9 @@ class Game():
                     self.banners['custom'] = "There is already a ship there." 
                     continue
                 else:
-                    ship.coordinates = target_coordinates
+                    logging.info("Target coords: {}". format(target_coordinates))
+                    ship.set_coordinates(target_coordinates)
+                    ship.set_orientation(target_location['orientation'])
                     break
 
         
@@ -226,6 +228,7 @@ if __name__ == '__main__':
     game.set_player_names()
     game.place_ships()
 
+    game.display_arena()
 
     for ship in game.boards[0].ships:
         print(ship)

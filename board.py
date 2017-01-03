@@ -14,12 +14,23 @@ class Board():
 
     def grid(self):
         grid = []
-        for new_row in range(0, constants.BOARD_SIZE):
+        for row_index in range(0, constants.BOARD_SIZE):
             row = []
             for column_index in range(0, constants.BOARD_SIZE):
-                row.append('O')
+                row.append(self.get_grid_key(row_index, column_index))
             grid.append(row)
         return grid 
+
+    def get_grid_key(self, row_index, column_index):
+        for ship in self.ships:
+            for coordinate in ship.coordinates:
+                if (row_index, column_index) == coordinate:
+                    if ship.orientation == 'v':
+                        return '|'
+                    else:
+                        return '-'
+
+        return 'O'
 
 
     def load_ships(self):

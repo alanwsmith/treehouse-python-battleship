@@ -30,13 +30,24 @@ class Ship():
         logging.debug(coordinate)
         self.bow = coordinate
 
+    def set_coordinates(self, coordinates):
+        # This is just to set via a method. It assumes
+        # a valid list is passed that has already been
+        # checked to make sure it doesn't conflict with 
+        # other ships.
+        self.coordinates = coordinates
+        return True
+
     def set_orientation(self, orientation):
-        self.orientation = orientation
+        if orientation == 'v' or orientation == 'h':
+            self.orientation = orientation
+            return True
+        else:
+            return False
 
 
 if __name__ == '__main__':
     ship = Ship(name = "Test Ship", size = 5)
-    ship.place()
     print(ship)
 
 
