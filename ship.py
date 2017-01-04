@@ -13,6 +13,7 @@ class Ship():
         self.bow_row = None
 
         self.coordinates = []
+        self.hits = []
 
         logging.debug("Initializing {} - size: {}".format(self.name, self.size)) 
 
@@ -62,8 +63,9 @@ class Ship():
         on the ship. If it is, add it to the list of
         hits.
         """
-
+    
         if coordinate in self.coordinates:
+            self.hits.append(coordinate)
             return True
         else:
             return False 

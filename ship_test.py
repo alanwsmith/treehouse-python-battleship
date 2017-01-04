@@ -36,9 +36,11 @@ class ShipTest():
         ship = Ship(name = "Test Ship", size = 3)
         ship.set_coordinates([(3, 1), (3, 2), (3, 3)])
         miss_coordinates = (5, 6)
-        self.assert_equal(False, ship.see_if_ship_was_hit(miss_coordinates))
         hit_coordinates = (3, 2)
+
+        self.assert_equal(False, ship.see_if_ship_was_hit(miss_coordinates))
         self.assert_equal(True , ship.see_if_ship_was_hit(hit_coordinates))
+        self.assert_equal(hit_coordinates, ship.hits[0])
 
 
 
