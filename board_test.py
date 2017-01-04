@@ -81,13 +81,21 @@ class BoardTest():
 
     def test_get_row_string_with_ship_data(self):
         logging.info("-- Get Row String With Ship Data Test --")
+        # Given
         board = Board(index = 0)
         board.ships[0].set_orientation('h')
         board.ships[0].set_coordinates([(1,3), (1,4), (1,5), (1,6), (1,7)])
+        board.ships[1].set_orientation('v')
+        board.ships[1].set_coordinates([(3, 1), (4, 1), (5, 1), (6, 1)])
+        # When/Then
         self.assert_equal(True, board.grid_visibility)
         self.assert_equal('O O O - - - - - O O', board.get_row_string(1))
+        self.assert_equal('O | O O O O O O O O', board.get_row_string(3))
+        # When/Then
         board.set_grid_visibility(False)
         self.assert_equal('? ? ? ? ? ? ? ? ? ?', board.get_row_string(1))
+        self.assert_equal('? ? ? ? ? ? ? ? ? ?', board.get_row_string(3))
+
 
     def test_set_grid_visibility(self):
         logging.info("-- Set Grid Visability Test --")

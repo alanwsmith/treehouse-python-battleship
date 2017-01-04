@@ -30,7 +30,8 @@ class Board():
                     grid[row_index][column_index] = '?'
                 elif grid[row_index][column_index] == "-":
                     grid[row_index][column_index] = '?'
-
+                elif grid[row_index][column_index] == "|":
+                    grid[row_index][column_index] = '?'
 
         return grid
 
