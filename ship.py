@@ -45,9 +45,15 @@ class Ship():
         else:
             return False
 
-    def see_if_ship_was_hit(self, coordinates):
-
-        return False 
+    def see_if_ship_was_hit(self, coordinate):
+        """Check to see if a set of coordinates is a hit 
+        on the ship. If it is, add it to the list of
+        hits.
+        """
+        if coordinate in self.coordinates:
+            return True
+        else:
+            return False 
 
 
 if __name__ == '__main__':
