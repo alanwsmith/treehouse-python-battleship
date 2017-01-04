@@ -80,6 +80,7 @@ class GameTest():
         logging.info("-- Validate Orientation Test --")
         game = Game()
         self.assert_equal(True, game.validate_orientation("h"))
+        self.assert_equal(True, game.validate_orientation("v"))
         self.assert_equal(False, game.validate_orientation("q"))
         # TODO: Test upper case and with spaces. 
 
