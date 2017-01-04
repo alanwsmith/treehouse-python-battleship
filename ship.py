@@ -45,6 +45,10 @@ class Ship():
         else:
             return False
 
+    def see_if_ship_was_hit(self, coordinates):
+
+        return False 
+
 
 if __name__ == '__main__':
     import ship_test

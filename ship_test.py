@@ -39,9 +39,6 @@ class ShipTest():
         self.assert_equal(False, ship.see_if_ship_was_hit(shot_coordinates))
 
 
-        self.assert_equal(1,1)
-
-
 if __name__ == '__main__':
     logging.basicConfig(
         filename='logs/ship_test.txt', 
