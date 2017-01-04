@@ -24,6 +24,7 @@ class BoardTest():
         self.test_place_shot()
         self.test_last_shot_status()
         self.test_last_shot_status_hit()
+        self.test_last_shot_status_sunk_ship()
 
     def test_set_player_name(self):
         logging.info("-- Set Player Name Test --")
@@ -137,6 +138,22 @@ class BoardTest():
         board.place_shot('e9')
         board.place_shot('d2')
         self.assert_equal('shot_hit', board.last_shot_status())
+
+
+    def test_last_shot_status_sunk_ship(self):
+        logging.info("-- Last Shot Status Sunk Ship Test --")
+        board = Board(index = 0)
+        board.ships[0].set_orientation('v')
+        board.ships[0].set_coordinates([ (3,4), (4,4), (5,4), (6,4), (7,4) ])
+        board.place_shot('e4')
+        self.assert_equal('shot_hit', board.last_shot_status())
+        board.place_shot('e8')
+        self.assert_equal('shot_hit', board.last_shot_status())
+        board.place_shot('e7')
+        board.place_shot('e5')
+        board.place_shot('e6')
+        self.assert_equal('shot_sunk', board.last_shot_status())
+
 
 
         # Make
