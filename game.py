@@ -12,29 +12,34 @@ class Game():
             "error_duplicate_names_not_allowed": "Oops! The players can't have the same name. Try again.",
             "error_name_is_empty": "Oops! The player's name can't be empty. Try again.",
             "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
-            "error_ship_off_grid": "Oops! That won't fit on the grid. Try again.",
+            "error_ship_collision": "Oops! That would collidate with another ship. Try again, {player}",
+            "error_ship_off_grid": "Oops! That won't fit on the grid. Try again, {player}.",
             "invalid_coordinates": "Oops! Those were invalid coordinates. Try again.",
             "invalid_orientation": "Oops! The orientation must be either 'v' or 'h'. Try again.",
             "name_set": "",
             "none": "",
-            "place_ships": "{}, place your ships.",
+            "place_ships": "Alright, {player}. Time to place your ships.",
+            "place_next_ship": "Place your next ship, {player}",
             "welcome": "Welcome to Battleship!",
         }
         self.prompts = {
             "player_0": "What's the name of the first player?",
             "player_1": "What's the name of the second player?",
-            "ship_orientation": "Do you want to place your {} (size {}) [v]ertically or [h]orizontally?", 
-            "front_of_ship_coords": "Where do you want the front of your {} (size {})?",
+            "ship_orientation": "Do you want to place your {ship} (size {size}) [v]ertically or [h]orizontally?", 
+            "front_of_ship_coords": "Where do you want the front of your {ship} (size {size})?",
         }
 
-        # Place holder for items to pass to format for the banner and prompt
-        self.banner_params = () 
-        self.prompt_params = ()
+        # This is used to hold text strings to disply in the banner and prompts. 
+        self.current = {}
 
+        # Set the initial banner and prompt.
         self.banner = 'welcome'
         self.prompt = "player_0"
 
+        # This is only used for testing. It makes 
+        # jumping to various points easy. 
         self.testing_input = []
+
 
     def get_input(self):
         if len(self.testing_input) > 0:
@@ -57,22 +62,21 @@ class Game():
         ))
 
         print(self.header_letters() + self.arena_padding() + self.header_letters())
+
         for row_index in range(0, constants.BOARD_SIZE):
-            print(
-                str(row_index + 1).rjust(2) + " " + " ".join(self.boards[0].grid()[row_index]) +
-                self.arena_padding() +
-                str(row_index + 1).rjust(2) + " " + " ".join(self.boards[1].grid()[row_index])
-            )
+            print('{} {}{}{} {}'.format(
+                str(row_index + 1).rjust(2),
+                self.boards[0].get_row_string(row_index),
+                self.arena_padding(),
+                str(row_index + 1).rjust(2),
+                self.boards[1].get_row_string(row_index)
+            ))
 
         # Assemble the banner.
-        print('\n{}\n'.format(self.banners[self.banner].format(*self.banner_params)))
+        print('\n{}\n'.format(self.banners[self.banner].format(**self.current)))
 
         # Assemble the prompt
-        print(self.prompts[self.prompt].format(*self.prompt_params))
-
-        # Clear out the banner params so they don't show next time.
-        self.banner_params = ()
-        self.prompt_params = ()
+        print(self.prompts[self.prompt].format(**self.current))
 
     def set_ui(self, **kwargs):
         self.banners['custom'] = kwargs['banner']
@@ -81,28 +85,41 @@ class Game():
         self.prompt = 'custom'
 
     def place_ships(self):
+        self.boards[1].set_grid_visibility(False)
+        self.current['player'] = self.boards[0].player_name
         for ship_index in range(0, len(self.boards[0].ships)):
             self.place_ship(board = self.boards[0], ship_index = ship_index)
+
+        self.boards[0].set_grid_visibility(False)
+        self.boards[1].set_grid_visibility(True)
+        self.current['player'] = self.boards[1].player_name
+        for ship_index in range(0, len(self.boards[1].ships)):
+            self.place_ship(board = self.boards[1], ship_index = ship_index)
+
 
     def place_ship(self, **kwargs):
         board = kwargs['board']
         ship = board.ships[kwargs['ship_index']]
-        self.set_ui(banner = "Place ships", prompt = ship.name)
+        self.current['ship'] = ship.name
+        self.current['size'] = ship.size
+        if kwargs['ship_index'] == 0:
+            self.banner = "place_ships"
+        else:
+            self.banner = "place_next_ship"
 
         while True:
-            self.prompts['custom'] = ship.name 
+            self.prompt = "front_of_ship_coords"
             target_location = { 'size': ship.size }
             target_location['front_of_ship'] = self.get_coordinates()
-            self.banners['custom'] = "" 
-            self.prompts['custom'] = "Orientation for ship"
+            self.prompt = "ship_orientation"
             target_location['orientation'] = self.get_orientation()
             if not self.validate_ship_stays_on_grid(**target_location):
-                self.banners['custom'] = "That won't stay on the grid" 
+                self.banner = "error_ship_off_grid"
                 continue
             else:
                 target_coordinates = self.get_ship_coordinates(**target_location)
                 if not board.verify_coordinates_are_clear(target_coordinates):
-                    self.banners['custom'] = "There is already a ship there." 
+                    self.banner = "error_ship_collision"
                     continue
                 else:
                     logging.info("Target coords: {}". format(target_coordinates))
@@ -126,6 +143,9 @@ class Game():
         # with zero base indexed tupals of the coordinates of the spaces
         # the ship takes up on the grid. It expects the front_of_ship
         # to be a valid, lowercased coordinate.
+        # (Of course, this really should be refacotred and pushed 
+        # into the ship itself with the abiblity to check
+        # before setting.
 
         raw_column = kwargs['front_of_ship'][0] 
         raw_row = int(kwargs['front_of_ship'][1:])
@@ -223,13 +243,15 @@ if __name__ == '__main__':
         level=logging.INFO
     )
 
+    constants.SHIP_COUNT = 3
     game = Game()
     game.testing_input = ["Bob", "John"]
+    game.testing_input = ["Bob", "John", "b3", "v", "d2", "h", "i6"]
     game.set_player_names()
     game.place_ships()
 
     game.display_arena()
 
-    for ship in game.boards[0].ships:
-        print(ship)
+#    for ship in game.boards[0].ships:
+#        print(ship)
 

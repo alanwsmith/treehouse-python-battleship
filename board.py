@@ -8,6 +8,7 @@ class Board():
     def __init__(self, **kwargs):
         self.index = kwargs['index']
         self.player_name = "Player {}".format(self.index + 1)
+        self.grid_visibility = True
         self.ships = [] 
         self.load_ships()
         logging.info("Created board {}".format(self.index))
@@ -21,6 +22,19 @@ class Board():
             grid.append(row)
         return grid 
 
+    def grid_hidden(self):
+        grid = self.grid()
+        for row_index in range(0, len(grid)):
+            for column_index in range(0, len(grid[row_index])):
+                if grid[row_index][column_index] == "O":
+                    grid[row_index][column_index] = '?'
+                elif grid[row_index][column_index] == "-":
+                    grid[row_index][column_index] = '?'
+                elif grid[row_index][column_index] == "|":
+                    grid[row_index][column_index] = '?'
+
+        return grid
+
     def get_grid_key(self, row_index, column_index):
         for ship in self.ships:
             for coordinate in ship.coordinates:
@@ -29,46 +43,24 @@ class Board():
                         return '|'
                     else:
                         return '-'
-
         return 'O'
 
 
+    def get_row_string(self, row_index):
+        if self.grid_visibility:
+            return " ".join(self.grid()[row_index])
+        else:
+            return " ".join(self.grid_hidden()[row_index])
+
+
     def load_ships(self):
-        for ship in constants.SHIP_INFO:
+        for ship_index in range(0, constants.SHIP_COUNT):
+            ship = constants.SHIP_INFO[ship_index]
             self.ships.append(Ship(name = ship[0], size = ship[1]))
 
-    def get_letter(self, **kargs):
-        while True:
-            raw_response = input(kargs['prompt'] + " ")
-            if len(raw_response) == 0:
-                print("Oops! You didn't make a selection. " + kargs.get('error_extension'))
-                continue
-            else:
-                response = raw_response.strip().lower()[0]
-                if response not in kargs['valid_values']:
-                    print("Oops! '{}' isn't valid. ".format(raw_response) + kargs.get('error_extension'))
-                    continue
-                else:
-                    return response
+    def set_grid_visibility(self, mode):
+        self.grid_visibility = mode
 
-    def get_number(self, **kargs):
-        while True:
-            raw_response = input(kargs['prompt'] + " ").strip()
-            if len(raw_response) == 0:
-                print("Oops! You didn't make a selection. " + kargs.get('error_extension'))
-                continue
-            else:
-                try:
-                    response = int(raw_response)
-                except ValueError:
-                    print("Oops! That wasn't a number. Give it another shot.")
-                    continue
-                else:
-                    if response not in kargs['valid_values']:
-                        print("Oops! That wasn't a valid row. Try again.")
-                        continue
-                    else:
-                        return response
 
     def set_player_name(self, name):
         stripped_name = name.strip()
@@ -102,8 +94,17 @@ class Board():
         
 
 if __name__ == '__main__':
-    board = Board(index = 0)
-    board.show()
 
-    for ship in board.ships:
-        print(ship)
+    # Run the tests if your run this file directly
+    import board_test
+    bt = board_test.BoardTest()
+    bt.run_tests()
+    print("All tests passed.")
+
+
+
+    #board = Board(index = 0)
+    #board.show()
+
+    #for ship in board.ships:
+    #    print(ship)

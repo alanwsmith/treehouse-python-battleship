@@ -14,13 +14,15 @@ MISS = '.'
 HIT = '*'
 SUNK = '#'
 
+SHIP_COUNT = 3
+
 # The list of ships in the game. 
 SHIP_INFO = [
     ("Aircraft Carrier", 5),
     ("Battleship", 4),
-#    ("Submarine", 3),
-#    ("Cruiser", 3),
-#    ("Patrol Boat", 2)
+    ("Submarine", 3),
+    ("Cruiser", 3),
+    ("Patrol Boat", 2)
 ]
 
 

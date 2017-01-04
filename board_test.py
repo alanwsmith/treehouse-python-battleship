@@ -18,6 +18,9 @@ class BoardTest():
         self.test_set_ship_coordinates_with_conflict()
         self.test_grid_with_ships_vertical()
         self.test_grid_with_ships_horizontal()
+        self.test_get_row_string()
+        self.test_get_row_string_with_ship_data()
+        self.test_set_grid_visibility()
 
     def test_set_player_name(self):
         logging.info("-- Set Player Name Test --")
@@ -53,8 +56,8 @@ class BoardTest():
         self.assert_equal('O', board.grid()[0][0])
         self.assert_equal('|', board.grid()[1][3])
 
-        for row_index in range(0, len(board.grid())):
-            print(board.grid()[row_index])
+#        for row_index in range(0, len(board.grid())):
+#            print(board.grid()[row_index])
 
     def test_grid_with_ships_horizontal(self):
         logging.info("-- Grid with Ships Horizontal Test --")
@@ -64,8 +67,42 @@ class BoardTest():
         self.assert_equal('O', board.grid()[0][0])
         self.assert_equal('-', board.grid()[1][3])
 
-        for row_index in range(0, len(board.grid())):
-            print(board.grid()[row_index])
+#        for row_index in range(0, len(board.grid())):
+#            print(board.grid()[row_index])
+
+
+    def test_get_row_string(self):
+        logging.info("-- Get Row String Test --")
+        board = Board(index = 0)
+        self.assert_equal(True, board.grid_visibility)
+        self.assert_equal('O O O O O O O O O O', board.get_row_string(0))
+        board.set_grid_visibility(False)
+        self.assert_equal('? ? ? ? ? ? ? ? ? ?', board.get_row_string(0))
+
+    def test_get_row_string_with_ship_data(self):
+        logging.info("-- Get Row String With Ship Data Test --")
+        # Given
+        board = Board(index = 0)
+        board.ships[0].set_orientation('h')
+        board.ships[0].set_coordinates([(1,3), (1,4), (1,5), (1,6), (1,7)])
+        board.ships[1].set_orientation('v')
+        board.ships[1].set_coordinates([(3, 1), (4, 1), (5, 1), (6, 1)])
+        # When/Then
+        self.assert_equal(True, board.grid_visibility)
+        self.assert_equal('O O O - - - - - O O', board.get_row_string(1))
+        self.assert_equal('O | O O O O O O O O', board.get_row_string(3))
+        # When/Then
+        board.set_grid_visibility(False)
+        self.assert_equal('? ? ? ? ? ? ? ? ? ?', board.get_row_string(1))
+        self.assert_equal('? ? ? ? ? ? ? ? ? ?', board.get_row_string(3))
+
+
+    def test_set_grid_visibility(self):
+        logging.info("-- Set Grid Visability Test --")
+        board = Board(index = 0)
+        self.assert_equal(True, board.grid_visibility)
+        board.set_grid_visibility(False)
+
 
 
 if __name__ == '__main__':
