@@ -94,9 +94,6 @@ class Game():
 
 
 
-
-
-
     def set_ui(self, **kwargs):
         self.banners['custom'] = kwargs['banner']
         self.prompts['custom'] = kwargs['prompt']
