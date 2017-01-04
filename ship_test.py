@@ -2,15 +2,16 @@ import logging
 
 from ship import Ship
 
-
 class ShipTest():
 
     def __init__(self):
         pass
 
+
     def assert_equal(self, a, b):
         if a != b:
             raise ValueError("Expected: {} - Got: {}".format(a, b))
+
 
     def run_tests(self):
         self.test_set_orientation()
@@ -18,12 +19,14 @@ class ShipTest():
         self.test_see_if_ship_was_hit()
         self.test_is_ship_sunk()
 
+
     def test_set_orientation(self):
         logging.info("-- Set Orientation Test --")
         ship = Ship( name = "Test Ship", size = 3)
         self.assert_equal(True, ship.set_orientation('v'))
         self.assert_equal(True, ship.set_orientation('h'))
         self.assert_equal(False, ship.set_orientation('X'))
+
 
     def test_set_coordinates(self):
         logging.info("-- Set Coordinates Test --")
@@ -53,7 +56,6 @@ class ShipTest():
         self.assert_equal(False, ship.is_sunk())
 
 
-
 if __name__ == '__main__':
     logging.basicConfig(
         filename='logs/ship_test.txt', 
@@ -64,6 +66,5 @@ if __name__ == '__main__':
 
     st = ShipTest()
     st.run_tests()
-    
     print("All tests passed!")
 
