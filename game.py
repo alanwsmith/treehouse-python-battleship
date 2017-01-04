@@ -70,14 +70,11 @@ class Game():
         Otherwise, the prompt is repeated until
         a valid set is provided.
 
-        A nice refactoring would be to change the prompt
-        when switching players to help show that only 
-        hitting Enter/Return is necessary.
-
         Another good refactoring would be to make the
         names of methods differentiate between 
         raw and display coordinates.
         """
+
 
         while True:
             self.display_arena()
@@ -93,6 +90,10 @@ class Game():
         If the testing_input list has data, it's 
         pulled from there. Otherwise, the input
         is gathered from the UI
+
+        A nice refactoring would be to change the prompt
+        when switching players to help show that only 
+        hitting Enter/Return is necessary.
         """
 
         if len(self.testing_input) > 0:
