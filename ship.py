@@ -28,9 +28,11 @@ class Ship():
         )
 
     def is_sunk(self):
-        if len(self.coordinates) == 0:
-            return False
-        elif len(self.coordinates) == len(self.hits):
+        """Identify if the ship is sunk by comparing the 
+        number of hits to the size of the ship. 
+        """
+
+        if len(self.hits) == self.size:
             return True
         else:
             return False
