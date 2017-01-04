@@ -39,6 +39,18 @@ class Ship():
         return True
 
     def set_orientation(self, orientation):
+        """This method just sets the orientation
+        for the ship. It does a sanity check
+        to make sure the value is either a 'v'
+        or an 'h' first. (The value should already 
+        have been validated, but this felt like
+        a natural place to enfore it as well.
+
+        A potential refactore is to remove the redundante
+        checks in other classess/objects and do all
+        the validation here. 
+        """
+
         if orientation == 'v' or orientation == 'h':
             self.orientation = orientation
             return True
@@ -50,6 +62,7 @@ class Ship():
         on the ship. If it is, add it to the list of
         hits.
         """
+
         if coordinate in self.coordinates:
             return True
         else:
@@ -58,7 +71,6 @@ class Ship():
 
 if __name__ == '__main__':
     import ship_test
-
     st = ship_test.ShipTest()
     st.run_tests()
     print("All tests passed!")
