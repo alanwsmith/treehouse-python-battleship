@@ -130,7 +130,15 @@ class BoardTest():
         target_coordinates = (0, 1)
         self.assert_equal(target_coordinates, board.last_shot())
 
+        self.assert_equal('shot_missed', board.last_shot_status())
 
+
+        # Make
+        # - shot_missed
+        # - shot_hit
+        # - shot_sunk
+        # - shot_won_game
+        
 
 
 

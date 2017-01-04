@@ -56,6 +56,9 @@ class Board():
     def last_shot(self):
         return self.shot_history[-1]
 
+    def last_shot_status(self):
+        return 'shot_missed'
+
     def load_ships(self):
         for ship_index in range(0, constants.SHIP_COUNT):
             ship = constants.SHIP_INFO[ship_index]
