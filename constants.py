@@ -61,9 +61,9 @@ BANNERS = {
     "none": "",
     "place_next_ship": "Place your next ship, {player}",
     "place_ships": "Alright, {player}. Time to place your ships.",
-    "shot_hit": "{player} shot at '{last_shot}' and HIT! ~ (Hiding ships) ~ Pass computer to {opponent}.",
-    "shot_missed": "{player} shot at '{last_shot}' and MISSED! ~ (Hiding ships) ~ Pass computer to {opponent}.",
-    "switch_players": "{player} - Your turn is over. Hand the computer over to {opponent}.",
+    "shot_hit": "{player} shot at '{last_shot}' and HIT! ~ (Hiding ships) ~ Pass the computer to {opponent}.",
+    "shot_missed": "{player} shot at '{last_shot}' and MISSED! ~ (Hiding ships) ~ Pass the computer to {opponent}.",
+    "switch_players": "{player} - Your turn is over ~ (Hiding ships) ~ Pass the computer to {opponent}.",
     "take_shot": "{player}, your ships are visible. The ships of your opponent ({opponent}) are hidden.",
     "welcome": "Welcome to Battleship!"
 }
