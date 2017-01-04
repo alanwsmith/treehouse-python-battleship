@@ -20,6 +20,7 @@ class Game():
             "none": "",
             "place_ships": "Alright, {player}. Time to place your ships.",
             "place_next_ship": "Place your next ship, {player}",
+            "switch_players": "{player} - Your turn is over. Hand the computer over to {opponent}.",
             "welcome": "Welcome to Battleship!",
         }
         self.prompts = {
@@ -27,6 +28,7 @@ class Game():
             "player_1": "What's the name of the second player?",
             "ship_orientation": "Do you want to place your {ship} (size {size}) [v]ertically or [h]orizontally?", 
             "front_of_ship_coords": "Where do you want the front of your {ship} (size {size})?",
+            "continue": "{opponent}, hit enter to continue",
         }
 
         # This is used to hold text strings to disply in the banner and prompts. 
@@ -89,6 +91,10 @@ class Game():
         self.current['player'] = self.boards[0].player_name
         for ship_index in range(0, len(self.boards[0].ships)):
             self.place_ship(board = self.boards[0], ship_index = ship_index)
+
+        self.switch_players()
+        self.display_arena()
+        self.get_input()
 
         self.boards[0].set_grid_visibility(False)
         self.boards[1].set_grid_visibility(True)
@@ -189,6 +195,16 @@ class Game():
                     self.boards[num].set_player_name("Player {}".format(num + 1))
                     self.banner = "error_duplicate_names_not_allowed"
 
+
+
+    def switch_players(self):
+        self.current['opponent'] = "Player 2"
+        self.banner = "switch_players"
+        self.prompt = "continue"
+        self.boards[0].set_grid_visibility(False)
+        self.boards[1].set_grid_visibility(False)
+
+
     def validate_coordinates(self, coordinates):
 
         # Scrub the input
@@ -234,6 +250,7 @@ class Game():
             return False
         else:
             return True
+
 
 if __name__ == '__main__':
     logging.basicConfig(
