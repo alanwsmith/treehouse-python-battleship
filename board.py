@@ -44,7 +44,10 @@ class Board():
                     return '|'
                 else:
                     return '-'
-        return 'O'
+        if test_coordinate in self.shot_history:
+            return '.'
+        else:
+            return 'O'
 
 
     def get_row_string(self, row_index):

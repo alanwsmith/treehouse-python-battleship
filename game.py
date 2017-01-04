@@ -83,15 +83,16 @@ class Game():
         print(self.prompts[self.prompt].format(**self.current))
 
     def start_shooting(self):
-        board = self.boards[0]
+        self.boards[0].set_grid_visibility(True)
 
-        board.set_grid_visibility(True)
+        opponents_board = self.boards[1]
+
         self.banner = "take_shot"
         self.prompt = "get_shot_coordinates"
 
-        while not board.place_shot(self.get_coordinates()):
+        while not opponents_board.place_shot(self.get_coordinates()):
             continue
-
+        
 
 
     def set_ui(self, **kwargs):
