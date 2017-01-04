@@ -226,8 +226,7 @@ class Game():
             self.place_ship(board = self.boards[0], ship_index = ship_index)
 
         self.switch_players()
-        self.set_current_player(1)
-
+        
         self.boards[0].set_grid_visibility(False)
         self.boards[1].set_grid_visibility(True)
         for ship_index in range(0, len(self.boards[1].ships)):
