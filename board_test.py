@@ -19,7 +19,7 @@ class BoardTest():
         self.test_grid_with_ships_vertical()
         self.test_grid_with_ships_horizontal()
         self.test_get_row_string()
-        self.test_set_grid_visability()
+        self.test_set_grid_visibililty()
 
     def test_set_player_name(self):
         logging.info("-- Set Player Name Test --")
@@ -74,16 +74,16 @@ class BoardTest():
     def test_get_row_string(self):
         logging.info("-- Get Row String Test --")
         board = Board(index = 0)
-        self.assert_equal(True, board.grid_visability)
+        self.assert_equal(True, board.grid_visibililty)
         self.assert_equal('O O O O O O O O O O', board.get_row_string(0))
-        board.set_grid_visability(False)
+        board.set_grid_visibililty(False)
         self.assert_equal('? ? ? ? ? ? ? ? ? ?', board.get_row_string(0))
 
-    def test_set_grid_visability(self):
+    def test_set_grid_visibililty(self):
         logging.info("-- Set Grid Visability Test --")
         board = Board(index = 0)
-        self.assert_equal(True, board.grid_visability)
-        board.set_grid_visability(False)
+        self.assert_equal(True, board.grid_visibililty)
+        board.set_grid_visibililty(False)
 
 
 

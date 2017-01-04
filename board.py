@@ -8,7 +8,7 @@ class Board():
     def __init__(self, **kwargs):
         self.index = kwargs['index']
         self.player_name = "Player {}".format(self.index + 1)
-        self.grid_visability = True
+        self.grid_visibililty = True
         self.ships = [] 
         self.load_ships()
         logging.info("Created board {}".format(self.index))
@@ -43,7 +43,7 @@ class Board():
 
 
     def get_row_string(self, row_index):
-        if self.grid_visability:
+        if self.grid_visibililty:
             return " ".join(self.grid()[row_index])
         else:
             return " ".join(self.grid_hidden()[row_index])
@@ -54,8 +54,8 @@ class Board():
             ship = constants.SHIP_INFO[ship_index]
             self.ships.append(Ship(name = ship[0], size = ship[1]))
 
-    def set_grid_visability(self, mode):
-        self.grid_visability = mode
+    def set_grid_visibililty(self, mode):
+        self.grid_visibililty = mode
 
 
     def set_player_name(self, name):
