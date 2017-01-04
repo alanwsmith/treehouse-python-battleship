@@ -336,8 +336,3 @@ if __name__ == '__main__':
     game.set_current_player(0)
     game.start_shooting()
 
-    game.display_arena()
-
-#    for ship in game.boards[0].ships:
-#        print(ship)
-
