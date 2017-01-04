@@ -493,11 +493,32 @@ if __name__ == '__main__':
         level=logging.INFO
     )
 
+
+    # This batch of strings automatcially moves the game to specific 
+    # states for verification.
+    test_strings = [
+        # Just input the names. 
+        [ 
+            "Alex", "Zelda"
+        ],
+
+        # Place all of Alex's ships and wait for hand off to Zelda
+        [ 
+            "Alex", "Zelda", "b2", " V " 
+        ],
+        
+
+    ]
+
     constants.SHIP_COUNT = 3
     game = Game()
+
+
     game.testing_input = ["Bob", "John"]
     game.testing_input = ["Bob", "John", "b3", " V ", "d2", "H", "i6", "v", "", "a1", "v", "b1", "v", "c1", "h", ""]
     game.testing_input.extend(["a1", "", "a1", ""]) # Start firing shots.
+
+    game.testing_input = test_strings[1]
     game.set_player_names()
     game.place_ships()
     game.set_current_player(0)
