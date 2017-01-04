@@ -7,11 +7,6 @@ class Ship():
         self.name = kwargs['name']
         self.size = kwargs['size']
         self.orientation = None
-        self.bow = None
-
-        self.bow_column = None
-        self.bow_row = None
-
         self.coordinates = []
         self.hits = []
 
