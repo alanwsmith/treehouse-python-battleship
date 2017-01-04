@@ -50,9 +50,11 @@ class GameTest():
 
         game.testing_input = ['a1']
         self.assert_equal('a1', game.get_coordinates())
+
+        game.testing_input = ['  B7  ']
+        self.assert_equal('b7', game.get_coordinates())
+
         print("\033c", end="")
-
-
 
 
     def test_get_orientation(self):

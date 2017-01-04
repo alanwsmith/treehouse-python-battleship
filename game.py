@@ -75,10 +75,9 @@ class Game():
         raw and display coordinates.
         """
 
-
         while True:
             self.display_arena()
-            coordinates = self.get_input()
+            coordinates = self.get_input().strip().lower()
             if self.validate_coordinates(coordinates):
                 return coordinates
             else:
