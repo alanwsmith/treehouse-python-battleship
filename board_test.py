@@ -21,6 +21,9 @@ class BoardTest():
         self.test_get_row_string()
         self.test_get_row_string_with_ship_data()
         self.test_set_grid_visibility()
+        self.test_place_shot()
+        self.test_last_shot_status()
+        self.test_last_shot_status_hit()
 
     def test_set_player_name(self):
         logging.info("-- Set Player Name Test --")
@@ -87,13 +90,14 @@ class BoardTest():
         board.ships[0].set_coordinates([(1,3), (1,4), (1,5), (1,6), (1,7)])
         board.ships[1].set_orientation('v')
         board.ships[1].set_coordinates([(3, 1), (4, 1), (5, 1), (6, 1)])
+        board.shot_history = [(1, 2), (1, 3)]
         # When/Then
         self.assert_equal(True, board.grid_visibility)
-        self.assert_equal('O O O - - - - - O O', board.get_row_string(1))
+        self.assert_equal('O O . * - - - - O O', board.get_row_string(1))
         self.assert_equal('O | O O O O O O O O', board.get_row_string(3))
         # When/Then
         board.set_grid_visibility(False)
-        self.assert_equal('? ? ? ? ? ? ? ? ? ?', board.get_row_string(1))
+        self.assert_equal('? ? . * ? ? ? ? ? ?', board.get_row_string(1))
         self.assert_equal('? ? ? ? ? ? ? ? ? ?', board.get_row_string(3))
 
 
@@ -102,6 +106,55 @@ class BoardTest():
         board = Board(index = 0)
         self.assert_equal(True, board.grid_visibility)
         board.set_grid_visibility(False)
+
+
+    def test_place_shot(self):
+        logging.info("-- Place Shot Test --")
+        board = Board(index = 0)
+        # Send display and check for raw
+        self.assert_equal(True, board.place_shot('c5'))
+        self.assert_equal((4, 2), board.shot_history[-1])
+
+        # Add another valid shot
+        self.assert_equal(True, board.place_shot('d1'))
+        self.assert_equal((0, 3), board.shot_history[-1])
+
+        # Verify duplicate shots are rejected. 
+        self.assert_equal(False, board.place_shot('d1'))
+
+
+    def test_last_shot_status(self):
+        logging.info("-- Last Shot Status Test --")
+        board = Board(index = 0)
+        board.ships[0].set_orientation('h')
+        board.ships[0].set_coordinates([(1,3), (1,4), (1,5), (1,6), (1,7)])
+        board.place_shot('c9')
+        board.place_shot('e9')
+        board.place_shot('b1')
+        target_coordinates = (0, 1)
+        self.assert_equal(target_coordinates, board.last_shot())
+        self.assert_equal('shot_missed', board.last_shot_status())
+
+    def test_last_shot_status_hit(self):
+        logging.info("-- Last Shot Status Hit Test --")
+        board = Board(index = 0)
+        self.assert_equal(1,1)
+        board.ships[0].set_orientation('h')
+        board.ships[0].set_coordinates([(1,3), (1,4), (1,5), (1,6), (1,7)])
+        board.place_shot('c9')
+        board.place_shot('e9')
+        board.place_shot('d2')
+        target_coordinates = (1, 3)
+        self.assert_equal('shot_hit', board.last_shot_status())
+
+
+        # Make
+        # - shot_missed
+        # - shot_hit
+        # - shot_sunk
+        # - shot_won_game
+        
+
 
 
 

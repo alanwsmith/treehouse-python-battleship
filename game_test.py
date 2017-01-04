@@ -20,6 +20,7 @@ class GameTest():
         self.test_validate_ship_stays_on_grid()
         self.test_get_ship_coordinates_horizontal()
         self.test_get_ship_coordinates_vertical()
+        self.test_raw_coordinates_to_display()
 
     def test_basic_initialization(self):
         logging.info("-- Basic Initialization Test --")
@@ -93,7 +94,11 @@ class GameTest():
         self.assert_equal(False, game.validate_ship_stays_on_grid(front_of_ship="i1", orientation="h", size=5))
         self.assert_equal(True, game.validate_ship_stays_on_grid(front_of_ship="i1", orientation="v", size=5))
 
-
+    def test_raw_coordinates_to_display(self):
+        logging.info("-- Raw Coordinates To Display Test --")
+        game = Game()
+        self.assert_equal('c4', game.raw_coordinates_to_display((3, 2)))
+    
 
 if __name__ == '__main__':
     logging.basicConfig(

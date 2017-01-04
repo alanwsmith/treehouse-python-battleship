@@ -10,6 +10,7 @@ class Board():
         self.player_name = "Player {}".format(self.index + 1)
         self.grid_visibility = True
         self.ships = [] 
+        self.shot_history = []
         self.load_ships()
         logging.info("Created board {}".format(self.index))
 
@@ -36,14 +37,19 @@ class Board():
         return grid
 
     def get_grid_key(self, row_index, column_index):
+        test_coordinate = (row_index, column_index)
         for ship in self.ships:
-            for coordinate in ship.coordinates:
-                if (row_index, column_index) == coordinate:
-                    if ship.orientation == 'v':
-                        return '|'
-                    else:
-                        return '-'
-        return 'O'
+            if test_coordinate in ship.coordinates:
+                if test_coordinate in self.shot_history:
+                    return '*'
+                if ship.orientation == 'v':
+                    return '|'
+                else:
+                    return '-'
+        if test_coordinate in self.shot_history:
+            return '.'
+        else:
+            return 'O'
 
 
     def get_row_string(self, row_index):
@@ -52,11 +58,39 @@ class Board():
         else:
             return " ".join(self.grid_hidden()[row_index])
 
+    def last_shot(self):
+        return self.shot_history[-1]
+
+    def last_shot_status(self):
+        for ship in self.ships:
+            if self.last_shot() in ship.coordinates:
+                return 'shot_hit'
+        return 'shot_missed'
 
     def load_ships(self):
         for ship_index in range(0, constants.SHIP_COUNT):
             ship = constants.SHIP_INFO[ship_index]
             self.ships.append(Ship(name = ship[0], size = ship[1]))
+
+
+    def place_shot(self, coordinates):
+        # Expects a validated set of display coordiantes. 
+        # Adds the raw shot coordinates to shot_history and returns true if it's not
+        # already there. Otherwise, returns false.
+        column = constants.COORDINATE_MAP['columns'][coordinates[0]]
+        row = constants.COORDINATE_MAP['rows'][int(coordinates[1:])]
+        raw_coordinates = (row, column)
+        if raw_coordinates in self.shot_history:
+            logging.info("Rejected shot at {} in board {} because it's already in shot_history".format(
+                         raw_coordinates,
+                         self.index
+                         ))
+            return False
+        else:
+            self.shot_history.append(raw_coordinates)
+            logging.info("Added shot at {} to board {}.".format(raw_coordinates, self.index))
+            return True 
+
 
     def set_grid_visibility(self, mode):
         self.grid_visibility = mode

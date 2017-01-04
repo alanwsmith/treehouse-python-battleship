@@ -14,13 +14,15 @@ class Game():
             "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
             "error_ship_collision": "Oops! That would collidate with another ship. Try again, {player}",
             "error_ship_off_grid": "Oops! That won't fit on the grid. Try again, {player}.",
-            "invalid_coordinates": "Oops! Those were invalid coordinates. Try again.",
-            "invalid_orientation": "Oops! The orientation must be either 'v' or 'h'. Try again.",
+            "invalid_coordinates": "Oops! Those were invalid coordinates. Try again, {player}.",
+            "invalid_orientation": "Oops! The orientation must be either 'v' or 'h'. Try again, {player}.",
             "name_set": "",
             "none": "",
             "place_ships": "Alright, {player}. Time to place your ships.",
             "place_next_ship": "Place your next ship, {player}",
+            "shot_hit": "{player} hit at '{last_shot}'. (Screens hidden. Pass the computer to {opponent}.)",
             "switch_players": "{player} - Your turn is over. Hand the computer over to {opponent}.",
+            "take_shot": "{player} your board is clear. Your opponent's ({opponent}) is hidden. Take a shot.",
             "welcome": "Welcome to Battleship!",
         }
         self.prompts = {
@@ -28,7 +30,8 @@ class Game():
             "player_1": "What's the name of the second player?",
             "ship_orientation": "Do you want to place your {ship} (size {size}) [v]ertically or [h]orizontally?", 
             "front_of_ship_coords": "Where do you want the front of your {ship} (size {size})?",
-            "continue": "{opponent}, hit enter to continue",
+            "get_shot_coordinates": "What coordinates do you want to shoot at?",
+            "continue": "{opponent}, hit Enter/Return when you're ready to continue.",
         }
 
         # This is used to hold text strings to disply in the banner and prompts. 
@@ -79,6 +82,51 @@ class Game():
 
         # Assemble the prompt
         print(self.prompts[self.prompt].format(**self.current))
+
+
+    # Use this to make it easy to keep up with player/boards
+    # A next refactoring step would be to make everything use
+    # this and the related switch_active_player_id() method.
+    def set_active_player_id(self, player_id):
+        self.active_player = player_id
+        if player_id == 0:
+            self.active_opponent = 1
+            self.current['player'] = self.boards[0].player_name
+            self.current['opponent'] = self.boards[1].player_name
+        else:
+            self.active_opponent = 0
+            self.current['player'] = self.boards[1].player_name
+            self.current['opponent'] = self.boards[0].player_name
+
+    def switch_active_player_id(self):
+        if self.active_player == 0:
+            self.set_active_player_id(1)
+        else:
+            self.set_active_player_id(0)
+
+
+    def start_shooting(self):
+
+        self.set_active_player_id(0)
+
+        while True:
+            self.banner = "take_shot"
+            self.prompt = "get_shot_coordinates"
+            self.display_arena()
+            player_board = self.boards[self.active_player] 
+            opponents_board = self.boards[self.active_opponent]
+            player_board.set_grid_visibility(True)
+
+            while not opponents_board.place_shot(self.get_coordinates()):
+                continue
+             
+            player_board.set_grid_visibility(False)
+            self.current['last_shot'] = self.raw_coordinates_to_display(opponents_board.last_shot())
+            self.banner = opponents_board.last_shot_status()
+            self.prompt = "continue"
+            self.display_arena()
+            self.get_input()
+            self.switch_active_player_id()
 
     def set_ui(self, **kwargs):
         self.banners['custom'] = kwargs['banner']
@@ -179,6 +227,16 @@ class Game():
             else:
                 self.banner = "invalid_orientation"
 
+    def raw_coordinates_to_display(self, raw_coordinates):
+        column_letter = ""
+        while column_letter == "":
+            for letter, number in constants.COORDINATE_MAP['columns'].items():
+                if raw_coordinates[1] == number:
+                    column_letter = letter
+        row_number = raw_coordinates[0] + 1
+        return '{}{}'.format(column_letter, str(row_number)) 
+
+
     def set_current_player(self, board_index):
         if board_index == 0:
             self.current['player'] = self.boards[0].player_name
@@ -274,9 +332,11 @@ if __name__ == '__main__':
     constants.SHIP_COUNT = 3
     game = Game()
     game.testing_input = ["Bob", "John"]
-    game.testing_input = ["Bob", "John", "b3", "v", "d2", "h", "i6"]
+    game.testing_input = ["Bob", "John", "b3", "v", "d2", "h", "i6", "v", "", "a1", "v", "b1", "v", "c1", "v", ""]
     game.set_player_names()
     game.place_ships()
+    game.set_current_player(0)
+    game.start_shooting()
 
     game.display_arena()
 
