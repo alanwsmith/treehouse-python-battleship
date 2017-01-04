@@ -95,7 +95,7 @@ class Game():
             continue
          
         self.boards[0].set_grid_visibility(False)
-        self.current['last_shot'] = opponents_board.last_shot()
+        self.current['last_shot'] = self.raw_coordinates_to_display(opponents_board.last_shot())
         self.banner = opponents_board.last_shot_status()
         self.prompt = "continue"
 
