@@ -61,12 +61,15 @@ class Game():
         ))
 
         print(self.header_letters() + self.arena_padding() + self.header_letters())
+
         for row_index in range(0, constants.BOARD_SIZE):
-            print(
-                str(row_index + 1).rjust(2) + " " + " ".join(self.boards[0].grid()[row_index]) +
-                self.arena_padding() +
-                str(row_index + 1).rjust(2) + " " + " ".join(self.boards[1].grid_hidden()[row_index])
-            )
+            print('{} {}{}{} {}'.format(
+                str(row_index + 1).rjust(2),
+                self.boards[0].get_row_string(row_index),
+                self.arena_padding(),
+                str(row_index + 1).rjust(2),
+                self.boards[1].get_row_string(row_index)
+            ))
 
         # Assemble the banner.
         print('\n{}\n'.format(self.banners[self.banner].format(**self.current)))
