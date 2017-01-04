@@ -84,6 +84,7 @@ class Game():
         self.prompt = 'custom'
 
     def place_ships(self):
+        self.boards[1].set_grid_visibility(False)
         self.current['player'] = self.boards[0].player_name
         for ship_index in range(0, len(self.boards[0].ships)):
             self.place_ship(board = self.boards[0], ship_index = ship_index)
