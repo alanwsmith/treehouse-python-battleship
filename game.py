@@ -241,7 +241,7 @@ if __name__ == '__main__':
     constants.SHIP_COUNT = 3
     game = Game()
     game.testing_input = ["Bob", "John"]
-    game.testing_input = ["Bob", "John", "b3", "v", "d2", "h", "i6", "v"]
+    game.testing_input = ["Bob", "John", "b3", "v", "d2", "h", "i6"]
     game.set_player_names()
     game.place_ships()
 
