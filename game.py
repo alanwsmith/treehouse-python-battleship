@@ -440,7 +440,9 @@ class Game():
 
     def validate_orientation(self, orientation):
         """This method ensures that a requested orientation
-        is valid. 
+        is valid. It assumes that the value to check
+        has already been stripped of spaces and properly
+        lower cased.
         """
 
         if orientation == "h" or orientation == "v":
