@@ -6,34 +6,48 @@ from board import Board
 class Game():
     
     def __init__(self):
+        """The initial setup that does the following:
+        - Prep the boards for each player. 
+        - Create `current` dictionary to store values to pass to 
+          banner and prompt.
+        - Set the initial banner and prompt. 
+        - Create a list to assist with testing.
+        """
+
         logging.info("Initializing game")
-
-        # Perp the boards
         self.boards = [ Board(index = 0), Board(index = 1) ]
-
-        # This is used to hold text strings to disply in the banner and prompts. 
         self.current = {}
-
-        # Set the initial banner and prompt.
         self.banner = 'welcome'
         self.prompt = "player_0"
-
-        # This is only used for testing. Makes jumping to different points easy. 
         self.testing_input = []
 
+
     def arena_padding(self):
+        """Responsible for setting the space between
+        boards when the UI is rendered. 
+        """
+
         return "      "
 
+
     def display_arena(self):
+        """This method is responsible for rendering the UI. 
+        """
+
+        # Clear the screen.
         print("\033c", end="")
+
+        # Output player names.
         print("{}{}{}".format(
             self.boards[0].player_name.center(22, '-'),
             self.arena_padding(),
             self.boards[1].player_name.center(22, '-')
         ))
 
+        # Output column letters for each board.
         print(self.header_letters() + self.arena_padding() + self.header_letters())
 
+        # Output the row numbers and data for each board.
         for row_index in range(0, constants.BOARD_SIZE):
             print('{} {}{}{} {}'.format(
                 str(row_index + 1).rjust(2),
@@ -43,14 +57,20 @@ class Game():
                 self.boards[1].get_row_string(row_index)
             ))
 
-        # Assemble the banner.
+        # Assemble and output the banner.
         print('\n{}\n'.format(constants.BANNERS[self.banner].format(**self.current)))
 
-        # Assemble the prompt
+        # Assemble and output the prompt.
         print(constants.PROMPTS[self.prompt].format(**self.current))
 
 
     def get_coordinates(self):
+        """Requests a set of coordinates. If a 
+        valid set it entered, they are returned. 
+        Otherwise, the prompt is repeated until
+        a valid set is provided.
+        """
+
         while True:
             self.display_arena()
             coordinates = self.get_input()
@@ -61,6 +81,12 @@ class Game():
 
 
     def get_input(self):
+        """Used to gather any and all input. 
+        If the testing_input list has data, it's 
+        pulled from there. Otherwise, the input
+        is gathered from the UI
+        """
+
         if len(self.testing_input) > 0:
             return self.testing_input.pop(0)
         else:
@@ -68,6 +94,12 @@ class Game():
 
 
     def get_orientation(self):
+        """Prompts to get a ship orientation. If a valid
+        orientation is entered, it's returned. Otherwise, 
+        the prompt is repeated until a valid orientation 
+        is provided. 
+        """
+
         while True:
             self.display_arena()
             orientation = self.get_input()
@@ -78,13 +110,14 @@ class Game():
 
 
     def get_ship_coordinates(self, **kwargs):
-        # This method takes basic parameters for a ship and returns a list
-        # with zero base indexed tupals of the coordinates of the spaces
-        # the ship takes up on the grid. It expects the front_of_ship
-        # to be a valid, lowercased coordinate.
-        # (Of course, this really should be refacotred and pushed 
-        # into the ship itself with the abiblity to check
-        # before setting.
+        """This method takes basic parameters for a ship and returns a list
+        with zero base indexed tupals of the coordinates of the spaces
+        the ship takes up on the grid. It expects the front_of_ship
+        to be a valid, lowercased coordinate.
+        (Of course, this really should be refacotred and pushed 
+        into the ship itself with the abiblity to check
+        before setting.
+        """
 
         raw_column = kwargs['front_of_ship'][0] 
         raw_row = int(kwargs['front_of_ship'][1:])
@@ -105,40 +138,88 @@ class Game():
 
 
     def header_letters(self):
+        """Helper method to render the column letters
+        for the game boards.
+        """
+        
         return "   " + " ".join([chr(c) for c in range(ord('A'), ord('A') + constants.BOARD_SIZE)])
 
+
     def place_ship(self, **kwargs):
+        """The method loops through the ships for a given
+        player/board and asks where they should be placed. 
+        The prompt is done in two parts. First, coordinates
+        are requested and then an orientation (vertical or
+        horizontal). At each step, the inputs are validated
+        and repeat requests made if necessary. Once both
+        the coordinates and the orientation are validated 
+        individually, a combined validation occurs to make
+        sure the requested ship location fits on the board
+        and doesn't overlap with other ships that have
+        already been placed. 
+
+        This method is a little long. It's a good candidate
+        for refactoring if more work was going to be done
+        on this project.
+
+        Also, this method sets the individual coordinates
+        that each ship occupies. Another refactoring would
+        be to only set the front_of_ship and place the 
+        responsibility for calculating the individual 
+        coordinates on the ship itself. The current method
+        works fine, it just feels like it would be better
+        by moving it to the ship.
+        """
+
+        # Pull the board and ship into local variables
         board = kwargs['board']
         ship = board.ships[kwargs['ship_index']]
+
+        # Update the banner/prompt data with ship info.
         self.current['ship'] = ship.name
         self.current['size'] = ship.size
+
+        # Make a nice UI distinction between the first
+        # ship and subsequent ones.
         if kwargs['ship_index'] == 0:
             self.banner = "place_ships"
         else:
             self.banner = "place_next_ship"
 
+        # Do the request and set loop.
         while True:
             self.prompt = "front_of_ship_coords"
+            # Use target_location dict to store all the data necessary for validation
             target_location = { 'size': ship.size }
             target_location['front_of_ship'] = self.get_coordinates()
             self.prompt = "ship_orientation"
             target_location['orientation'] = self.get_orientation()
+            # Make sure the requested placement stays on the grid.
             if not self.validate_ship_stays_on_grid(**target_location):
                 self.banner = "error_ship_off_grid"
                 continue
             else:
+                # Grab where the ship would go if it's placed.
                 target_coordinates = self.get_ship_coordinates(**target_location)
+                # Make sure there isn't something already there.
                 if not board.verify_coordinates_are_clear(target_coordinates):
                     self.banner = "error_ship_collision"
                     continue
                 else:
                     logging.info("Target coords: {}". format(target_coordinates))
+                    # Everything looks good so update the ship with the 
+                    # coordinates and orientation.
                     ship.set_coordinates(target_coordinates)
                     ship.set_orientation(target_location['orientation'])
                     break
 
 
     def place_ships(self):
+        """This method jumps through the two
+        players, shows/hides the boards appropriately
+        and then has them place their ships.
+        """
+
         self.set_current_player(0)
         self.boards[1].set_grid_visibility(False)
         for ship_index in range(0, len(self.boards[0].ships)):
