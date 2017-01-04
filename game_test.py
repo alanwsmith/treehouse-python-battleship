@@ -82,7 +82,6 @@ class GameTest():
         self.assert_equal(True, game.validate_orientation("h"))
         self.assert_equal(True, game.validate_orientation("v"))
         self.assert_equal(False, game.validate_orientation("q"))
-        # TODO: Test upper case and with spaces. 
 
 
     def test_validate_ship_stays_on_grid(self):
