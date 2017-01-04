@@ -7,6 +7,8 @@ class Game():
     
     def __init__(self):
         logging.info("Initializing game")
+
+        # Perp the boards
         self.boards = [ Board(index = 0), Board(index = 1) ]
 
         # This is used to hold text strings to disply in the banner and prompts. 
@@ -18,16 +20,6 @@ class Game():
 
         # This is only used for testing. Makes jumping to different points easy. 
         self.testing_input = []
-
-
-    def get_input(self):
-        if len(self.testing_input) > 0:
-            return self.testing_input.pop(0)
-        else:
-            return input("> ")
-
-    def header_letters(self):
-        return "   " + " ".join([chr(c) for c in range(ord('A'), ord('A') + constants.BOARD_SIZE)])
 
     def arena_padding(self):
         return "      "
@@ -58,68 +50,62 @@ class Game():
         print(constants.PROMPTS[self.prompt].format(**self.current))
 
 
-    # Use this to make it easy to keep up with player/boards
-    # A next refactoring step would be to make everything use
-    # this and the related switch_active_player_id() method.
-    def set_active_player_id(self, player_id):
-        self.active_player = player_id
-        if player_id == 0:
-            self.active_opponent = 1
-            self.current['player'] = self.boards[0].player_name
-            self.current['opponent'] = self.boards[1].player_name
-        else:
-            self.active_opponent = 0
-            self.current['player'] = self.boards[1].player_name
-            self.current['opponent'] = self.boards[0].player_name
-
-    def switch_active_player_id(self):
-        if self.active_player == 0:
-            self.set_active_player_id(1)
-        else:
-            self.set_active_player_id(0)
-
-
-    def start_shooting(self):
-
-        self.set_active_player_id(0)
-
-        self.banner = "take_shot"
+    def get_coordinates(self):
         while True:
-            self.prompt = "get_shot_coordinates"
             self.display_arena()
-            player_board = self.boards[self.active_player] 
-            opponents_board = self.boards[self.active_opponent]
-            player_board.set_grid_visibility(True)
+            coordinates = self.get_input()
+            if self.validate_coordinates(coordinates):
+                return coordinates
+            else:
+                self.banner = "invalid_coordinates"
 
-            while not opponents_board.place_shot(self.get_coordinates()):
-                self.banner = "already_shot_there"
-                continue
-             
-            player_board.set_grid_visibility(False)
-            self.current['last_shot'] = self.raw_coordinates_to_display(opponents_board.last_shot())
-            self.banner = opponents_board.last_shot_status()
-            self.prompt = "continue"
+
+    def get_input(self):
+        if len(self.testing_input) > 0:
+            return self.testing_input.pop(0)
+        else:
+            return input("> ")
+
+
+    def get_orientation(self):
+        while True:
             self.display_arena()
-            self.get_input()
-            self.switch_active_player_id()
-            self.banner = "take_shot"
+            orientation = self.get_input()
+            if self.validate_orientation(orientation):
+                return orientation
+            else:
+                self.banner = "invalid_orientation"
 
-    def place_ships(self):
-        self.set_current_player(0)
-        self.boards[1].set_grid_visibility(False)
-        for ship_index in range(0, len(self.boards[0].ships)):
-            self.place_ship(board = self.boards[0], ship_index = ship_index)
 
-        self.switch_players()
-        self.set_current_player(1)
+    def get_ship_coordinates(self, **kwargs):
+        # This method takes basic parameters for a ship and returns a list
+        # with zero base indexed tupals of the coordinates of the spaces
+        # the ship takes up on the grid. It expects the front_of_ship
+        # to be a valid, lowercased coordinate.
+        # (Of course, this really should be refacotred and pushed 
+        # into the ship itself with the abiblity to check
+        # before setting.
 
-        self.boards[0].set_grid_visibility(False)
-        self.boards[1].set_grid_visibility(True)
-        for ship_index in range(0, len(self.boards[1].ships)):
-            self.place_ship(board = self.boards[1], ship_index = ship_index)
+        raw_column = kwargs['front_of_ship'][0] 
+        raw_row = int(kwargs['front_of_ship'][1:])
 
-        self.switch_players()
+        column = constants.COORDINATE_MAP['columns'][raw_column]
+        row = constants.COORDINATE_MAP['rows'][raw_row]
 
+        coordinates = []
+        
+        if kwargs['orientation'] == "h":
+            for column_index in range(column, (column + kwargs['size'])):
+                coordinates.append((row, column_index))
+        else:
+            for row_index in range(row, (row + kwargs['size'])):
+                coordinates.append((row_index, column))
+         
+        return coordinates 
+
+
+    def header_letters(self):
+        return "   " + " ".join([chr(c) for c in range(ord('A'), ord('A') + constants.BOARD_SIZE)])
 
     def place_ship(self, **kwargs):
         board = kwargs['board']
@@ -151,51 +137,24 @@ class Game():
                     ship.set_orientation(target_location['orientation'])
                     break
 
-        
-    def get_coordinates(self):
-        while True:
-            self.display_arena()
-            coordinates = self.get_input()
-            if self.validate_coordinates(coordinates):
-                return coordinates
-            else:
-                self.banner = "invalid_coordinates"
+
+    def place_ships(self):
+        self.set_current_player(0)
+        self.boards[1].set_grid_visibility(False)
+        for ship_index in range(0, len(self.boards[0].ships)):
+            self.place_ship(board = self.boards[0], ship_index = ship_index)
+
+        self.switch_players()
+        self.set_current_player(1)
+
+        self.boards[0].set_grid_visibility(False)
+        self.boards[1].set_grid_visibility(True)
+        for ship_index in range(0, len(self.boards[1].ships)):
+            self.place_ship(board = self.boards[1], ship_index = ship_index)
+
+        self.switch_players()
 
 
-    def get_ship_coordinates(self, **kwargs):
-        # This method takes basic parameters for a ship and returns a list
-        # with zero base indexed tupals of the coordinates of the spaces
-        # the ship takes up on the grid. It expects the front_of_ship
-        # to be a valid, lowercased coordinate.
-        # (Of course, this really should be refacotred and pushed 
-        # into the ship itself with the abiblity to check
-        # before setting.
-
-        raw_column = kwargs['front_of_ship'][0] 
-        raw_row = int(kwargs['front_of_ship'][1:])
-
-        column = constants.COORDINATE_MAP['columns'][raw_column]
-        row = constants.COORDINATE_MAP['rows'][raw_row]
-
-        coordinates = []
-        
-        if kwargs['orientation'] == "h":
-            for column_index in range(column, (column + kwargs['size'])):
-                coordinates.append((row, column_index))
-        else:
-            for row_index in range(row, (row + kwargs['size'])):
-                coordinates.append((row_index, column))
-         
-        return coordinates 
-
-    def get_orientation(self):
-        while True:
-            self.display_arena()
-            orientation = self.get_input()
-            if self.validate_orientation(orientation):
-                return orientation
-            else:
-                self.banner = "invalid_orientation"
 
     def raw_coordinates_to_display(self, raw_coordinates):
         column_letter = ""
@@ -205,6 +164,22 @@ class Game():
                     column_letter = letter
         row_number = raw_coordinates[0] + 1
         return '{}{}'.format(column_letter, str(row_number)) 
+
+
+    def set_active_player_id(self, player_id):
+        # Use this to make it easy to keep up with player/boards
+        # A next refactoring step would be to make everything use
+        # this and the related switch_active_player_id() method.
+
+        self.active_player = player_id
+        if player_id == 0:
+            self.active_opponent = 1
+            self.current['player'] = self.boards[0].player_name
+            self.current['opponent'] = self.boards[1].player_name
+        else:
+            self.active_opponent = 0
+            self.current['player'] = self.boards[1].player_name
+            self.current['opponent'] = self.boards[0].player_name
 
 
     def set_current_player(self, board_index):
@@ -230,6 +205,37 @@ class Game():
                     # Fall back to generic name then set banner.
                     self.boards[num].set_player_name("Player {}".format(num + 1))
                     self.banner = "error_duplicate_names_not_allowed"
+
+    def start_shooting(self):
+
+        self.set_active_player_id(0)
+
+        self.banner = "take_shot"
+        while True:
+            self.prompt = "get_shot_coordinates"
+            self.display_arena()
+            player_board = self.boards[self.active_player] 
+            opponents_board = self.boards[self.active_opponent]
+            player_board.set_grid_visibility(True)
+
+            while not opponents_board.place_shot(self.get_coordinates()):
+                self.banner = "already_shot_there"
+                continue
+             
+            player_board.set_grid_visibility(False)
+            self.current['last_shot'] = self.raw_coordinates_to_display(opponents_board.last_shot())
+            self.banner = opponents_board.last_shot_status()
+            self.prompt = "continue"
+            self.display_arena()
+            self.get_input()
+            self.switch_active_player_id()
+            self.banner = "take_shot"
+
+    def switch_active_player_id(self):
+        if self.active_player == 0:
+            self.set_active_player_id(1)
+        else:
+            self.set_active_player_id(0)
 
 
     def switch_players(self):
