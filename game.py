@@ -20,6 +20,7 @@ class Game():
             "none": "",
             "place_ships": "Alright, {player}. Time to place your ships.",
             "place_next_ship": "Place your next ship, {player}",
+            "shot_hit": "{player} hit at TKTKT. (Screens hidden. Pass the computer to {opponent}.)",
             "switch_players": "{player} - Your turn is over. Hand the computer over to {opponent}.",
             "take_shot": "{player} - Take a shot.",
             "welcome": "Welcome to Battleship!",
@@ -92,7 +93,10 @@ class Game():
 
         while not opponents_board.place_shot(self.get_coordinates()):
             continue
-        
+         
+        self.boards[0].set_grid_visibility(False)
+        self.banner = opponents_board.last_shot_status()
+        self.prompt = "continue"
 
 
     def set_ui(self, **kwargs):
