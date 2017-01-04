@@ -244,13 +244,15 @@ class Game():
         players, shows/hides the boards appropriately
         and then has them place their ships.
         """
-
-        self.set_current_player(0)
+    
+        self.set_active_player_id(0)
         self.boards[1].set_grid_visibility(False)
+
         for ship_index in range(0, len(self.boards[0].ships)):
             self.place_ship(board = self.boards[0], ship_index = ship_index)
 
         self.switch_players()
+        self.switch_active_player_id()
         
         self.boards[0].set_grid_visibility(False)
         self.boards[1].set_grid_visibility(True)
@@ -512,6 +514,7 @@ if __name__ == '__main__':
     game = Game()
 
     game.testing_input = test_strings[1]
+
     game.set_player_names()
     game.place_ships()
     game.set_current_player(0)
