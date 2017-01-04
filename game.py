@@ -69,6 +69,10 @@ class Game():
         valid set it entered, they are returned. 
         Otherwise, the prompt is repeated until
         a valid set is provided.
+
+        A nice refactoring would be to change the prompt
+        when switching players to help show that only 
+        hitting Enter/Return is necessary.
         """
 
         while True:
