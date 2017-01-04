@@ -59,9 +59,6 @@ class BoardTest():
         self.assert_equal('O', board.grid()[0][0])
         self.assert_equal('|', board.grid()[1][3])
 
-#        for row_index in range(0, len(board.grid())):
-#            print(board.grid()[row_index])
-
     def test_grid_with_ships_horizontal(self):
         logging.info("-- Grid with Ships Horizontal Test --")
         board = Board(index = 0)
@@ -69,10 +66,6 @@ class BoardTest():
         board.ships[0].set_coordinates([(1,3), (1,4), (1,5), (1,6), (1,7)])
         self.assert_equal('O', board.grid()[0][0])
         self.assert_equal('-', board.grid()[1][3])
-
-#        for row_index in range(0, len(board.grid())):
-#            print(board.grid()[row_index])
-
 
     def test_get_row_string(self):
         logging.info("-- Get Row String Test --")
