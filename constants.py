@@ -71,7 +71,7 @@ BANNERS = {
 PROMPTS = {
     "continue": "{opponent}, hit Enter/Return when you're ready to continue.",
     "front_of_ship_coords": "Where do you want the front of your {ship} (size {size})?",
-    "get_shot_coordinates": "What coordinates do you want to shoot at?",
+    "get_shot_coordinates": "What coordinates do you want to shoot at (e.g. 'h6')?",
     "player_0": "What's the name of the first player?",
     "player_1": "What's the name of the second player?",
     "ship_orientation": "Do you want to place your {ship} (size {size}) [v]ertically or [h]orizontally?"
