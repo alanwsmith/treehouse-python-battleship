@@ -47,7 +47,13 @@ class Ship():
 
 
 if __name__ == '__main__':
-    ship = Ship(name = "Test Ship", size = 5)
-    print(ship)
+    import ship_test
+
+    st = ship_test.ShipTest()
+    st.run_tests()
+
+
+
+
 
 
