@@ -22,7 +22,7 @@ class Game():
             "place_next_ship": "Place your next ship, {player}",
             "shot_hit": "{player} hit at '{last_shot}'. (Screens hidden. Pass the computer to {opponent}.)",
             "switch_players": "{player} - Your turn is over. Hand the computer over to {opponent}.",
-            "take_shot": "{player} - Take a shot.",
+            "take_shot": "{player} your board is clear. Your opponent's ({opponent}) is hidden. Take a shot.",
             "welcome": "Welcome to Battleship!",
         }
         self.prompts = {
@@ -31,7 +31,7 @@ class Game():
             "ship_orientation": "Do you want to place your {ship} (size {size}) [v]ertically or [h]orizontally?", 
             "front_of_ship_coords": "Where do you want the front of your {ship} (size {size})?",
             "get_shot_coordinates": "What coordinates do you want to shoot at?",
-            "continue": "{opponent}, hit enter to continue",
+            "continue": "{opponent}, hit Enter/Return when you're ready to continue.",
         }
 
         # This is used to hold text strings to disply in the banner and prompts. 
@@ -85,32 +85,48 @@ class Game():
 
 
     # Use this to make it easy to keep up with player/boards
+    # A next refactoring step would be to make everything use
+    # this and the related switch_active_player_id() method.
     def set_active_player_id(self, player_id):
         self.active_player = player_id
         if player_id == 0:
             self.active_opponent = 1
+            self.current['player'] = self.boards[0].player_name
+            self.current['opponent'] = self.boards[1].player_name
         else:
             self.active_opponent = 0
+            self.current['player'] = self.boards[1].player_name
+            self.current['opponent'] = self.boards[0].player_name
+
+    def switch_active_player_id(self):
+        if self.active_player == 0:
+            self.set_active_player_id(1)
+        else:
+            self.set_active_player_id(0)
+
 
     def start_shooting(self):
 
         self.set_active_player_id(0)
 
-        self.boards[0].set_grid_visibility(True)
+        while True:
+            self.banner = "take_shot"
+            self.prompt = "get_shot_coordinates"
+            self.display_arena()
+            player_board = self.boards[self.active_player] 
+            opponents_board = self.boards[self.active_opponent]
+            player_board.set_grid_visibility(True)
 
-        opponents_board = self.boards[1]
-
-        self.banner = "take_shot"
-        self.prompt = "get_shot_coordinates"
-
-        while not opponents_board.place_shot(self.get_coordinates()):
-            continue
-         
-        self.boards[0].set_grid_visibility(False)
-        self.current['last_shot'] = self.raw_coordinates_to_display(opponents_board.last_shot())
-        self.banner = opponents_board.last_shot_status()
-        self.prompt = "continue"
-
+            while not opponents_board.place_shot(self.get_coordinates()):
+                continue
+             
+            player_board.set_grid_visibility(False)
+            self.current['last_shot'] = self.raw_coordinates_to_display(opponents_board.last_shot())
+            self.banner = opponents_board.last_shot_status()
+            self.prompt = "continue"
+            self.display_arena()
+            self.get_input()
+            self.switch_active_player_id()
 
     def set_ui(self, **kwargs):
         self.banners['custom'] = kwargs['banner']
