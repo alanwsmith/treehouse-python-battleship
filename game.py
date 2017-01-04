@@ -9,6 +9,7 @@ class Game():
         logging.info("Initializing game")
         self.boards = [ Board(index = 0), Board(index = 1) ]
         self.banners = {
+            "already_shot_there": "Oops! You already shot there. Try again, {player}.",
             "error_duplicate_names_not_allowed": "Oops! The players can't have the same name. Try again.",
             "error_name_is_empty": "Oops! The player's name can't be empty. Try again.",
             "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
@@ -20,9 +21,10 @@ class Game():
             "none": "",
             "place_ships": "Alright, {player}. Time to place your ships.",
             "place_next_ship": "Place your next ship, {player}",
-            "shot_hit": "{player} hit at '{last_shot}'. (Screens hidden. Pass the computer to {opponent}.)",
+            "shot_hit": "{player} hit at '{last_shot}' - All ships hidden - Pass the computer to {opponent}.",
+            "shot_missed": "{player} missed at '{last_shot}' - All ships hidden - Pass the computer to {opponent}.",
             "switch_players": "{player} - Your turn is over. Hand the computer over to {opponent}.",
-            "take_shot": "{player} your board is clear. Your opponent's ({opponent}) is hidden. Take a shot.",
+            "take_shot": "{player} your ships are visible. The ships of your opponent {opponent} are hidden.",
             "welcome": "Welcome to Battleship!",
         }
         self.prompts = {
@@ -109,8 +111,8 @@ class Game():
 
         self.set_active_player_id(0)
 
+        self.banner = "take_shot"
         while True:
-            self.banner = "take_shot"
             self.prompt = "get_shot_coordinates"
             self.display_arena()
             player_board = self.boards[self.active_player] 
@@ -118,6 +120,7 @@ class Game():
             player_board.set_grid_visibility(True)
 
             while not opponents_board.place_shot(self.get_coordinates()):
+                self.banner = "already_shot_there"
                 continue
              
             player_board.set_grid_visibility(False)
@@ -127,6 +130,7 @@ class Game():
             self.display_arena()
             self.get_input()
             self.switch_active_player_id()
+            self.banner = "take_shot"
 
     def set_ui(self, **kwargs):
         self.banners['custom'] = kwargs['banner']
