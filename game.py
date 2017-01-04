@@ -141,6 +141,9 @@ class Game():
         # with zero base indexed tupals of the coordinates of the spaces
         # the ship takes up on the grid. It expects the front_of_ship
         # to be a valid, lowercased coordinate.
+        # (Of course, this really should be refacotred and pushed 
+        # into the ship itself with the abiblity to check
+        # before setting.
 
         raw_column = kwargs['front_of_ship'][0] 
         raw_row = int(kwargs['front_of_ship'][1:])
