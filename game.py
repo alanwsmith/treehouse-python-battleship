@@ -103,6 +103,9 @@ class Game():
         the prompt is repeated until a valid orientation 
         is provided. 
 
+        Input is stripped of white space and lowercased
+        before passing on to the validation.
+
         In a future iteration, this method should be 
         refactored to return True or False instead of
         setting the banner directly.
@@ -110,7 +113,7 @@ class Game():
 
         while True:
             self.display_arena()
-            orientation = self.get_input()
+            orientation = self.get_input().strip().lower()
             if self.validate_orientation(orientation):
                 return orientation
             else:
@@ -489,7 +492,7 @@ if __name__ == '__main__':
     constants.SHIP_COUNT = 3
     game = Game()
     game.testing_input = ["Bob", "John"]
-    game.testing_input = ["Bob", "John", "b3", "v", "d2", "h", "i6", "v", "", "a1", "v", "b1", "v", "c1", "v", ""]
+    game.testing_input = ["Bob", "John", "b3", " V ", "d2", "H", "i6", "v", "", "a1", "v", "b1", "v", "c1", "h", ""]
     game.testing_input.extend(["a1", "", "a1", ""]) # Start firing shots.
     game.set_player_names()
     game.place_ships()
