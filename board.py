@@ -53,6 +53,8 @@ class Board():
         else:
             return " ".join(self.grid_hidden()[row_index])
 
+    def last_shot(self):
+        return self.shot_history[-1]
 
     def load_ships(self):
         for ship_index in range(0, constants.SHIP_COUNT):

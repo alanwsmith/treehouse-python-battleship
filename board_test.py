@@ -22,6 +22,7 @@ class BoardTest():
         self.test_get_row_string_with_ship_data()
         self.test_set_grid_visibility()
         self.test_place_shot()
+        self.test_last_shot_status()
 
     def test_set_player_name(self):
         logging.info("-- Set Player Name Test --")
@@ -118,6 +119,19 @@ class BoardTest():
 
         # Verify duplicate shots are rejected. 
         self.assert_equal(False, board.place_shot('d1'))
+
+
+    def test_last_shot_status(self):
+        logging.info("-- Last Shot Status Test --")
+        board = Board(index = 0)
+        board.place_shot('c5')
+        board.place_shot('e7')
+        board.place_shot('b1')
+        target_coordinates = (0, 1)
+        self.assert_equal(target_coordinates, board.last_shot())
+
+
+
 
 
 
