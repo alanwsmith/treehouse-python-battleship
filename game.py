@@ -20,7 +20,7 @@ class Game():
             "none": "",
             "place_ships": "Alright, {player}. Time to place your ships.",
             "place_next_ship": "Place your next ship, {player}",
-            "shot_hit": "{player} hit at TKTKT. (Screens hidden. Pass the computer to {opponent}.)",
+            "shot_hit": "{player} hit at '{last_shot}'. (Screens hidden. Pass the computer to {opponent}.)",
             "switch_players": "{player} - Your turn is over. Hand the computer over to {opponent}.",
             "take_shot": "{player} - Take a shot.",
             "welcome": "Welcome to Battleship!",
@@ -95,6 +95,7 @@ class Game():
             continue
          
         self.boards[0].set_grid_visibility(False)
+        self.current['last_shot'] = opponents_board.last_shot()
         self.banner = opponents_board.last_shot_status()
         self.prompt = "continue"
 
@@ -197,6 +198,16 @@ class Game():
                 return orientation
             else:
                 self.banner = "invalid_orientation"
+
+    def raw_coordinates_to_display(self, raw_coordinates):
+        column_letter = ""
+        while column_letter == "":
+            for letter, number in constants.COORDINATE_MAP['columns'].items():
+                if raw_coordinates[1] == number:
+                    column_letter = letter
+        row_number = raw_coordinates[0] + 1
+        return '{}{}'.format(column_letter, str(row_number)) 
+
 
     def set_current_player(self, board_index):
         if board_index == 0:
