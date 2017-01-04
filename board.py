@@ -10,6 +10,7 @@ class Board():
         self.player_name = "Player {}".format(self.index + 1)
         self.grid_visibility = True
         self.ships = [] 
+        self.shot_history = []
         self.load_ships()
         logging.info("Created board {}".format(self.index))
 
@@ -57,6 +58,17 @@ class Board():
         for ship_index in range(0, constants.SHIP_COUNT):
             ship = constants.SHIP_INFO[ship_index]
             self.ships.append(Ship(name = ship[0], size = ship[1]))
+
+
+    def place_shot(self, coordinates):
+        # Expects a validated set of display coordiantes. 
+        # Adds the raw shot coordinates to shot_history and returns true if it's not
+        # already there. Otherwise, returns false.
+        column = constants.COORDINATE_MAP['columns'][coordinates[0]]
+        row = constants.COORDINATE_MAP['rows'][int(coordinates[1:])]
+        self.shot_history.append((row, column))
+        return True 
+
 
     def set_grid_visibility(self, mode):
         self.grid_visibility = mode

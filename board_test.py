@@ -21,6 +21,7 @@ class BoardTest():
         self.test_get_row_string()
         self.test_get_row_string_with_ship_data()
         self.test_set_grid_visibility()
+        self.test_place_shot()
 
     def test_set_player_name(self):
         logging.info("-- Set Player Name Test --")
@@ -102,6 +103,18 @@ class BoardTest():
         board = Board(index = 0)
         self.assert_equal(True, board.grid_visibility)
         board.set_grid_visibility(False)
+
+
+    def test_place_shot(self):
+        logging.info("-- Place Shot Test --")
+        board = Board(index = 0)
+        # Send display and check for raw
+        self.assert_equal(True, board.place_shot('c5'))
+        self.assert_equal((4, 2), board.shot_history[-1])
+
+        # Add another valid shot
+        self.assert_equal(True, board.place_shot('d1'))
+        self.assert_equal((0, 3), board.shot_history[-1])
 
 
 
