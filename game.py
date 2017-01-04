@@ -73,6 +73,10 @@ class Game():
         A nice refactoring would be to change the prompt
         when switching players to help show that only 
         hitting Enter/Return is necessary.
+
+        Another good refactoring would be to make the
+        names of methods differentiate between 
+        raw and display coordinates.
         """
 
         while True:
