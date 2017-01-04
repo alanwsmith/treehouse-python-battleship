@@ -16,8 +16,7 @@ class Game():
         self.banner = 'welcome'
         self.prompt = "player_0"
 
-        # This is only used for testing. It makes 
-        # jumping to various points easy. 
+        # This is only used for testing. Makes jumping to different points easy. 
         self.testing_input = []
 
 
