@@ -8,33 +8,6 @@ class Game():
     def __init__(self):
         logging.info("Initializing game")
         self.boards = [ Board(index = 0), Board(index = 1) ]
-        self.banners = {
-            "already_shot_there": "Oops! You already shot there. Try again, {player}.",
-            "error_duplicate_names_not_allowed": "Oops! The players can't have the same name. Try again.",
-            "error_name_is_empty": "Oops! The player's name can't be empty. Try again.",
-            "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
-            "error_ship_collision": "Oops! That would collidate with another ship. Try again, {player}",
-            "error_ship_off_grid": "Oops! That won't fit on the grid. Try again, {player}.",
-            "invalid_coordinates": "Oops! Those were invalid coordinates. Try again, {player}.",
-            "invalid_orientation": "Oops! The orientation must be either 'v' or 'h'. Try again, {player}.",
-            "name_set": "",
-            "none": "",
-            "place_ships": "Alright, {player}. Time to place your ships.",
-            "place_next_ship": "Place your next ship, {player}",
-            "shot_hit": "{player} hit at '{last_shot}' - All ships hidden - Pass the computer to {opponent}.",
-            "shot_missed": "{player} missed at '{last_shot}' - All ships hidden - Pass the computer to {opponent}.",
-            "switch_players": "{player} - Your turn is over. Hand the computer over to {opponent}.",
-            "take_shot": "{player} your ships are visible. The ships of your opponent {opponent} are hidden.",
-            "welcome": "Welcome to Battleship!",
-        }
-        self.prompts = {
-            "player_0": "What's the name of the first player?",
-            "player_1": "What's the name of the second player?",
-            "ship_orientation": "Do you want to place your {ship} (size {size}) [v]ertically or [h]orizontally?", 
-            "front_of_ship_coords": "Where do you want the front of your {ship} (size {size})?",
-            "get_shot_coordinates": "What coordinates do you want to shoot at?",
-            "continue": "{opponent}, hit Enter/Return when you're ready to continue.",
-        }
 
         # This is used to hold text strings to disply in the banner and prompts. 
         self.current = {}
@@ -80,10 +53,10 @@ class Game():
             ))
 
         # Assemble the banner.
-        print('\n{}\n'.format(self.banners[self.banner].format(**self.current)))
+        print('\n{}\n'.format(constants.BANNERS[self.banner].format(**self.current)))
 
         # Assemble the prompt
-        print(self.prompts[self.prompt].format(**self.current))
+        print(constants.PROMPTS[self.prompt].format(**self.current))
 
 
     # Use this to make it easy to keep up with player/boards
