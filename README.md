@@ -6,7 +6,11 @@ My run at the Treehouse Battleship project in Python.
 Notes
 -----
 
-The board size can be expanded up to 26 (the length of the full alphabet)
+- This was built and tested on a machine running Python 2.7.6
+
+- The board size can be expanded up to 26 (the length of the full alphabet). Any larger would require a refactoring (and design rethinking since the current format allows for only single letter columns).
+
+
 
 
 Testing Notes
