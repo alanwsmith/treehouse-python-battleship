@@ -83,13 +83,17 @@ class Game():
         print(self.prompts[self.prompt].format(**self.current))
 
     def start_shooting(self):
-        self.boards[0].set_grid_visibility(True)
+        board = self.boards[0]
+
+        board.set_grid_visibility(True)
         self.banner = "take_shot"
         self.prompt = "get_shot_coordinates"
 
         coordinates_to_shell = ""
         while coordinates_to_shell == "":
             coordinates_to_shell = self.get_coordinates()
+
+
 
 
 
