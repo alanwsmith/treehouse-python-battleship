@@ -511,11 +511,6 @@ if __name__ == '__main__':
     constants.SHIP_COUNT = 3
     game = Game()
 
-
-    game.testing_input = ["Bob", "John"]
-    game.testing_input = ["Bob", "John", "b3", " V ", "d2", "H", "i6", "v", "", "a1", "v", "b1", "v", "c1", "h", ""]
-    game.testing_input.extend(["a1", "", "a1", ""]) # Start firing shots.
-
     game.testing_input = test_strings[1]
     game.set_player_names()
     game.place_ships()
