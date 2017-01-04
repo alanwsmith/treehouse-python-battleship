@@ -17,15 +17,6 @@ class Ship():
 
         logging.debug("Initializing {} - size: {}".format(self.name, self.size)) 
 
-    def __str__(self):
-        return "{}\n- size: {}\n- orientation: {} \n- bow_column: {}\n- bow_row: {}\n- coordinates: {}".format(
-            self.name, 
-            self.size,
-            self.orientation,
-            self.bow_column,
-            self.bow_row,
-            self.coordinates,
-        )
 
     def is_sunk(self):
         """Identify if the ship is sunk by comparing the 
