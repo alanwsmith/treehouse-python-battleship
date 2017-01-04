@@ -131,7 +131,6 @@ class BoardTest():
     def test_last_shot_status_hit(self):
         logging.info("-- Last Shot Status Hit Test --")
         board = Board(index = 0)
-        self.assert_equal(1,1)
         board.ships[0].set_orientation('h')
         board.ships[0].set_coordinates([(1,3), (1,4), (1,5), (1,6), (1,7)])
         board.place_shot('c9')
