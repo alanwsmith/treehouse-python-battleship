@@ -132,12 +132,6 @@ class Game():
             self.switch_active_player_id()
             self.banner = "take_shot"
 
-    def set_ui(self, **kwargs):
-        self.banners['custom'] = kwargs['banner']
-        self.prompts['custom'] = kwargs['prompt']
-        self.banner = 'custom'
-        self.prompt = 'custom'
-
     def place_ships(self):
         self.set_current_player(0)
         self.boards[1].set_grid_visibility(False)
