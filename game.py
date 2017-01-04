@@ -20,6 +20,7 @@ class Game():
             "none": "",
             "place_ships": "Alright, {player}. Time to place your ships.",
             "place_next_ship": "Place your next ship, {player}",
+            "switch_players": "{player} - Your turn is over. Hand the computer over to {opponent}.",
             "welcome": "Welcome to Battleship!",
         }
         self.prompts = {
@@ -27,6 +28,7 @@ class Game():
             "player_1": "What's the name of the second player?",
             "ship_orientation": "Do you want to place your {ship} (size {size}) [v]ertically or [h]orizontally?", 
             "front_of_ship_coords": "Where do you want the front of your {ship} (size {size})?",
+            "continue": "{opponent}, hit enter to continue",
         }
 
         # This is used to hold text strings to disply in the banner and prompts. 
@@ -85,16 +87,20 @@ class Game():
         self.prompt = 'custom'
 
     def place_ships(self):
+        self.set_current_player(0)
         self.boards[1].set_grid_visibility(False)
-        self.current['player'] = self.boards[0].player_name
         for ship_index in range(0, len(self.boards[0].ships)):
             self.place_ship(board = self.boards[0], ship_index = ship_index)
 
+        self.switch_players()
+        self.set_current_player(1)
+
         self.boards[0].set_grid_visibility(False)
         self.boards[1].set_grid_visibility(True)
-        self.current['player'] = self.boards[1].player_name
         for ship_index in range(0, len(self.boards[1].ships)):
             self.place_ship(board = self.boards[1], ship_index = ship_index)
+
+        self.switch_players()
 
 
     def place_ship(self, **kwargs):
@@ -173,6 +179,14 @@ class Game():
             else:
                 self.banner = "invalid_orientation"
 
+    def set_current_player(self, board_index):
+        if board_index == 0:
+            self.current['player'] = self.boards[0].player_name
+            self.current['opponent'] = self.boards[1].player_name
+        else:
+            self.current['player'] = self.boards[1].player_name
+            self.current['opponent'] = self.boards[0].player_name
+
 
     def set_player_names(self):
         # Loop through the board indexes
@@ -188,6 +202,19 @@ class Game():
                     # Fall back to generic name then set banner.
                     self.boards[num].set_player_name("Player {}".format(num + 1))
                     self.banner = "error_duplicate_names_not_allowed"
+
+
+    def switch_players(self):
+        # This method of for hiding both boards
+        # and prompting to give the computer to the other
+        # player.
+        self.banner = "switch_players"
+        self.prompt = "continue"
+        self.boards[0].set_grid_visibility(False)
+        self.boards[1].set_grid_visibility(False)
+        self.display_arena()
+        self.get_input()
+
 
     def validate_coordinates(self, coordinates):
 
@@ -234,6 +261,7 @@ class Game():
             return False
         else:
             return True
+
 
 if __name__ == '__main__':
     logging.basicConfig(
