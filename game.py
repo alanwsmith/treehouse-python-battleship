@@ -21,6 +21,7 @@ class Game():
             "place_ships": "Alright, {player}. Time to place your ships.",
             "place_next_ship": "Place your next ship, {player}",
             "switch_players": "{player} - Your turn is over. Hand the computer over to {opponent}.",
+            "take_shot": "{player} - Take a shot.",
             "welcome": "Welcome to Battleship!",
         }
         self.prompts = {
@@ -28,6 +29,7 @@ class Game():
             "player_1": "What's the name of the second player?",
             "ship_orientation": "Do you want to place your {ship} (size {size}) [v]ertically or [h]orizontally?", 
             "front_of_ship_coords": "Where do you want the front of your {ship} (size {size})?",
+            "get_shot_coordinates": "What coordinates do you want to shoot at?",
             "continue": "{opponent}, hit enter to continue",
         }
 
@@ -79,6 +81,17 @@ class Game():
 
         # Assemble the prompt
         print(self.prompts[self.prompt].format(**self.current))
+
+    def start_shooting(self):
+        self.boards[0].set_grid_visibility(True)
+        self.banner = "take_shot"
+        self.prompt = "get_shot_coordinates"
+
+        coordinates_to_shell = ""
+        while coordinates_to_shell == "":
+            coordinates_to_shell = self.get_coordinates()
+
+
 
     def set_ui(self, **kwargs):
         self.banners['custom'] = kwargs['banner']
@@ -274,9 +287,11 @@ if __name__ == '__main__':
     constants.SHIP_COUNT = 3
     game = Game()
     game.testing_input = ["Bob", "John"]
-    game.testing_input = ["Bob", "John", "b3", "v", "d2", "h", "i6"]
+    game.testing_input = ["Bob", "John", "b3", "v", "d2", "h", "i6", "v", "", "a1", "v", "b1", "v", "c1", "v", ""]
     game.set_player_names()
     game.place_ships()
+    game.set_current_player(0)
+    game.start_shooting()
 
     game.display_arena()
 
