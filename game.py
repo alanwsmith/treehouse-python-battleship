@@ -389,8 +389,7 @@ if __name__ == '__main__':
     game = Game()
     game.testing_input = ["Bob", "John"]
     game.testing_input = ["Bob", "John", "b3", "v", "d2", "h", "i6", "v", "", "a1", "v", "b1", "v", "c1", "v", ""]
-    # This is where shots start being fired.
-    game.testing_input.extend(["a1", "", "a1", ""])
+    game.testing_input.extend(["a1", "", "a1", ""]) # Start firing shots.
     game.set_player_names()
     game.place_ships()
     game.set_current_player(0)
