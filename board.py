@@ -68,9 +68,14 @@ class Board():
         row = constants.COORDINATE_MAP['rows'][int(coordinates[1:])]
         raw_coordinates = (row, column)
         if raw_coordinates in self.shot_history:
+            logging.info("Rejected shot at {} in board {} because it's already in shot_history".format(
+                         raw_coordinates,
+                         self.index
+                         ))
             return False
         else:
             self.shot_history.append(raw_coordinates)
+            logging.info("Added shot at {} to board {}.".format(raw_coordinates, self.index))
             return True 
 
 
