@@ -154,17 +154,12 @@ class BoardTest():
         board.place_shot('e6')
         self.assert_equal('shot_sunk', board.last_shot_status())
 
-
-
         # Make
-        # - shot_missed
-        # - shot_hit
-        # - shot_sunk
-        # - shot_won_game
+        # [x] - shot_missed
+        # [x] - shot_hit
+        # [x] - shot_sunk
+        # []- shot_won_game
         
-
-
-
 
 if __name__ == '__main__':
     logging.basicConfig(
