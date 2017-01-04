@@ -102,6 +102,10 @@ class Game():
         orientation is entered, it's returned. Otherwise, 
         the prompt is repeated until a valid orientation 
         is provided. 
+
+        In a future iteration, this method should be 
+        refactored to return True or False instead of
+        setting the banner directly.
         """
 
         while True:
