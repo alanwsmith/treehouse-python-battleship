@@ -16,6 +16,7 @@ class ShipTest():
         self.test_set_orientation()
         self.test_set_coordinates()
         self.test_see_if_ship_was_hit()
+        self.test_is_ship_sunk()
 
     def test_set_orientation(self):
         logging.info("-- Set Orientation Test --")
@@ -41,6 +42,15 @@ class ShipTest():
         self.assert_equal(False, ship.see_if_ship_was_hit(miss_coordinates))
         self.assert_equal(True , ship.see_if_ship_was_hit(hit_coordinates))
         self.assert_equal(hit_coordinates, ship.hits[0])
+
+
+    def test_is_ship_sunk(self):
+        logging.info("-- See If Ship Was Hit Test --")
+        ship = Ship(name = "Test Ship", size = 3)
+        ship.set_coordinates([(3, 1), (3, 2), (3, 3)])
+        ship.see_if_ship_was_hit((3,2))
+        ship.see_if_ship_was_hit((3,3))
+        self.assert_equal(False, ship.is_sunk())
 
 
 

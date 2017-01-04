@@ -27,6 +27,9 @@ class Ship():
             self.coordinates,
         )
 
+    def is_sunk(self):
+        return False
+
     def set_bow(self, coordinate):
         logging.debug(coordinate)
         self.bow = coordinate
