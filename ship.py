@@ -28,7 +28,9 @@ class Ship():
         )
 
     def is_sunk(self):
-        if len(self.coordinates) == len(self.hits):
+        if len(self.coordinates) == 0:
+            return False
+        elif len(self.coordinates) == len(self.hits):
             return True
         else:
             return False

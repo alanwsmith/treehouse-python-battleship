@@ -50,10 +50,17 @@ class ShipTest():
     def test_is_ship_sunk(self):
         logging.info("-- See If Ship Was Hit Test --")
         ship = Ship(name = "Test Ship", size = 3)
+        
+        # Should be false before coordinates are set
+        self.assert_equal(False, ship.is_sunk())
+
+        # Should be false if coordinates are set but not all are hit
         ship.set_coordinates([(3, 1), (3, 2), (3, 3)])
         ship.see_if_ship_was_hit((3,2))
         ship.see_if_ship_was_hit((3,3))
         self.assert_equal(False, ship.is_sunk())
+
+        # Should be true if all coordinates are hit.
         ship.see_if_ship_was_hit((3,1))
         self.assert_equal(True, ship.is_sunk())
 
