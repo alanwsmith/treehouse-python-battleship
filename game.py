@@ -502,7 +502,7 @@ if __name__ == '__main__':
 
         # Place all of Alex's ships and wait for hand off to Zelda
         [ 
-            "Alex", "Zelda", "b2", " V " 
+            "Alex", "Zelda", " b2 ", " V ", "C2", "v", " D2", " H" 
         ],
         
 
