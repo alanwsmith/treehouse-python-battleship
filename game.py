@@ -169,6 +169,16 @@ class Game():
         coordinates on the ship itself. The current method
         works fine, it just feels like it would be better
         by moving it to the ship.
+
+        The current behavior only checks for conflicting
+        ship placement after both valid coordinates and
+        and orientation is received. A UI improvement
+        would be to check the coordinates as soon as
+        they come in to see if they are already in
+        use (i.e. it's not necessary to get the 
+        orientation to identify that as a conflict).
+        That's something that can go on the feature 
+        road map.
         """
 
         # Pull the board and ship into local variables
@@ -235,23 +245,31 @@ class Game():
         self.switch_players()
 
 
-
     def raw_coordinates_to_display(self, raw_coordinates):
+        """Translates the raw coordinates used internally
+        (e.g. `(3,5)`) to the display format that the players 
+        and display use (e.g. `f4`).
+        """
+
         column_letter = ""
         while column_letter == "":
             for letter, number in constants.COORDINATE_MAP['columns'].items():
                 if raw_coordinates[1] == number:
                     column_letter = letter
+
         row_number = raw_coordinates[0] + 1
+
         return '{}{}'.format(column_letter, str(row_number)) 
 
 
     def set_active_player_id(self, player_id):
-        # Use this to make it easy to keep up with player/boards
-        # A next refactoring step would be to make everything use
-        # this and the related switch_active_player_id() method.
+        """This is a helper method that allows a single call to 
+        setup the active player and opponent IDs and 
+        banner/prompt formatting strings.
+        """
 
         self.active_player = player_id
+
         if player_id == 0:
             self.active_opponent = 1
             self.current['player'] = self.boards[0].player_name
@@ -263,6 +281,12 @@ class Game():
 
 
     def set_current_player(self, board_index):
+        """The original helper method for setting the
+        banner/prompt formatting strings for the player and 
+        opponent. In a future iteration, this should be refactored
+        out in favor of using set_active_player_id().
+        """
+
         if board_index == 0:
             self.current['player'] = self.boards[0].player_name
             self.current['opponent'] = self.boards[1].player_name
@@ -272,7 +296,18 @@ class Game():
 
 
     def set_player_names(self):
-        # Loop through the board indexes
+        """The first call of the application that lets players
+        input their names. Some basic sanity checking validation 
+        is done to make sure the names aren't too long and 
+        aren't the same.
+
+        The method for doing the validation is by looking at
+        which banner is set. This was the first approach used. 
+        In a future iteration, it should be refactored to check
+        against a return True or False value that majority of 
+        the later methods use. 
+        """
+        
         for num in range(0,2):
             self.banner = "welcome"
             self.prompt = "player_" + str(num)
@@ -287,10 +322,38 @@ class Game():
                     self.banner = "error_duplicate_names_not_allowed"
 
     def start_shooting(self):
+        """This is the main action loop of the game where 
+        players take shots at each others' boards. 
 
+        There are two stages to each shot. First, getting
+        the desired location. Second, reporting the results. 
+
+        During the first stage, coordinates are validated. 
+        Invalid entries result in an error message and a 
+        prompt to try again. 
+
+        Once valid coordinates (that haven't been used
+        before) are entered, the results are displayed. 
+        In this stage, the ships on both boards are 
+        hidden. Only the shot locations that both players
+        know (and if they are hits, misses, etc...) are 
+        shown. 
+
+        Combining the results with the hiding of the ships 
+        saves one step in each turn and makes for a nicer 
+        UI. 
+
+        To facilitate the hiding, I added a '?' marker to
+        the possible display output. It improves the UI by 
+        making it clear when a given board is in the 
+        'ships hidden' state. 
+        """
+
+        # Set the player who gets to take the first shot.
         self.set_active_player_id(0)
 
         self.banner = "take_shot"
+
         while True:
             self.prompt = "get_shot_coordinates"
             self.display_arena()
@@ -311,7 +374,12 @@ class Game():
             self.switch_active_player_id()
             self.banner = "take_shot"
 
+
     def switch_active_player_id(self):
+        """Helper method to alternate which player (and
+        associated data) is active. 
+        """
+
         if self.active_player == 0:
             self.set_active_player_id(1)
         else:
@@ -319,9 +387,13 @@ class Game():
 
 
     def switch_players(self):
-        # This method of for hiding both boards
-        # and prompting to give the computer to the other
-        # player.
+        """This is a UI focused method the hides 
+        the ships on both player boards and prompts 
+        the active player to hand the computer to 
+        the opponent. It then waits for that player 
+        to hit Enter/Return to continue the game.
+        """
+        
         self.banner = "switch_players"
         self.prompt = "continue"
         self.boards[0].set_grid_visibility(False)
@@ -331,18 +403,28 @@ class Game():
 
 
     def validate_coordinates(self, coordinates):
+        """This method makes sure that a requested
+        set of display coordinates (e.g. `f4`) is 
+        in a valid format and is actually on the board. 
+
+        Leading and trailing spaces are stripped and 
+        both upper and lowercase letters are permitted 
+        via the initial scrubbing.
+        """
 
         # Scrub the input
         prepped_coordinates = coordinates.strip().lower()
 
-        # Try to grab the column 
+        # Make sure there is at least one character
         try:
             column = prepped_coordinates[0]
         except IndexError:
             return False
 
-        # Make sure there is a row and it's a number.
+        # Make sure a row was entered and it's a number.
         try:
+            # Grab the rest of the string since numbers can
+            # be two digits.
             row = int(prepped_coordinates[1:])
         except ValueError:
             return False
@@ -357,6 +439,10 @@ class Game():
 
 
     def validate_orientation(self, orientation):
+        """This method ensures that a requested orientation
+        is valid. 
+        """
+
         if orientation == "h" or orientation == "v":
             return True
         else:
@@ -364,6 +450,11 @@ class Game():
 
 
     def validate_ship_stays_on_grid(self, **kwargs):
+        """This method make sure that a requested set 
+        of coordinates, orientation, and ship size will 
+        actually fit on the grid.
+        """
+
         # Pull in the number for the column and the row as an integer.
         column_number = constants.COORDINATE_MAP['columns'][kwargs['front_of_ship'][0]]
         row = int(kwargs['front_of_ship'][1:])
