@@ -87,20 +87,20 @@ class Game():
         self.prompt = 'custom'
 
     def place_ships(self):
+        self.set_current_player(0)
         self.boards[1].set_grid_visibility(False)
-        self.current['player'] = self.boards[0].player_name
         for ship_index in range(0, len(self.boards[0].ships)):
             self.place_ship(board = self.boards[0], ship_index = ship_index)
 
         self.switch_players()
-        self.display_arena()
-        self.get_input()
+        self.set_current_player(1)
 
         self.boards[0].set_grid_visibility(False)
         self.boards[1].set_grid_visibility(True)
-        self.current['player'] = self.boards[1].player_name
         for ship_index in range(0, len(self.boards[1].ships)):
             self.place_ship(board = self.boards[1], ship_index = ship_index)
+
+        self.switch_players()
 
 
     def place_ship(self, **kwargs):
@@ -179,6 +179,14 @@ class Game():
             else:
                 self.banner = "invalid_orientation"
 
+    def set_current_player(self, board_index):
+        if board_index == 0:
+            self.current['player'] = self.boards[0].player_name
+            self.current['opponent'] = self.boards[1].player_name
+        else:
+            self.current['player'] = self.boards[1].player_name
+            self.current['opponent'] = self.boards[0].player_name
+
 
     def set_player_names(self):
         # Loop through the board indexes
@@ -196,13 +204,16 @@ class Game():
                     self.banner = "error_duplicate_names_not_allowed"
 
 
-
     def switch_players(self):
-        self.current['opponent'] = "Player 2"
+        # This method of for hiding both boards
+        # and prompting to give the computer to the other
+        # player.
         self.banner = "switch_players"
         self.prompt = "continue"
         self.boards[0].set_grid_visibility(False)
         self.boards[1].set_grid_visibility(False)
+        self.display_arena()
+        self.get_input()
 
 
     def validate_coordinates(self, coordinates):
