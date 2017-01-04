@@ -89,6 +89,8 @@ class Game():
         for ship_index in range(0, len(self.boards[0].ships)):
             self.place_ship(board = self.boards[0], ship_index = ship_index)
 
+        self.boards[0].set_grid_visibility(False)
+        self.boards[1].set_grid_visibility(True)
         self.current['player'] = self.boards[1].player_name
         for ship_index in range(0, len(self.boards[1].ships)):
             self.place_ship(board = self.boards[1], ship_index = ship_index)
