@@ -136,7 +136,6 @@ class BoardTest():
         board.place_shot('c9')
         board.place_shot('e9')
         board.place_shot('d2')
-        target_coordinates = (1, 3)
         self.assert_equal('shot_hit', board.last_shot_status())
 
 
