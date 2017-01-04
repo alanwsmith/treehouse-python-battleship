@@ -28,6 +28,9 @@ class Board():
             for column_index in range(0, len(grid[row_index])):
                 if grid[row_index][column_index] == "O":
                     grid[row_index][column_index] = '?'
+                elif grid[row_index][column_index] == "-":
+                    grid[row_index][column_index] = '?'
+
 
         return grid
 
