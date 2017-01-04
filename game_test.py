@@ -25,6 +25,7 @@ class GameTest():
         self.test_get_ship_coordinates_vertical()
         self.test_raw_coordinates_to_display()
         self.test_get_orientation()
+        self.test_get_coordinates()
 
 
     def test_basic_initialization(self):
@@ -35,6 +36,24 @@ class GameTest():
         self.assert_equal(game.boards[1].player_name, "Player 2")
         self.assert_equal(game.banner, "welcome")
         self.assert_equal(game.prompt, "player_0")
+
+    def test_get_coordinates(self):
+        """The get_coordinates() method currently calls
+        display_arena(). That should be refactored out in
+        a future iteration, but for now, that causes a 
+        visual output during this test. The 'print'
+        call at the end is to clear the screen.
+        """
+
+        logging.info("-- Get Coordinates Test --")
+        game = Game()
+
+        game.testing_input = ['a1']
+        self.assert_equal('a1', game.get_coordinates())
+        print("\033c", end="")
+
+
+
 
     def test_get_orientation(self):
         """The get_orientaiton method currently calls
@@ -106,6 +125,7 @@ class GameTest():
         self.assert_equal(False, game.validate_coordinates("q1"))
         self.assert_equal(False, game.validate_coordinates("11"))
         self.assert_equal(False, game.validate_coordinates("a30"))
+
     
 
     def test_validate_orientation(self):
