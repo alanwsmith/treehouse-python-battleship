@@ -55,9 +55,5 @@ if __name__ == '__main__':
 
     st = ship_test.ShipTest()
     st.run_tests()
-
-
-
-
-
+    print("All tests passed!")
 
