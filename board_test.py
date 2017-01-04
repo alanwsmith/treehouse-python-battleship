@@ -116,6 +116,9 @@ class BoardTest():
         self.assert_equal(True, board.place_shot('d1'))
         self.assert_equal((0, 3), board.shot_history[-1])
 
+        # Verify duplicate shots are rejected. 
+        self.assert_equal(False, board.place_shot('d1'))
+
 
 
 if __name__ == '__main__':

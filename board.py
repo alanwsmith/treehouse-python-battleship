@@ -66,8 +66,12 @@ class Board():
         # already there. Otherwise, returns false.
         column = constants.COORDINATE_MAP['columns'][coordinates[0]]
         row = constants.COORDINATE_MAP['rows'][int(coordinates[1:])]
-        self.shot_history.append((row, column))
-        return True 
+        raw_coordinates = (row, column)
+        if raw_coordinates in self.shot_history:
+            return False
+        else:
+            self.shot_history.append(raw_coordinates)
+            return True 
 
 
     def set_grid_visibility(self, mode):
