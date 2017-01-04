@@ -57,6 +57,9 @@ class Board():
         return self.shot_history[-1]
 
     def last_shot_status(self):
+        for ship in self.ships:
+            if self.last_shot() in ship.coordinates:
+                return 'shot_hit'
         return 'shot_missed'
 
     def load_ships(self):

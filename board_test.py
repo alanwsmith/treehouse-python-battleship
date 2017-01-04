@@ -23,6 +23,7 @@ class BoardTest():
         self.test_set_grid_visibility()
         self.test_place_shot()
         self.test_last_shot_status()
+        self.test_last_shot_status_hit()
 
     def test_set_player_name(self):
         logging.info("-- Set Player Name Test --")
@@ -124,13 +125,26 @@ class BoardTest():
     def test_last_shot_status(self):
         logging.info("-- Last Shot Status Test --")
         board = Board(index = 0)
-        board.place_shot('c5')
-        board.place_shot('e7')
+        board.ships[0].set_orientation('h')
+        board.ships[0].set_coordinates([(1,3), (1,4), (1,5), (1,6), (1,7)])
+        board.place_shot('c9')
+        board.place_shot('e9')
         board.place_shot('b1')
         target_coordinates = (0, 1)
         self.assert_equal(target_coordinates, board.last_shot())
-
         self.assert_equal('shot_missed', board.last_shot_status())
+
+    def test_last_shot_status_hit(self):
+        logging.info("-- Last Shot Status Hit Test --")
+        board = Board(index = 0)
+        self.assert_equal(1,1)
+        board.ships[0].set_orientation('h')
+        board.ships[0].set_coordinates([(1,3), (1,4), (1,5), (1,6), (1,7)])
+        board.place_shot('c9')
+        board.place_shot('e9')
+        board.place_shot('d2')
+        target_coordinates = (1, 3)
+        self.assert_equal('shot_hit', board.last_shot_status())
 
 
         # Make
