@@ -62,6 +62,13 @@ class Ship():
         """Check to see if a set of coordinates is a hit 
         on the ship. If it is, add it to the list of
         hits.
+
+        Since the other methods should prevent the same
+        shot from being duplicated there is no
+        check here to avoid duplication. 
+
+        The reason to keep up directly with the hits it
+        to know when the ship is sunk.
         """
     
         if coordinate in self.coordinates:
