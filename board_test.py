@@ -93,11 +93,11 @@ class BoardTest():
         board.shot_history = [(1, 2), (1, 3)]
         # When/Then
         self.assert_equal(True, board.grid_visibility)
-        self.assert_equal('O O . - - - - - O O', board.get_row_string(1))
+        self.assert_equal('O O . * - - - - O O', board.get_row_string(1))
         self.assert_equal('O | O O O O O O O O', board.get_row_string(3))
         # When/Then
         board.set_grid_visibility(False)
-        self.assert_equal('? ? . ? ? ? ? ? ? ?', board.get_row_string(1))
+        self.assert_equal('? ? . * ? ? ? ? ? ?', board.get_row_string(1))
         self.assert_equal('? ? ? ? ? ? ? ? ? ?', board.get_row_string(3))
 
 

@@ -40,6 +40,8 @@ class Board():
         test_coordinate = (row_index, column_index)
         for ship in self.ships:
             if test_coordinate in ship.coordinates:
+                if test_coordinate in self.shot_history:
+                    return '*'
                 if ship.orientation == 'v':
                     return '|'
                 else:
