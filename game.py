@@ -252,7 +252,6 @@ class Game():
             self.place_ship(board = self.boards[0], ship_index = ship_index)
 
         self.switch_players()
-        self.switch_active_player_id()
         
         self.boards[0].set_grid_visibility(False)
         self.boards[1].set_grid_visibility(True)
@@ -260,7 +259,6 @@ class Game():
             self.place_ship(board = self.boards[1], ship_index = ship_index)
 
         self.switch_players()
-
 
     def raw_coordinates_to_display(self, raw_coordinates):
         """Translates the raw coordinates used internally
@@ -417,6 +415,7 @@ class Game():
         self.boards[1].set_grid_visibility(False)
         self.display_arena()
         self.get_input()
+        self.switch_active_player_id()
 
 
     def validate_coordinates(self, coordinates):
@@ -513,10 +512,9 @@ if __name__ == '__main__':
     constants.SHIP_COUNT = 3
     game = Game()
 
-    game.testing_input = test_strings[1]
+    # game.testing_input = test_strings[1]
 
     game.set_player_names()
     game.place_ships()
-    game.set_current_player(0)
     game.start_shooting()
 
