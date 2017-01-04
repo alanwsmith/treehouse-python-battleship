@@ -12,6 +12,7 @@ class Game():
             "error_duplicate_names_not_allowed": "Oops! The players can't have the same name. Try again.",
             "error_name_is_empty": "Oops! The player's name can't be empty. Try again.",
             "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
+            "error_ship_collision": "Oops! That would collidate with another ship. Try again, {player}",
             "error_ship_off_grid": "Oops! That won't fit on the grid. Try again, {player}.",
             "invalid_coordinates": "Oops! Those were invalid coordinates. Try again.",
             "invalid_orientation": "Oops! The orientation must be either 'v' or 'h'. Try again.",
@@ -118,6 +119,7 @@ class Game():
             else:
                 target_coordinates = self.get_ship_coordinates(**target_location)
                 if not board.verify_coordinates_are_clear(target_coordinates):
+                    self.banner = "error_ship_collision"
                     continue
                 else:
                     logging.info("Target coords: {}". format(target_coordinates))
