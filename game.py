@@ -250,6 +250,6 @@ if __name__ == '__main__':
 
     game.display_arena()
 
-    for ship in game.boards[0].ships:
-        print(ship)
+#    for ship in game.boards[0].ships:
+#        print(ship)
 
