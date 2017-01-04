@@ -54,6 +54,8 @@ class ShipTest():
         ship.see_if_ship_was_hit((3,2))
         ship.see_if_ship_was_hit((3,3))
         self.assert_equal(False, ship.is_sunk())
+        ship.see_if_ship_was_hit((3,1))
+        self.assert_equal(True, ship.is_sunk())
 
 
 if __name__ == '__main__':

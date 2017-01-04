@@ -28,7 +28,10 @@ class Ship():
         )
 
     def is_sunk(self):
-        return False
+        if len(self.coordinates) == len(self.hits):
+            return True
+        else:
+            return False
 
     def set_bow(self, coordinate):
         logging.debug(coordinate)
