@@ -83,7 +83,19 @@ class Game():
         # Assemble the prompt
         print(self.prompts[self.prompt].format(**self.current))
 
+
+    # Use this to make it easy to keep up with player/boards
+    def set_active_player_id(self, player_id):
+        self.active_player = player_id
+        if player_id == 0:
+            self.active_opponent = 1
+        else:
+            self.active_opponent = 0
+
     def start_shooting(self):
+
+        self.set_active_player_id(0)
+
         self.boards[0].set_grid_visibility(True)
 
         opponents_board = self.boards[1]
