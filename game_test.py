@@ -119,8 +119,16 @@ class GameTest():
         game = Game()
 
         self.assert_equal(True, game.validate_coordinates("a1"))
-        self.assert_equal(True, game.validate_coordinates("A1"))
-        self.assert_equal(True, game.validate_coordinates(" D10 "))
+        self.assert_equal(True, game.validate_coordinates("i10"))
+
+        # These two should never make it here since scrubbing 
+        # should already have been done. This is just a backstop
+        # test to make sure. 
+        self.assert_equal(False, game.validate_coordinates("A1"))
+        self.assert_equal(False, game.validate_coordinates(" D10 "))
+
+        # These values make actually make it to the validation
+        # and are the ones to really watch out for. 
         self.assert_equal(False, game.validate_coordinates(""))
         self.assert_equal(False, game.validate_coordinates("aa"))
         self.assert_equal(False, game.validate_coordinates("a"))

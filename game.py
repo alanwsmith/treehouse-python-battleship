@@ -421,18 +421,16 @@ class Game():
         """This method makes sure that a requested
         set of display coordinates (e.g. `f4`) is 
         in a valid format and is actually on the board. 
-
-        Leading and trailing spaces are stripped and 
-        both upper and lowercase letters are permitted 
-        via the initial scrubbing.
+        
+        Any scrubbing is assumed to have already been done
+        since a pass of this validation means the rest of
+        the application will assume the coodinates are 
+        ready to go.
         """
-
-        # Scrub the input
-        prepped_coordinates = coordinates.strip().lower()
 
         # Make sure there is at least one character
         try:
-            column = prepped_coordinates[0]
+            column = coordinates[0]
         except IndexError:
             return False
 
@@ -440,7 +438,7 @@ class Game():
         try:
             # Grab the rest of the string since numbers can
             # be two digits.
-            row = int(prepped_coordinates[1:])
+            row = int(coordinates[1:])
         except ValueError:
             return False
         
