@@ -89,9 +89,9 @@ class Game():
         self.banner = "take_shot"
         self.prompt = "get_shot_coordinates"
 
-        coordinates_to_shell = ""
-        while coordinates_to_shell == "":
-            coordinates_to_shell = self.get_coordinates()
+        while not board.place_shot(self.get_coordinates()):
+            continue
+
 
 
 
