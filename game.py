@@ -503,7 +503,12 @@ if __name__ == '__main__':
 
         # Place all of Alex's ships and wait for hand off to Zelda
         [ 
-            "Alex", "Zelda", " b2 ", " V ", "C2", "v", " D2", " H" 
+            "Alex", "Zelda", " b2 ", " V ", "C2", "v", " D2", " H"
+        ],
+
+        # Place both players ships and stop before handing back to Alex to shoot.
+        [ 
+            "Alex", "Zelda", " b2 ", " V ", "C2", "v", " D2", " H", "", "c6", "h", "c7", "h", "c8", "h"
         ],
         
 
@@ -512,7 +517,7 @@ if __name__ == '__main__':
     constants.SHIP_COUNT = 3
     game = Game()
 
-    # game.testing_input = test_strings[1]
+    game.testing_input = test_strings[2]
 
     game.set_player_names()
     game.place_ships()
