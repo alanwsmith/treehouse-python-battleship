@@ -492,55 +492,21 @@ if __name__ == '__main__':
         level=logging.INFO
     )
 
-
-    # This batch of strings automatcially moves the game to specific 
-    # states for verification.
-    test_strings = {
-        # Just input the names. Should end with asking Alex to place Aircraft Carrier. 
-        1: [ 
-            "Alex", "Zelda"
-        ],
-
-        # Place all of Alex's ships and wait for hand off to Zelda
-        2: [ 
-            "Alex", "Zelda", " b2 ", " V ", "C2", "v", " D2", " H"
-        ],
-
-        # Place both players ships and stop before handing back to Alex to shoot.
-        3: [ 
-            "Alex", "Zelda", " b2 ", " V ", "C2", "v", " D2", " H", "", "c6", "h", "c7", "h", "c8", "h"
-        ],
-
-        # Alex gives an invalid coordinate. Should end with error coordinate error for Alex.
-        4: [ 
-            "Alex", "Zelda", "x2", "v"
-        ],
-        
-        # Alex gives an invalid orientation. Should end with orientation error for Alex. 
-        5: [ 
-            "Alex", "Zelda", "b2", "r"
-        ],
-        
-        # Place all ships. Alex takes first shot and misses. Stops before passing to Zelda 
-        6: [ 
-            "Alex", "Zelda", "b2", "v", "c2", "v", " d2", " h", "", 
-            "c6", "h", "c7", "h", "c8", "h", "",
-            "a1"
-        ],
-
-        # Place all ships. Alex takes first shot and misses. Stops after passing back to Zelda 
-        7: [ 
-            "Alex", "Zelda", "b2", "v", "c2", "v", " d2", " h", "", 
-            "c6", "h", "c7", "h", "c8", "h", "",
-            "a1", ""
-        ],
-        
-    }
+    autorun_items = [
+        # Setup names
+        "Alex", "Zelda", 
+        # Place Alex's ships
+        "B2", "v", " c2", "V", " d2", " h", "", 
+        # Place Zelda's ships
+        "c6", "h", "c7 ", "H", "c8", "h", "",
+        # Miss a few times for each player
+        "c3", "", "i1", "", "h9", "", "c9", "", "f4", "", "g7", ""
+    ]
 
     constants.SHIP_COUNT = 3
     game = Game()
 
-    game.testing_input = test_strings[7]
+    game.testing_input = autorun_items 
 
     game.set_player_names()
     game.place_ships()
