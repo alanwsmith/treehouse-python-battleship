@@ -64,6 +64,7 @@ BANNERS = {
     "shot_hit": "{player} shot at '{last_shot}' and HIT! ~ (Hiding ships) ~ Pass computer to {opponent}.",
     "shot_missed": "{player} shot at '{last_shot}' and MISSED! ~ (Hiding ships) ~ Pass computer to {opponent}.",
     "shot_sunk": "{player} HIT '{last_shot}' and sunk the {ship}! ~ Pass computer to {opponent}.",
+    "shot_won_game": "{player} HIT '{last_shot}' and sunk the {ship}! ~ That was the last one! ~ {player} won!",
     "switch_players": "{player} - Your turn is over ~ (Hiding ships) ~ Pass the computer to {opponent}.",
     "take_shot": "{player}, your ships are visible. The ships of your opponent ({opponent}) are hidden.",
     "welcome": "Welcome to Battleship!"
@@ -72,6 +73,7 @@ BANNERS = {
 PROMPTS = {
     "continue": "{opponent}, hit Enter/Return when you're ready to continue.",
     "front_of_ship_coords": "Where do you want the front of your {ship} (size {size})?",
+    "game_over": "Thanks for playing Battleship!",
     "get_shot_coordinates": "Where do you want to shoot (e.g. 'h6')?",
     "player_0": "What's the name of the first player?",
     "player_1": "What's the name of the second player?",
