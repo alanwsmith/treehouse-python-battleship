@@ -87,7 +87,6 @@ class BoardTest():
         board.ships[1].set_coordinates([(3, 1), (4, 1), (5, 1), (6, 1)])
         board.place_shot("c2")
         board.place_shot("d2")
-#        board.shot_history = [(1, 2), (1, 3)]
         # When/Then
         self.assert_equal(True, board.grid_visibility)
         self.assert_equal('O O . * - - - - O O', board.get_row_string(1))
@@ -97,6 +96,14 @@ class BoardTest():
         self.assert_equal('? ? . * ? ? ? ? ? ?', board.get_row_string(1))
         self.assert_equal('? ? ? ? ? ? ? ? ? ?', board.get_row_string(3))
 
+        # Now sink a ship and check it. 
+        board.place_shot("e2")
+        board.place_shot("f2")
+        board.place_shot("g2")
+        board.place_shot("h2")
+        board.set_grid_visibility(True)
+        self.assert_equal('O O . * * * * * O O', board.get_row_string(1))
+        # self.assert_equal('? ? . * ? ? ? ? ? ?', board.get_row_string(1))
 
     def test_set_grid_visibility(self):
         logging.info("-- Set Grid Visability Test --")
