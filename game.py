@@ -495,12 +495,23 @@ if __name__ == '__main__':
     autorun_items = [
         # Setup names
         "Alex", "Zelda", 
-        # Place Alex's ships
-        "B2", "v", " c2", "V", " d2", " h", "", 
-        # Place Zelda's ships
-        "c6", "h", "c7 ", "H", "c8", "h", "",
+        # Place Alex's first two ships
+        "B2", "v", " c2", "V", 
+        # Alex enter an invalid coordiante for ship placement
+        " x9", "h", 
+        # Alex properly enters the their ship and flips to Zelda.
+        " d2", " h", "", 
+        # Zelda enters an invalid orientation and then corrects it. 
+        "c6", "x",
+        # Zelda corrects the orientation. 
+        "h",
+        # Place Zelda's last two ships
+        "c7 ", "H", "c8", "h", "",
         # Miss a few times for each player
-        "c3", "", "i1", "", "h9", "", "c9", "", "f4", "", "g7", ""
+        "c3", "", "i1", "", "h9", "", "c9", "", "f4", "", "g7", "",
+        # Alex starts hitting
+        "c8"
+
     ]
 
     constants.SHIP_COUNT = 3
