@@ -516,7 +516,9 @@ if __name__ == '__main__':
         # Zelda tries a shot that has already been taken, the corrects
         "G7", "a1", "",
         # Alex hits a new ship and Zelda hits one too.
-        "d6", "", "b2", ""
+        "d6", "", "b2", "",
+        # Back and forth until Alex sinks the first ship
+        "d8", "", "c2", "", "e8"
 
 
     ]
