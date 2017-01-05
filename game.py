@@ -383,7 +383,7 @@ class Game():
             player_board.set_grid_visibility(False)
             self.current['last_shot'] = self.raw_coordinates_to_display(opponents_board.last_shot())
             self.banner = opponents_board.last_shot_status()
-            self.current['ship'] = "PLACEHOLDER"
+            self.current['ship'] = opponents_board.get_name_of_ship_that_was_just_hit() 
             self.prompt = "continue"
             self.display_arena()
             self.get_input()
