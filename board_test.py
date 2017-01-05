@@ -85,7 +85,9 @@ class BoardTest():
         board.ships[0].set_coordinates([(1,3), (1,4), (1,5), (1,6), (1,7)])
         board.ships[1].set_orientation('v')
         board.ships[1].set_coordinates([(3, 1), (4, 1), (5, 1), (6, 1)])
-        board.shot_history = [(1, 2), (1, 3)]
+        board.place_shot("c2")
+        board.place_shot("d2")
+#        board.shot_history = [(1, 2), (1, 3)]
         # When/Then
         self.assert_equal(True, board.grid_visibility)
         self.assert_equal('O O . * - - - - O O', board.get_row_string(1))
