@@ -41,7 +41,10 @@ class Board():
         for ship in self.ships:
             if test_coordinate in ship.coordinates:
                 if test_coordinate in self.shot_history:
-                    return '*'
+                    if ship.is_sunk():
+                        return '#'
+                    else:
+                        return '*'
                 if ship.orientation == 'v':
                     return '|'
                 else:
@@ -75,10 +78,23 @@ class Board():
         return self.shot_history[-1]
 
     def last_shot_status(self):
+        """This method figures out if a ship was hit or not. 
+        It also determines if a ship was sunk and if all the ships
+        were sunk (i.e. the game is done). 
+
+        To find out if a ship being sunk is the last one or not, 
+        it loops through all the ships again. If it sees any ships
+        that are still floating, it knows that the game isn't over. 
+        If it loops through all the ships and they are all sunk, 
+        it returns the flag for the end of the game.
+        """
         for ship in self.ships:
             if self.last_shot() in ship.coordinates:
                 if ship.is_sunk():
-                    return 'shot_sunk'
+                    for check_sunk_ship in self.ships:
+                        if not check_sunk_ship.is_sunk():
+                            return 'shot_sunk'
+                    return "shot_won_game"
                 else:
                     return 'shot_hit'
         return 'shot_missed'

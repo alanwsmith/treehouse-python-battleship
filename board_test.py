@@ -1,3 +1,4 @@
+import constants
 import logging
 
 from board import Board
@@ -26,6 +27,7 @@ class BoardTest():
         self.test_last_shot_status_hit()
         self.test_last_shot_status_sunk_ship()
         self.test_get_name_of_ship_that_was_just_hit()
+        self.test_last_shot_status_sunk_all_ships()
 
     def test_set_player_name(self):
         logging.info("-- Set Player Name Test --")
@@ -102,7 +104,7 @@ class BoardTest():
         board.place_shot("g2")
         board.place_shot("h2")
         board.set_grid_visibility(True)
-        self.assert_equal('O O . * * * * * O O', board.get_row_string(1))
+        self.assert_equal('O O . # # # # # O O', board.get_row_string(1))
         # self.assert_equal('? ? . * ? ? ? ? ? ?', board.get_row_string(1))
 
     def test_set_grid_visibility(self):
@@ -164,11 +166,31 @@ class BoardTest():
         board.place_shot('e6')
         self.assert_equal('shot_sunk', board.last_shot_status())
 
-        # Make
-        # [x] - shot_missed
-        # [x] - shot_hit
-        # [x] - shot_sunk
-        # []- shot_won_game
+    def test_last_shot_status_sunk_all_ships(self):
+        logging.info("-- Last Shot Status Sunk All Ships Test --")
+        constants.SHIP_COUNT = 3
+        board = Board(index = 0)
+        board.ships[0].set_orientation('h')
+        board.ships[0].set_coordinates([(0,0), (0,1), (0,2), (0,3), (0,4)])
+        board.ships[1].set_orientation('h')
+        board.ships[1].set_coordinates([(1,0), (1,1), (1,2), (1,3)])
+        board.ships[2].set_orientation('h')
+        board.ships[2].set_coordinates([(2,0), (2,1), (2,2)])
+        board.place_shot('a1')
+        board.place_shot('b1')
+        board.place_shot('c1')
+        board.place_shot('d1')
+        board.place_shot('e1')
+        self.assert_equal('shot_sunk', board.last_shot_status())
+        board.place_shot('a2')
+        board.place_shot('b2')
+        board.place_shot('c2')
+        board.place_shot('d2')
+        self.assert_equal('shot_sunk', board.last_shot_status())
+        board.place_shot('a3')
+        board.place_shot('b3')
+        board.place_shot('c3')
+        self.assert_equal('shot_won_game', board.last_shot_status())
 
     def test_get_name_of_ship_that_was_just_hit(self):
         logging.info("-- Get Name of Ship That Was Just Hit Test --")
