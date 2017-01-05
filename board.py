@@ -51,6 +51,10 @@ class Board():
         else:
             return 'O'
 
+    def get_name_of_ship_that_was_just_hit(self):
+        
+        return "Aircraft Carrierr"
+
 
     def get_row_string(self, row_index):
         if self.grid_visibility:

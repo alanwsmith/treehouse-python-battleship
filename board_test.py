@@ -25,6 +25,7 @@ class BoardTest():
         self.test_last_shot_status()
         self.test_last_shot_status_hit()
         self.test_last_shot_status_sunk_ship()
+        self.test_get_name_of_ship_that_was_just_hit()
 
     def test_set_player_name(self):
         logging.info("-- Set Player Name Test --")
@@ -159,6 +160,14 @@ class BoardTest():
         # [x] - shot_hit
         # [x] - shot_sunk
         # []- shot_won_game
+
+    def test_get_name_of_ship_that_was_just_hit(self):
+        logging.info("-- Get Name of Ship That Was Just Hit Test --")
+        board = Board(index = 0)
+        board.ships[0].set_orientation('v')
+        board.ships[0].set_coordinates([ (3,4), (4,4), (5,4), (6,4), (7,4) ])
+        board.place_shot('e6')
+        self.assert_equal('Aircraft Carrierr', board.get_name_of_ship_that_was_just_hit())
         
 
 if __name__ == '__main__':
