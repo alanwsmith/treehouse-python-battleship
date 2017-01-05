@@ -521,11 +521,18 @@ if __name__ == '__main__':
             "Alex", "Zelda", "b2", "r"
         ],
         
-        # Place all ships. Alex takes first shot and misses. 
+        # Place all ships. Alex takes first shot and misses. Stops before passing to Zelda 
         6: [ 
             "Alex", "Zelda", "b2", "v", "c2", "v", " d2", " h", "", 
             "c6", "h", "c7", "h", "c8", "h", "",
             "a1"
+        ],
+
+        # Place all ships. Alex takes first shot and misses. Stops after passing back to Zelda 
+        7: [ 
+            "Alex", "Zelda", "b2", "v", "c2", "v", " d2", " h", "", 
+            "c6", "h", "c7", "h", "c8", "h", "",
+            "a1", ""
         ],
         
     }
@@ -533,7 +540,7 @@ if __name__ == '__main__':
     constants.SHIP_COUNT = 3
     game = Game()
 
-    game.testing_input = test_strings[6]
+    game.testing_input = test_strings[7]
 
     game.set_player_names()
     game.place_ships()
