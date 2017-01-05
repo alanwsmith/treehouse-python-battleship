@@ -52,6 +52,14 @@ class Board():
             return 'O'
 
     def get_name_of_ship_that_was_just_hit(self):
+        """Get the name of the ship that was hit with the
+        last shot. 
+
+        Would probably be better to refactor this so that
+        when a shot hits a variable is set. That way 
+        it isn't tied to the last_shot() method. 
+        """
+
         for ship in self.ships:
             if self.last_shot() in ship.coordinates:
                 return ship.name
