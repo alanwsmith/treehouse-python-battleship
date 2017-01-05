@@ -41,7 +41,10 @@ class Board():
         for ship in self.ships:
             if test_coordinate in ship.coordinates:
                 if test_coordinate in self.shot_history:
-                    return '*'
+                    if ship.is_sunk():
+                        return '#'
+                    else:
+                        return '*'
                 if ship.orientation == 'v':
                     return '|'
                 else:

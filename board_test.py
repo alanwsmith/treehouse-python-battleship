@@ -102,7 +102,7 @@ class BoardTest():
         board.place_shot("g2")
         board.place_shot("h2")
         board.set_grid_visibility(True)
-        self.assert_equal('O O . * * * * * O O', board.get_row_string(1))
+        self.assert_equal('O O . # # # # # O O', board.get_row_string(1))
         # self.assert_equal('? ? . * ? ? ? ? ? ?', board.get_row_string(1))
 
     def test_set_grid_visibility(self):
