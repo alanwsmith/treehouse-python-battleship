@@ -192,12 +192,6 @@ class BoardTest():
         board.place_shot('c3')
         self.assert_equal('shot_won_game', board.last_shot_status())
 
-        # Make
-        # [x] - shot_missed
-        # [x] - shot_hit
-        # [x] - shot_sunk
-        # []- shot_won_game
-
     def test_get_name_of_ship_that_was_just_hit(self):
         logging.info("-- Get Name of Ship That Was Just Hit Test --")
         board = Board(index = 0)
