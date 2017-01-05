@@ -510,13 +510,30 @@ if __name__ == '__main__':
         3: [ 
             "Alex", "Zelda", " b2 ", " V ", "C2", "v", " D2", " H", "", "c6", "h", "c7", "h", "c8", "h"
         ],
+
+        # Alex gives an invalid coordinate. Should end with error coordinate error for Alex.
+        4: [ 
+            "Alex", "Zelda", "x2", "v"
+        ],
+        
+        # Alex gives an invalid orientation. Should end with orientation error for Alex. 
+        5: [ 
+            "Alex", "Zelda", "b2", "r"
+        ],
+        
+        # Place all ships. Alex takes first shot and misses. 
+        6: [ 
+            "Alex", "Zelda", "b2", "v", "c2", "v", " d2", " h", "", 
+            "c6", "h", "c7", "h", "c8", "h", "",
+            "a1"
+        ],
         
     }
 
     constants.SHIP_COUNT = 3
     game = Game()
 
-    game.testing_input = test_strings[1]
+    game.testing_input = test_strings[6]
 
     game.set_player_names()
     game.place_ships()
