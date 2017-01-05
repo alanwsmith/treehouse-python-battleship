@@ -52,8 +52,9 @@ class Board():
             return 'O'
 
     def get_name_of_ship_that_was_just_hit(self):
-        
-        return "Aircraft Carrierr"
+        for ship in self.ships:
+            if self.last_shot() in ship.coordinates:
+                return ship.name
 
 
     def get_row_string(self, row_index):

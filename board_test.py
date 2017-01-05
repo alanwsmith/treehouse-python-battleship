@@ -167,7 +167,7 @@ class BoardTest():
         board.ships[0].set_orientation('v')
         board.ships[0].set_coordinates([ (3,4), (4,4), (5,4), (6,4), (7,4) ])
         board.place_shot('e6')
-        self.assert_equal('Aircraft Carrierr', board.get_name_of_ship_that_was_just_hit())
+        self.assert_equal('Aircraft Carrier', board.get_name_of_ship_that_was_just_hit())
         
 
 if __name__ == '__main__':
