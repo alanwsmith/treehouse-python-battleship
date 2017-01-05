@@ -7,24 +7,21 @@ class Ship():
         self.name = kwargs['name']
         self.size = kwargs['size']
         self.orientation = None
-        self.bow = None
-
-        self.bow_column = None
-        self.bow_row = None
-
         self.coordinates = []
+        self.hits = []
 
         logging.debug("Initializing {} - size: {}".format(self.name, self.size)) 
 
-    def __str__(self):
-        return "{}\n- size: {}\n- orientation: {} \n- bow_column: {}\n- bow_row: {}\n- coordinates: {}".format(
-            self.name, 
-            self.size,
-            self.orientation,
-            self.bow_column,
-            self.bow_row,
-            self.coordinates,
-        )
+
+    def is_sunk(self):
+        """Identify if the ship is sunk by comparing the 
+        number of hits to the size of the ship. 
+        """
+
+        if len(self.hits) == self.size:
+            return True
+        else:
+            return False
 
     def set_bow(self, coordinate):
         logging.debug(coordinate)
@@ -39,15 +36,47 @@ class Ship():
         return True
 
     def set_orientation(self, orientation):
+        """This method just sets the orientation
+        for the ship. It does a sanity check
+        to make sure the value is either a 'v'
+        or an 'h' first. (The value should already 
+        have been validated, but this felt like
+        a natural place to enfore it as well.
+
+        A potential refactore is to remove the redundante
+        checks in other classess/objects and do all
+        the validation here. 
+        """
+
         if orientation == 'v' or orientation == 'h':
             self.orientation = orientation
             return True
         else:
             return False
 
+    def see_if_ship_was_hit(self, coordinate):
+        """Check to see if a set of coordinates is a hit 
+        on the ship. If it is, add it to the list of
+        hits.
+
+        Since the other methods should prevent the same
+        shot from being duplicated there is no
+        check here to avoid duplication. 
+
+        The reason to keep up directly with the hits it
+        to know when the ship is sunk.
+        """
+    
+        if coordinate in self.coordinates:
+            self.hits.append(coordinate)
+            return True
+        else:
+            return False 
+
 
 if __name__ == '__main__':
-    ship = Ship(name = "Test Ship", size = 5)
-    print(ship)
-
+    import ship_test
+    st = ship_test.ShipTest()
+    st.run_tests()
+    print("All tests passed!")
 

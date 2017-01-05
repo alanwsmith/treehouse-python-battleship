@@ -70,14 +70,14 @@ class Game():
         Otherwise, the prompt is repeated until
         a valid set is provided.
 
-        A nice refactoring would be to change the prompt
-        when switching players to help show that only 
-        hitting Enter/Return is necessary.
+        Another good refactoring would be to make the
+        names of methods differentiate between 
+        raw and display coordinates.
         """
 
         while True:
             self.display_arena()
-            coordinates = self.get_input()
+            coordinates = self.get_input().strip().lower()
             if self.validate_coordinates(coordinates):
                 return coordinates
             else:
@@ -89,6 +89,10 @@ class Game():
         If the testing_input list has data, it's 
         pulled from there. Otherwise, the input
         is gathered from the UI
+
+        A nice refactoring would be to change the prompt
+        when switching players to help show that only 
+        hitting Enter/Return is necessary.
         """
 
         if len(self.testing_input) > 0:
@@ -240,9 +244,10 @@ class Game():
         players, shows/hides the boards appropriately
         and then has them place their ships.
         """
-
-        self.set_current_player(0)
+    
+        self.set_active_player_id(0)
         self.boards[1].set_grid_visibility(False)
+
         for ship_index in range(0, len(self.boards[0].ships)):
             self.place_ship(board = self.boards[0], ship_index = ship_index)
 
@@ -254,7 +259,6 @@ class Game():
             self.place_ship(board = self.boards[1], ship_index = ship_index)
 
         self.switch_players()
-
 
     def raw_coordinates_to_display(self, raw_coordinates):
         """Translates the raw coordinates used internally
@@ -379,6 +383,7 @@ class Game():
             player_board.set_grid_visibility(False)
             self.current['last_shot'] = self.raw_coordinates_to_display(opponents_board.last_shot())
             self.banner = opponents_board.last_shot_status()
+            self.current['ship'] = opponents_board.get_name_of_ship_that_was_just_hit() 
             self.prompt = "continue"
             self.display_arena()
             self.get_input()
@@ -411,24 +416,23 @@ class Game():
         self.boards[1].set_grid_visibility(False)
         self.display_arena()
         self.get_input()
+        self.switch_active_player_id()
 
 
     def validate_coordinates(self, coordinates):
         """This method makes sure that a requested
         set of display coordinates (e.g. `f4`) is 
         in a valid format and is actually on the board. 
-
-        Leading and trailing spaces are stripped and 
-        both upper and lowercase letters are permitted 
-        via the initial scrubbing.
+        
+        Any scrubbing is assumed to have already been done
+        since a pass of this validation means the rest of
+        the application will assume the coodinates are 
+        ready to go.
         """
-
-        # Scrub the input
-        prepped_coordinates = coordinates.strip().lower()
 
         # Make sure there is at least one character
         try:
-            column = prepped_coordinates[0]
+            column = coordinates[0]
         except IndexError:
             return False
 
@@ -436,7 +440,7 @@ class Game():
         try:
             # Grab the rest of the string since numbers can
             # be two digits.
-            row = int(prepped_coordinates[1:])
+            row = int(coordinates[1:])
         except ValueError:
             return False
         
@@ -489,13 +493,43 @@ if __name__ == '__main__':
         level=logging.INFO
     )
 
+    autorun_items = [
+        # Setup names
+        "Alex", "Zelda", 
+        # Place Alex's first two ships
+        "B2", "v", " c2", "V", 
+        # Alex enter an invalid coordiante for ship placement
+        " x9", "h", 
+        # Alex properly enters the their ship and flips to Zelda.
+        " d2", " h", "", 
+        # Zelda enters an invalid orientation and then corrects it. 
+        "c6", "x",
+        # Zelda corrects the orientation. 
+        "h",
+        # Place Zelda's last two ships
+        "c7 ", "H", "c8", "h", "",
+        # Miss a few times for each player
+        "c3", "", "i1", "", "h9", "", "c9", "", "f4", "", "g7", "",
+        # Alex starts hitting
+        "c8",
+        # Pass to Zelda 
+        "",
+        # Zelda tries a shot that has already been taken, the corrects
+        "G7", "a1", "",
+        # Alex hits a new ship and Zelda hits one too.
+        "d6", "", "b2", "",
+        # Back and forth until Alex sinks the first ship
+        "d8", "", "c2", "", "e8"
+
+
+    ]
+
     constants.SHIP_COUNT = 3
     game = Game()
-    game.testing_input = ["Bob", "John"]
-    game.testing_input = ["Bob", "John", "b3", " V ", "d2", "H", "i6", "v", "", "a1", "v", "b1", "v", "c1", "h", ""]
-    game.testing_input.extend(["a1", "", "a1", ""]) # Start firing shots.
+
+    game.testing_input = autorun_items 
+
     game.set_player_names()
     game.place_ships()
-    game.set_current_player(0)
     game.start_shooting()
 

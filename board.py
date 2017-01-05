@@ -51,6 +51,19 @@ class Board():
         else:
             return 'O'
 
+    def get_name_of_ship_that_was_just_hit(self):
+        """Get the name of the ship that was hit with the
+        last shot. 
+
+        Would probably be better to refactor this so that
+        when a shot hits a variable is set. That way 
+        it isn't tied to the last_shot() method. 
+        """
+
+        for ship in self.ships:
+            if self.last_shot() in ship.coordinates:
+                return ship.name
+
 
     def get_row_string(self, row_index):
         if self.grid_visibility:
@@ -64,7 +77,10 @@ class Board():
     def last_shot_status(self):
         for ship in self.ships:
             if self.last_shot() in ship.coordinates:
-                return 'shot_hit'
+                if ship.is_sunk():
+                    return 'shot_sunk'
+                else:
+                    return 'shot_hit'
         return 'shot_missed'
 
     def load_ships(self):
@@ -74,9 +90,14 @@ class Board():
 
 
     def place_shot(self, coordinates):
-        # Expects a validated set of display coordiantes. 
-        # Adds the raw shot coordinates to shot_history and returns true if it's not
-        # already there. Otherwise, returns false.
+        """Expects a validated set of display coordiantes. 
+        Adds the raw shot coordinates to shot_history and returns true if it's not
+        already there. Otherwise, returns false.
+        
+        This method also loops through the ships to check to see if
+        each was hit. This should be refactored into a better approach, 
+        but it works for now.
+        """
         column = constants.COORDINATE_MAP['columns'][coordinates[0]]
         row = constants.COORDINATE_MAP['rows'][int(coordinates[1:])]
         raw_coordinates = (row, column)
@@ -88,6 +109,8 @@ class Board():
             return False
         else:
             self.shot_history.append(raw_coordinates)
+            for ship in self.ships:
+                ship.see_if_ship_was_hit((row, column))
             logging.info("Added shot at {} to board {}.".format(raw_coordinates, self.index))
             return True 
 
