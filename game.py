@@ -510,7 +510,14 @@ if __name__ == '__main__':
         # Miss a few times for each player
         "c3", "", "i1", "", "h9", "", "c9", "", "f4", "", "g7", "",
         # Alex starts hitting
-        "c8"
+        "c8",
+        # Pass to Zelda 
+        "",
+        # Zelda tries a shot that has already been taken, the corrects
+        "G7", "a1", "",
+        # Alex hits a new ship and Zelda hits one too.
+        "d6", "", "b2", ""
+
 
     ]
 
