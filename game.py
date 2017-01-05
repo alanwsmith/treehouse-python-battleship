@@ -528,7 +528,12 @@ if __name__ == '__main__':
         "",
         # Keep going until Zelda sinks the Aircraft carrier 
         "e7", "", "b3", "", "c6", "", "b4", "", "e6", "", "b5", "", "f6", "", "b6", 
+        # Pass back to Alex who then sinks the Aircraft carrier.
+        "", "g6",
+        # The continue until Alex wins
+        "", "c3", "", "f7"
 
+        # The game should end here.
     ]
 
     constants.SHIP_COUNT = 3
