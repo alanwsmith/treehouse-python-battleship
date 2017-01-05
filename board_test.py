@@ -177,14 +177,20 @@ class BoardTest():
         board.ships[2].set_orientation('h')
         board.ships[2].set_coordinates([(2,0), (2,1), (2,2)])
         board.place_shot('a1')
-        self.assert_equal('shot_hit', board.last_shot_status())
         board.place_shot('b1')
         board.place_shot('c1')
         board.place_shot('d1')
         board.place_shot('e1')
         self.assert_equal('shot_sunk', board.last_shot_status())
-        print (len(board.ships))
-
+        board.place_shot('a2')
+        board.place_shot('b2')
+        board.place_shot('c2')
+        board.place_shot('d2')
+        self.assert_equal('shot_sunk', board.last_shot_status())
+        board.place_shot('a3')
+        board.place_shot('b3')
+        board.place_shot('c3')
+        self.assert_equal('shot_won_game', board.last_shot_status())
 
         # Make
         # [x] - shot_missed
