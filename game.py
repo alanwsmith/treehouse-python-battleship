@@ -495,29 +495,28 @@ if __name__ == '__main__':
 
     # This batch of strings automatcially moves the game to specific 
     # states for verification.
-    test_strings = [
-        # Just input the names. 
-        [ 
+    test_strings = {
+        # Just input the names. Should end with asking Alex to place Aircraft Carrier. 
+        1: [ 
             "Alex", "Zelda"
         ],
 
         # Place all of Alex's ships and wait for hand off to Zelda
-        [ 
+        2: [ 
             "Alex", "Zelda", " b2 ", " V ", "C2", "v", " D2", " H"
         ],
 
         # Place both players ships and stop before handing back to Alex to shoot.
-        [ 
+        3: [ 
             "Alex", "Zelda", " b2 ", " V ", "C2", "v", " D2", " H", "", "c6", "h", "c7", "h", "c8", "h"
         ],
         
-
-    ]
+    }
 
     constants.SHIP_COUNT = 3
     game = Game()
 
-    game.testing_input = test_strings[2]
+    game.testing_input = test_strings[1]
 
     game.set_player_names()
     game.place_ships()
