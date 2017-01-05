@@ -519,8 +519,15 @@ if __name__ == '__main__':
         # Alex hits a new ship and Zelda hits one too.
         "d6", "", "b2", "",
         # Back and forth until Alex sinks the first ship
-        "d8", "", "c2", "", "e8"
-
+        "d8", "", "c2", "", "e8",
+        # Pass back to Zelda
+        "",
+        # Back and forth until Zelda sinks a ship
+        "d2", "", "c7", "", "e2", "", "d7", "", "f2",
+        # Pass back to Alex
+        "",
+        # Keep going until Zelda sinks the Aircraft carrier 
+        "e7", "", "b3", "", "c6", "", "b4", "", "e6", "", "b5", "", "f6", "", "b6", 
 
     ]
 
