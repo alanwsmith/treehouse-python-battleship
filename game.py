@@ -229,6 +229,7 @@ class Game():
             target_location['orientation'] = self.get_orientation()
             # Make sure the requested placement stays on the grid.
             if not self.validate_ship_stays_on_grid(**target_location):
+                self.current['error'] = target_location['front_of_ship']
                 self.banner = "error_ship_off_grid"
                 continue
             else:
@@ -525,8 +526,12 @@ if __name__ == '__main__':
         "h",
         # Zelda places a ship that conflicts with the first one. 
         "c6", "h", 
-        # Place Zelda's last two ships
-        "c7 ", "H", "c8", "h", "",
+        # Zelda correctly places the ship. 
+        "c7 ", "H", 
+        # Zelda tries to place a ship that would go off the map
+        "i9", "v",
+        # Zelda correctly finishes placement of ships.
+        "c8", "h", "",
         # Miss a few times for each player
         "c3", "", "i1", "", "h9", "", "c9", "", "f4", "", "g7", "",
         # Alex starts hitting
@@ -555,10 +560,13 @@ if __name__ == '__main__':
         # The game should end here.
     ]
 
+
+    # Build auto_runs that stop at certain points.
     test_cases = {
         "invalid_coordinates": autorun_items[0:7],
         "invalid_orientation": autorun_items[0:13],
         "ships_collide": autorun_items[0:16],
+        "ship_off_grid": autorun_items[0:20],
     }
 
     constants.SHIP_COUNT = 3
@@ -567,7 +575,8 @@ if __name__ == '__main__':
     game.testing_input = autorun_items 
     # game.testing_input = test_cases["invalid_coordinates"]
     # game.testing_input = test_cases["invalid_orientation"]
-    game.testing_input = test_cases["ships_collide"]
+    # game.testing_input = test_cases["ships_collide"]
+    # game.testing_input = test_cases["ship_off_grid"]
 
     game.set_player_names()
     game.place_ships()

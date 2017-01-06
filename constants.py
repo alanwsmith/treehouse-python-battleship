@@ -54,7 +54,7 @@ BANNERS = {
     "error_name_is_empty": "Oops! The player's name can't be empty. Try again.",
     "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
     "error_ship_collision": "Oops! Starting at '{error}' would collidate with another ship. Try again, {player}.",
-    "error_ship_off_grid": "Oops! That won't fit on the grid. Try again, {player}.",
+    "error_ship_off_grid": "Oops! Starting at '{error}' won't fit on the grid. Try again, {player}.",
     "invalid_coordinates": "Oops! The coordinates '{error}' are invalid. Try again, {player}.",
     "invalid_orientation": "Oops! The orientation '{error}' is invalid. It must be either 'v' or 'h'. Try again, {player}.",
     "name_set": "",
