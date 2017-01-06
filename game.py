@@ -63,6 +63,10 @@ class Game():
         # Assemble and output the prompt.
         print(constants.PROMPTS[self.prompt].format(**self.current))
 
+        # Clear the error
+        #if 'error' in self.current:
+        #    del self.current['error']
+
 
     def get_coordinates(self):
         """Requests a set of coordinates. If a 
@@ -73,11 +77,19 @@ class Game():
         Another good refactoring would be to make the
         names of methods differentiate between 
         raw and display coordinates.
+
+        Note that the error gets set on every attempt. 
+        This maybe isn't the ideal way to do it but works
+        with the current approach. A better way would 
+        be to only set it if needed but other methods
+        won't work with that for the time being.
         """
 
         while True:
             self.display_arena()
-            coordinates = self.get_input().strip().lower()
+            raw_coordinates = self.get_input()
+            coordinates = raw_coordinates.strip().lower()
+            self.current['error'] = raw_coordinates.strip()
             if self.validate_coordinates(coordinates):
                 return coordinates
             else:
@@ -117,10 +129,12 @@ class Game():
 
         while True:
             self.display_arena()
-            orientation = self.get_input().strip().lower()
+            raw_orientation = self.get_input()
+            orientation = raw_orientation.strip().lower()
             if self.validate_orientation(orientation):
                 return orientation
             else:
+                self.current['error'] = raw_orientation
                 self.banner = "invalid_orientation"
 
 
@@ -221,6 +235,7 @@ class Game():
             target_location['orientation'] = self.get_orientation()
             # Make sure the requested placement stays on the grid.
             if not self.validate_ship_stays_on_grid(**target_location):
+                self.current['error'] = target_location['front_of_ship']
                 self.banner = "error_ship_off_grid"
                 continue
             else:
@@ -228,6 +243,7 @@ class Game():
                 target_coordinates = self.get_ship_coordinates(**target_location)
                 # Make sure there isn't something already there.
                 if not board.verify_coordinates_are_clear(target_coordinates):
+                    self.current['error'] = target_location['front_of_ship']
                     self.banner = "error_ship_collision"
                     continue
                 else:
@@ -397,6 +413,8 @@ class Game():
         
         self.prompt = "game_over"
         self.display_arena()
+        # One last enter to pause display so it can be seen. 
+        self.get_input()
 
 
     def switch_active_player_id(self):
@@ -514,8 +532,14 @@ if __name__ == '__main__':
         "c6", "x",
         # Zelda corrects the orientation. 
         "h",
-        # Place Zelda's last two ships
-        "c7 ", "H", "c8", "h", "",
+        # Zelda places a ship that conflicts with the first one. 
+        "c6", "h", 
+        # Zelda correctly places the ship. 
+        "c7 ", "H", 
+        # Zelda tries to place a ship that would go off the map
+        "i9", "v",
+        # Zelda correctly finishes placement of ships.
+        "c8", "h", "",
         # Miss a few times for each player
         "c3", "", "i1", "", "h9", "", "c9", "", "f4", "", "g7", "",
         # Alex starts hitting
@@ -544,10 +568,25 @@ if __name__ == '__main__':
         # The game should end here.
     ]
 
+
+    # Build auto_runs that stop at certain points.
+    test_cases = {
+        "invalid_coordinates": autorun_items[0:7],
+        "invalid_orientation": autorun_items[0:13],
+        "ships_collide": autorun_items[0:16],
+        "ship_off_grid": autorun_items[0:20],
+        "already_shot_at": autorun_items[0:38],
+    }
+
     constants.SHIP_COUNT = 3
     game = Game()
 
     game.testing_input = autorun_items 
+    # game.testing_input = test_cases["invalid_coordinates"]
+    # game.testing_input = test_cases["invalid_orientation"]
+    # game.testing_input = test_cases["ships_collide"]
+    # game.testing_input = test_cases["ship_off_grid"]
+    # game.testing_input = test_cases["already_shot_at"]
 
     game.set_player_names()
     game.place_ships()

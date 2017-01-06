@@ -49,14 +49,14 @@ LAST_ROW = BOARD_SIZE
 
 # Setup the text for each banner and prompt key
 BANNERS = {
-    "already_shot_there": "Oops! You already shot there. Try again, {player}.",
+    "already_shot_there": "Oops! You already shot at '{error}'. Try again, {player}.",
     "error_duplicate_names_not_allowed": "Oops! The players can't have the same name. Try again.",
     "error_name_is_empty": "Oops! The player's name can't be empty. Try again.",
     "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
-    "error_ship_collision": "Oops! That would collidate with another ship. Try again, {player}",
-    "error_ship_off_grid": "Oops! That won't fit on the grid. Try again, {player}.",
-    "invalid_coordinates": "Oops! Those were invalid coordinates. Try again, {player}.",
-    "invalid_orientation": "Oops! The orientation must be either 'v' or 'h'. Try again, {player}.",
+    "error_ship_collision": "Oops! Starting at '{error}' would collidate with another ship. Try again, {player}.",
+    "error_ship_off_grid": "Oops! Starting at '{error}' won't fit on the grid. Try again, {player}.",
+    "invalid_coordinates": "Oops! The coordinates '{error}' are invalid. Try again, {player}.",
+    "invalid_orientation": "Oops! The orientation '{error}' is invalid. It must be either 'v' or 'h'. Try again, {player}.",
     "name_set": "",
     "none": "",
     "place_next_ship": "Place your next ship, {player}",
@@ -73,7 +73,7 @@ BANNERS = {
 PROMPTS = {
     "continue": "{opponent}, hit Enter/Return when you're ready to continue.",
     "front_of_ship_coords": "Where do you want the front of your {ship} (size {size})?",
-    "game_over": "Thanks for playing Battleship!",
+    "game_over": "Thanks for playing Battleship! (Press Enter/Return to quit.)",
     "get_shot_coordinates": "Where do you want to shoot (e.g. 'h6')?",
     "player_0": "What's the name of the first player?",
     "player_1": "What's the name of the second player?",
