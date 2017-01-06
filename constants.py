@@ -48,6 +48,10 @@ LAST_COLUMN = LETTERS[BOARD_MAX_INDEX].upper()
 LAST_ROW = BOARD_SIZE
 
 # Setup the text for each banner and prompt key
+
+# I know some of these are longer than pep8 likes, but they are easier to
+# deal with that way.
+
 BANNERS = {
     "already_shot_there": "Oops! You already shot at '{error}'. Try again, {player}.",
     "error_duplicate_names_not_allowed": "Oops! The players can't have the same name. Try again.",
@@ -67,8 +71,7 @@ BANNERS = {
     "shot_won_game": "{player} HIT '{last_shot}' and sunk the {ship}! ~ That was the last one! ~ {player} won!",
     "switch_players": "{player} - Your turn is over ~ (Hiding ships) ~ Pass the computer to {opponent}.",
     "take_shot": "{player}, your ships are visible. The ships of your opponent ({opponent}) are hidden.",
-    "welcome": "Welcome to Battleship!"
-}
+    "welcome": "Welcome to Battleship!"}
 
 PROMPTS = {
     "continue": "{opponent}, hit Enter/Return when you're ready to continue.",

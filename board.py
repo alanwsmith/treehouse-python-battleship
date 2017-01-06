@@ -57,11 +57,11 @@ class Board():
 
     def get_name_of_ship_that_was_just_hit(self):
         """Get the name of the ship that was hit with the
-        last shot. 
+        last shot.
 
         Would probably be better to refactor this so that
-        when a shot hits a variable is set. That way 
-        it isn't tied to the last_shot() method. 
+        when a shot hits a variable is set. That way
+        it isn't tied to the last_shot() method.
         """
 
         for ship in self.ships:
@@ -78,14 +78,14 @@ class Board():
         return self.shot_history[-1]
 
     def last_shot_status(self):
-        """This method figures out if a ship was hit or not. 
+        """This method figures out if a ship was hit or not.
         It also determines if a ship was sunk and if all the ships
-        were sunk (i.e. the game is done). 
+        were sunk (i.e. the game is done).
 
-        To find out if a ship being sunk is the last one or not, 
+        To find out if a ship being sunk is the last one or not,
         it loops through all the ships again. If it sees any ships
-        that are still floating, it knows that the game isn't over. 
-        If it loops through all the ships and they are all sunk, 
+        that are still floating, it knows that the game isn't over.
+        If it loops through all the ships and they are all sunk,
         it returns the flag for the end of the game.
         """
         for ship in self.ships:
@@ -105,22 +105,22 @@ class Board():
             self.ships.append(Ship(name=ship[0], size=ship[1]))
 
     def place_shot(self, coordinates):
-        """Expects a validated set of display coordiantes. 
-        Adds the raw shot coordinates to shot_history and returns true if it's not
-        already there. Otherwise, returns false.
+        """Expects a validated set of display coordiantes.
+        Adds the raw shot coordinates to shot_history and
+        returns true if it's not already there. Otherwise,
+        returns false.
 
         This method also loops through the ships to check to see if
-        each was hit. This should be refactored into a better approach, 
+        each was hit. This should be refactored into a better approach,
         but it works for now.
         """
         column = constants.COORDINATE_MAP['columns'][coordinates[0]]
         row = constants.COORDINATE_MAP['rows'][int(coordinates[1:])]
         raw_coordinates = (row, column)
         if raw_coordinates in self.shot_history:
-            logging.info("Rejected shot at {} in board {} because it's already in shot_history".format(
-                         raw_coordinates,
-                         self.index
-                         ))
+            logging.info(
+                "Rejected {} in board {}. It's already in shot_history".format(
+                    raw_coordinates, self.index))
             return False
         else:
             self.shot_history.append(raw_coordinates)
@@ -170,9 +170,3 @@ if __name__ == '__main__':
     bt = board_test.BoardTest()
     bt.run_tests()
     print("All tests passed.")
-
-    #board = Board(index = 0)
-    # board.show()
-
-    # for ship in board.ships:
-    #    print(ship)
