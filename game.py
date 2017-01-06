@@ -64,8 +64,8 @@ class Game():
         print(constants.PROMPTS[self.prompt].format(**self.current))
 
         # Clear the error
-        if 'error' in self.current:
-            del self.current['error']
+        #if 'error' in self.current:
+        #    del self.current['error']
 
 
     def get_coordinates(self):
@@ -123,10 +123,12 @@ class Game():
 
         while True:
             self.display_arena()
-            orientation = self.get_input().strip().lower()
+            raw_orientation = self.get_input()
+            orientation = raw_orientation.strip().lower()
             if self.validate_orientation(orientation):
                 return orientation
             else:
+                self.current['error'] = raw_orientation
                 self.banner = "invalid_orientation"
 
 
@@ -551,7 +553,8 @@ if __name__ == '__main__':
     ]
 
     test_cases = {
-        "invalid_coordinates": autorun_items[0:7]
+        "invalid_coordinates": autorun_items[0:7],
+        "invalid_orientation": autorun_items[0:13],
     }
 
     constants.SHIP_COUNT = 3
@@ -559,6 +562,7 @@ if __name__ == '__main__':
 
     game.testing_input = autorun_items 
     # game.testing_input = test_cases["invalid_coordinates"]
+    # game.testing_input = test_cases["invalid_orientation"]
 
     game.set_player_names()
     game.place_ships()

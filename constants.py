@@ -56,7 +56,7 @@ BANNERS = {
     "error_ship_collision": "Oops! {error} would collidate with another ship. Try again, {player}.",
     "error_ship_off_grid": "Oops! That won't fit on the grid. Try again, {player}.",
     "invalid_coordinates": "Oops! The coordinates '{error}' are invalid. Try again, {player}.",
-    "invalid_orientation": "Oops! The orientation must be either 'v' or 'h'. Try again, {player}.",
+    "invalid_orientation": "Oops! The orientation '{error}' is invalid. It must be either 'v' or 'h'. Try again, {player}.",
     "name_set": "",
     "none": "",
     "place_next_ship": "Place your next ship, {player}",
