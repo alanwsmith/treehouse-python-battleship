@@ -3,13 +3,14 @@ import logging
 
 from ship import Ship
 
+
 class Board():
-    
+
     def __init__(self, **kwargs):
         self.index = kwargs['index']
         self.player_name = "Player {}".format(self.index + 1)
         self.grid_visibility = True
-        self.ships = [] 
+        self.ships = []
         self.shot_history = []
         self.load_ships()
         logging.info("Created board {}".format(self.index))
@@ -21,7 +22,7 @@ class Board():
             for column_index in range(0, constants.BOARD_SIZE):
                 row.append(self.get_grid_key(row_index, column_index))
             grid.append(row)
-        return grid 
+        return grid
 
     def grid_hidden(self):
         grid = self.grid()
@@ -67,7 +68,6 @@ class Board():
             if self.last_shot() in ship.coordinates:
                 return ship.name
 
-
     def get_row_string(self, row_index):
         if self.grid_visibility:
             return " ".join(self.grid()[row_index])
@@ -102,14 +102,13 @@ class Board():
     def load_ships(self):
         for ship_index in range(0, constants.SHIP_COUNT):
             ship = constants.SHIP_INFO[ship_index]
-            self.ships.append(Ship(name = ship[0], size = ship[1]))
-
+            self.ships.append(Ship(name=ship[0], size=ship[1]))
 
     def place_shot(self, coordinates):
         """Expects a validated set of display coordiantes. 
         Adds the raw shot coordinates to shot_history and returns true if it's not
         already there. Otherwise, returns false.
-        
+
         This method also loops through the ships to check to see if
         each was hit. This should be refactored into a better approach, 
         but it works for now.
@@ -127,13 +126,12 @@ class Board():
             self.shot_history.append(raw_coordinates)
             for ship in self.ships:
                 ship.see_if_ship_was_hit((row, column))
-            logging.info("Added shot at {} to board {}.".format(raw_coordinates, self.index))
-            return True 
-
+            logging.info("Added shot at {} to board {}.".format(
+                raw_coordinates, self.index))
+            return True
 
     def set_grid_visibility(self, mode):
         self.grid_visibility = mode
-
 
     def set_player_name(self, name):
         stripped_name = name.strip()
@@ -144,18 +142,17 @@ class Board():
             logging.info("Player name is too long")
             return 'error_name_is_too_long'
         else:
-            logging.info("Set board {} player_name to {}".format(self.index, name)) 
+            logging.info(
+                "Set board {} player_name to {}".format(self.index, name))
             self.player_name = stripped_name
-            return 'name_set' 
-        
+            return 'name_set'
 
     def show(self):
-        for row in range(0,10):
+        for row in range(0, 10):
             print(str(row + 1).rjust(2), end='')
             for col in range(0, 10):
                 print(" O", end='')
             print('')
-
 
     def verify_coordinates_are_clear(self, coordinate_list):
         for ship in self.ships:
@@ -164,7 +161,7 @@ class Board():
                     return False
 
         return True
-        
+
 
 if __name__ == '__main__':
 
@@ -174,10 +171,8 @@ if __name__ == '__main__':
     bt.run_tests()
     print("All tests passed.")
 
-
-
     #board = Board(index = 0)
-    #board.show()
+    # board.show()
 
-    #for ship in board.ships:
+    # for ship in board.ships:
     #    print(ship)

@@ -1,4 +1,4 @@
-import constants 
+import constants
 import logging
 
 from game import Game
@@ -15,12 +15,11 @@ class Battleship():
 
 
 if __name__ == '__main__':
-
-    logging.basicConfig(level=logging.INFO)
-    
+    """This is where the game gets
+    kicked off.
+    """
+    logging.basicConfig(filename='logs/game.txt', filemode='w',
+                        format='[%(levelname).1s]: %(message)s',
+                        level=logging.INFO)
     battleship = Battleship()
     battleship.run()
-
-
-
-
