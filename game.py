@@ -63,6 +63,10 @@ class Game():
         # Assemble and output the prompt.
         print(constants.PROMPTS[self.prompt].format(**self.current))
 
+        # Clear the error
+        if 'error' in self.current:
+            del self.current['error']
+
 
     def get_coordinates(self):
         """Requests a set of coordinates. If a 
