@@ -77,10 +77,12 @@ class Game():
 
         while True:
             self.display_arena()
-            coordinates = self.get_input().strip().lower()
+            raw_coordinates = self.get_input()
+            coordinates = raw_coordinates.strip().lower()
             if self.validate_coordinates(coordinates):
                 return coordinates
             else:
+                self.current['error'] = raw_coordinates.strip()
                 self.banner = "invalid_coordinates"
 
 
@@ -544,10 +546,15 @@ if __name__ == '__main__':
         # The game should end here.
     ]
 
+    test_cases = {
+        "invalid_coordinates": autorun_items[0:7]
+    }
+
     constants.SHIP_COUNT = 3
     game = Game()
 
     game.testing_input = autorun_items 
+    # game.testing_input = test_cases["invalid_coordinates"]
 
     game.set_player_names()
     game.place_ships()
