@@ -407,6 +407,8 @@ class Game():
         
         self.prompt = "game_over"
         self.display_arena()
+        # One last enter to pause display so it can be seen. 
+        self.get_input()
 
 
     def switch_active_player_id(self):

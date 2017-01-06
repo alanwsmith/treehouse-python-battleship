@@ -73,7 +73,7 @@ BANNERS = {
 PROMPTS = {
     "continue": "{opponent}, hit Enter/Return when you're ready to continue.",
     "front_of_ship_coords": "Where do you want the front of your {ship} (size {size})?",
-    "game_over": "Thanks for playing Battleship!",
+    "game_over": "Thanks for playing Battleship! (Press Enter/Return to quit.)",
     "get_shot_coordinates": "Where do you want to shoot (e.g. 'h6')?",
     "player_0": "What's the name of the first player?",
     "player_1": "What's the name of the second player?",
