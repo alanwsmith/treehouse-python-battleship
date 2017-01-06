@@ -236,6 +236,7 @@ class Game():
                 target_coordinates = self.get_ship_coordinates(**target_location)
                 # Make sure there isn't something already there.
                 if not board.verify_coordinates_are_clear(target_coordinates):
+                    self.current['error'] = target_location['front_of_ship']
                     self.banner = "error_ship_collision"
                     continue
                 else:
@@ -522,6 +523,8 @@ if __name__ == '__main__':
         "c6", "x",
         # Zelda corrects the orientation. 
         "h",
+        # Zelda places a ship that conflicts with the first one. 
+        "c6", "h", 
         # Place Zelda's last two ships
         "c7 ", "H", "c8", "h", "",
         # Miss a few times for each player
@@ -555,6 +558,7 @@ if __name__ == '__main__':
     test_cases = {
         "invalid_coordinates": autorun_items[0:7],
         "invalid_orientation": autorun_items[0:13],
+        "ships_collide": autorun_items[0:16],
     }
 
     constants.SHIP_COUNT = 3
@@ -563,6 +567,7 @@ if __name__ == '__main__':
     game.testing_input = autorun_items 
     # game.testing_input = test_cases["invalid_coordinates"]
     # game.testing_input = test_cases["invalid_orientation"]
+    game.testing_input = test_cases["ships_collide"]
 
     game.set_player_names()
     game.place_ships()
