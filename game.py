@@ -77,16 +77,22 @@ class Game():
         Another good refactoring would be to make the
         names of methods differentiate between 
         raw and display coordinates.
+
+        Note that the error gets set on every attempt. 
+        This maybe isn't the ideal way to do it but works
+        with the current approach. A better way would 
+        be to only set it if needed but other methods
+        won't work with that for the time being.
         """
 
         while True:
             self.display_arena()
             raw_coordinates = self.get_input()
             coordinates = raw_coordinates.strip().lower()
+            self.current['error'] = raw_coordinates.strip()
             if self.validate_coordinates(coordinates):
                 return coordinates
             else:
-                self.current['error'] = raw_coordinates.strip()
                 self.banner = "invalid_coordinates"
 
 
@@ -569,6 +575,7 @@ if __name__ == '__main__':
         "invalid_orientation": autorun_items[0:13],
         "ships_collide": autorun_items[0:16],
         "ship_off_grid": autorun_items[0:20],
+        "already_shot_at": autorun_items[0:38],
     }
 
     constants.SHIP_COUNT = 3
@@ -579,6 +586,7 @@ if __name__ == '__main__':
     # game.testing_input = test_cases["invalid_orientation"]
     # game.testing_input = test_cases["ships_collide"]
     # game.testing_input = test_cases["ship_off_grid"]
+    # game.testing_input = test_cases["already_shot_at"]
 
     game.set_player_names()
     game.place_ships()

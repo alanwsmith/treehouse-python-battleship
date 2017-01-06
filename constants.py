@@ -49,7 +49,7 @@ LAST_ROW = BOARD_SIZE
 
 # Setup the text for each banner and prompt key
 BANNERS = {
-    "already_shot_there": "Oops! You already shot there. Try again, {player}.",
+    "already_shot_there": "Oops! You already shot at '{error}'. Try again, {player}.",
     "error_duplicate_names_not_allowed": "Oops! The players can't have the same name. Try again.",
     "error_name_is_empty": "Oops! The player's name can't be empty. Try again.",
     "error_name_is_too_long": "Oops! The game can't handle names longer than 18 characters. Try again.",
