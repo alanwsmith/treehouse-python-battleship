@@ -592,12 +592,11 @@ if __name__ == '__main__':
         "already_shot_at": autorun_items[0:38],
     }
 
-
     constants.SHIP_COUNT = 3
     game = Game()
 
     game.testing_input = autorun_items
-    # game.testing_input = autorun_2 
+    # game.testing_input = autorun_2
     # game.testing_input = test_cases["invalid_coordinates"]
     # game.testing_input = test_cases["invalid_orientation"]
     # game.testing_input = test_cases["ships_collide"]
