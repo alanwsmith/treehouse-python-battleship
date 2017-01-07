@@ -66,7 +66,6 @@ class Game():
         # Assemble and output the prompt.
         print(constants.PROMPTS[self.prompt].format(**self.current))
 
-
     def get_coordinates(self):
         """Requests a set of coordinates. If a
         valid set it entered, they are returned.
@@ -402,6 +401,8 @@ class Game():
             self.banner = opponents_board.last_shot_status()
 
             if self.banner == "shot_won_game":
+                self.current[
+                    'ship'] = opponents_board.get_name_of_ship_that_was_just_hit()
                 break
 
             self.current[
@@ -505,7 +506,7 @@ class Game():
         ship_tail = column_number + kwargs['size']
 
         if kwargs['orientation'] == 'v' and (
-                row + kwargs['size']) > constants.BOARD_SIZE:
+                row + kwargs['size']) > constants.BOARD_SIZE + 1:
             return False
         elif kwargs['orientation'] == 'h' and ship_tail > constants.BOARD_SIZE:
             return False
@@ -578,6 +579,10 @@ if __name__ == '__main__':
         # The game should end here.
     ]
 
+    # This is for checking the proper ship names get sent for the second player
+    autorun_2 = autorun_items[0:78]
+    autorun_2.extend(["c3", "", "a1", "", "c4", "", "a2", "", "c5"])
+
     # Build auto_runs that stop at certain points.
     test_cases = {
         "invalid_coordinates": autorun_items[0:7],
@@ -587,10 +592,12 @@ if __name__ == '__main__':
         "already_shot_at": autorun_items[0:38],
     }
 
+
     constants.SHIP_COUNT = 3
     game = Game()
 
     game.testing_input = autorun_items
+    # game.testing_input = autorun_2 
     # game.testing_input = test_cases["invalid_coordinates"]
     # game.testing_input = test_cases["invalid_orientation"]
     # game.testing_input = test_cases["ships_collide"]
