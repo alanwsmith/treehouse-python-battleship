@@ -66,7 +66,6 @@ class Game():
         # Assemble and output the prompt.
         print(constants.PROMPTS[self.prompt].format(**self.current))
 
-
     def get_coordinates(self):
         """Requests a set of coordinates. If a
         valid set it entered, they are returned.
@@ -505,7 +504,7 @@ class Game():
         ship_tail = column_number + kwargs['size']
 
         if kwargs['orientation'] == 'v' and (
-                row + kwargs['size']) > constants.BOARD_SIZE:
+                row + kwargs['size']) > constants.BOARD_SIZE + 1:
             return False
         elif kwargs['orientation'] == 'h' and ship_tail > constants.BOARD_SIZE:
             return False

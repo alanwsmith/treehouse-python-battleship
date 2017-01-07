@@ -149,6 +149,10 @@ class GameTest():
             front_of_ship="a9", orientation="h", size=5))
         self.assert_equal(True, game.validate_ship_stays_on_grid(
             front_of_ship="i1", orientation="v", size=5))
+        self.assert_equal(True, game.validate_ship_stays_on_grid(
+            front_of_ship="a9", orientation="v", size=2))
+        self.assert_equal(True, game.validate_ship_stays_on_grid(
+            front_of_ship="i10", orientation="h", size=2))
         self.assert_equal(False, game.validate_ship_stays_on_grid(
             front_of_ship="i1", orientation="h", size=5))
         self.assert_equal(False, game.validate_ship_stays_on_grid(
